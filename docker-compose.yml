@@ -1,0 +1,11 @@
+version: "3"
+services:
+  client:
+    build: ./client
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./client:/client
+      - /client/node_modules
+#    depends_on:
+#      - server
