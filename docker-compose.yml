@@ -9,3 +9,13 @@ services:
       - /client/node_modules
 #    depends_on:
 #      - server
+
+  server:
+    build: ./server
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./server:/server
+      - /server/node_modules
+#    depends_on:
+#      - database
