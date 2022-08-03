@@ -17,8 +17,9 @@ services:
     volumes:
       - ./server:/server
       - /server/node_modules
-#    depends_on:
-#      - postgres-db
+    depends_on:
+      - postgres-db
+    command: yarn run dev
 
   postgres-db:
     image: postgres:latest
@@ -28,8 +29,10 @@ services:
     environment:
       - POSTGRES_USER=username
       - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=api
     volumes:
       - db:/var/lib/postgresql/data
 
 volumes:
   db:
+    driver: local
