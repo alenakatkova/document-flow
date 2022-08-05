@@ -6,7 +6,8 @@
   "license": "MIT",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon index.js"
+    "dev": "npx sequelize-cli db:migrate && nodemon index.js",
+    "migrate": "npx sequelize-cli db:migrate"
   },
   "dependencies": {
     "cors": "^2.8.5",

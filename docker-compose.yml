@@ -2,6 +2,7 @@ version: "3.8"
 services:
   client:
     build: ./client
+    container_name: frontend
     ports:
       - "3000:3000"
     volumes:
@@ -12,6 +13,7 @@ services:
 
   server:
     build: ./server
+    container_name: backend
     ports:
       - "8080:8080"
     volumes:
@@ -25,6 +27,7 @@ services:
 
   postgres-db:
     image: postgres:latest
+    container_name: database
     restart: always
     ports:
       - "5432:5432"
