@@ -1,16 +1,13 @@
-const db = require("../models");
-
-const UserController = db.users;
+const { User } = require("../models");
 
 exports.findAll = (req, res) => {
-  UserController.findAll()
-    .then(data => {
-      res.send(data);
-    })
+  User.findAll().then(data => {
+    res.send(data)
+  })
     .catch(err => {
-      res.status(500).send({
+            res.status(500).send({
         message:
           err.message || "Some error occurred while retrieving users."
       });
-    });
+    })
 };

@@ -19,6 +19,8 @@ services:
       - /server/node_modules
     depends_on:
       - postgres-db
+    environment:
+      - DB_HOST=postgres-db
     command: yarn run dev
 
   postgres-db:

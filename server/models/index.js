@@ -1,20 +1,32 @@
-const dbConfig = require("../db/index.js");
-const { Sequelize, DataTypes } = require("sequelize");
-const sequelize = new Sequelize(dbConfig.db, dbConfig.user, dbConfig.password, {
-  host: dbConfig.host,
-  dialect: dbConfig.dialect,
-  operatorsAliases: false,
-  pool: {
-    max: dbConfig.pool.max,
-    min: dbConfig.pool.min,
-    acquire: dbConfig.pool.acquire,
-    idle: dbConfig.pool.idle
-  }
-});
+"use strict";
+
+const fs = require("fs");
+const path = require("path");
+const { Sequelize } = require("sequelize");
+const basename = path.basename(__filename);
+const dbConfig = require("../config/config.js");
 
 const db = {};
 
-db.Sequelize = Sequelize;
+let sequelize = new Sequelize(dbConfig.database, dbConfig.username, dbConfig.password, dbConfig);
+
+fs
+  .readdirSync(__dirname)
+  .filter(file => {
+    return (file.indexOf(".") !== 0) && (file !== basename) && (file.slice(-3) === ".js");
+  })
+  .forEach(file => {
+    const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
+    db[model.name] = model;
+  });
+
+Object.keys(db).forEach(modelName => {
+  if (db[modelName].associate) {
+    db[modelName].associate(db);
+  }
+});
+
 db.sequelize = sequelize;
-db.users = require("./User.model.js")(sequelize, DataTypes);
+db.Sequelize = Sequelize;
+
 module.exports = db;
