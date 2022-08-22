@@ -1,8 +1,23 @@
+import React, { useState, useEffect, useCallback } from 'react'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
+import handler from "./api/users";
+import {User} from "../interfaces/user";
 
 const Home: NextPage = () => {
+  const [users, setUsers] = useState<User[]>([])
+  const getUsersFromServer = useCallback(async () => {
+    const usersFromServer = await handler({}, []); // TODO fix typing error
+    return usersFromServer === undefined ? [] : usersFromServer;
+  }, []);
+
+  useEffect(() => { // dig into getServerSideProps
+    getUsersFromServer()
+        .then(users => setUsers(users));
+  }, [getUsersFromServer]);
+
+
   return (
     <div className={styles.container}>
       <Head>
@@ -40,7 +55,9 @@ const Home: NextPage = () => {
           <button>Save</button>
         </form>
 
-
+        <div>{users.map(user => (
+            <p key={user.email}>{user.username}</p>
+        ))}</div>
       </main>
 
       <footer className={styles.footer}>
