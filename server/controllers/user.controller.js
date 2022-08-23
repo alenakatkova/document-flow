@@ -27,4 +27,21 @@ exports.create = (req, res) => {
           message: error.message || "Fail to create new user"
         })
       });
+};
+
+exports.delete = (req, res) => {
+  User
+      .destroy({
+        where: {
+          id: req.body.id
+        }
+      })
+      .then((res) => {
+        console.log(res)
+      })
+      .catch(error => {
+        res.status(500).send({
+          message: error.message || "Some error occurred while deleting user"
+        });
+      });
 }

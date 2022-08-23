@@ -9,14 +9,26 @@ export async function getUsers() {
     users = res.data;
     return users;
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }
 
 export async function createUser(userData: NewUserData) {
   try {
     return await instance.post("/users/signup", userData);
-  } catch (e) {
-    console.log(e);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export async function deleteUser(id: number) {
+  try {
+    return await instance.delete("/users/" + id, {
+      data: {
+        id: id
+      }
+    });
+  } catch (error) {
+    console.error(error);
   }
 }
