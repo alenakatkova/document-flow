@@ -2,12 +2,19 @@ import React, { useState, useEffect, useCallback } from "react";
 import type { NextPage } from "next";
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
-import getUsers from "./api/users";
-import { User } from "../interfaces/user";
+import { getUsers, createUser } from "./api/users";
+import { User, NewUserData } from "../interfaces/user";
 import UserCard from "../components/UserCard";
 
 const Home: NextPage = () => {
   const [users, setUsers] = useState<User[]>([])
+  const [newUser, setNewUser] = useState<NewUserData>({
+    username: "",
+    email: "",
+    password: "",
+    age: undefined
+  })
+
   const getUsersFromServer = useCallback(async () => {
     const usersFromServer = await getUsers();
     return usersFromServer === undefined ? [] : usersFromServer;
@@ -18,6 +25,14 @@ const Home: NextPage = () => {
         .then(users => setUsers(users));
   }, [getUsersFromServer]);
 
+  async function saveUser (event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    await createUser(newUser);
+  }
+
+  const handleChange = (event : React.ChangeEvent<HTMLInputElement>) => {
+    setNewUser({...newUser, [event.target.name] : event.target.value});
+  }
 
   return (
     <div className={styles.container}>
@@ -32,25 +47,25 @@ const Home: NextPage = () => {
         </h1>
 
 
-        <form method="post" className={styles.userForm}>
+        <form method="post" className={styles.userForm} onSubmit={saveUser}>
           <div className={styles.formLine}>
             <label htmlFor="username">Username:</label>
-            <input name="username" id="username" />
+            <input name="username" id="username"  onChange={handleChange} />
           </div>
 
           <div className={styles.formLine}>
             <label htmlFor="password">Password:</label>
-            <input name="password" id="password" />
+            <input name="password" id="password"  onChange={handleChange} />
           </div>
 
           <div className={styles.formLine}>
             <label htmlFor="email">E-mail:</label>
-            <input name="email" id="email" />
+            <input name="email" id="email"  onChange={handleChange} />
           </div>
 
           <div className={styles.formLine}>
             <label htmlFor="age">Age:</label>
-            <input name="age" id="age" />
+            <input name="age" id="age" type="number" onChange={handleChange} />
           </div>
 
           <button>Save</button>

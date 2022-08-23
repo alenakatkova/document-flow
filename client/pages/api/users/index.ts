@@ -1,7 +1,7 @@
-import { User } from "../../../interfaces/user";
+import { NewUserData, User } from "../../../interfaces/user";
 import { instance } from "../utils";
 
-export default async function getUsers() {
+export async function getUsers() {
   let users: User[] = [];
 
   try {
@@ -10,5 +10,13 @@ export default async function getUsers() {
     return users;
   } catch (error) {
     console.log(error);
+  }
+}
+
+export async function createUser(userData: NewUserData) {
+  try {
+    return await instance.post("/users/signup", userData);
+  } catch (e) {
+    console.log(e);
   }
 }
