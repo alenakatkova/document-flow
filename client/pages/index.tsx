@@ -1,18 +1,19 @@
-import React, { useState, useEffect, useCallback } from 'react'
-import type { NextPage } from 'next'
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
-import handler from "./api/users";
-import {User} from "../interfaces/user";
+import React, { useState, useEffect, useCallback } from "react";
+import type { NextPage } from "next";
+import Head from "next/head";
+import styles from "../styles/Home.module.css";
+import getUsers from "./api/users";
+import { User } from "../interfaces/user";
+import UserCard from "../components/UserCard";
 
 const Home: NextPage = () => {
   const [users, setUsers] = useState<User[]>([])
   const getUsersFromServer = useCallback(async () => {
-    const usersFromServer = await handler({}, []); // TODO fix typing error
+    const usersFromServer = await getUsers();
     return usersFromServer === undefined ? [] : usersFromServer;
   }, []);
 
-  useEffect(() => { // dig into getServerSideProps
+  useEffect(() => {
     getUsersFromServer()
         .then(users => setUsers(users));
   }, [getUsersFromServer]);
@@ -55,9 +56,12 @@ const Home: NextPage = () => {
           <button>Save</button>
         </form>
 
-        <div>{users.map(user => (
-            <p key={user.email}>{user.username}</p>
-        ))}</div>
+        <div className={styles.cardContainer}>
+          <h2>Users stored in DB:</h2>
+          {users.map(user => (
+            <UserCard key={user.id} {...user} />
+          ))}
+        </div>
       </main>
 
       <footer className={styles.footer}>

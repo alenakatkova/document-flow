@@ -78,5 +78,8 @@
   box-shadow: 4px 4px 8px 0 rgba(102, 124, 141, 0.2);
 }
 
-
+.cardContainer {
+  min-width: 50%;
+  margin-top: 1.5rem;
+}
 
