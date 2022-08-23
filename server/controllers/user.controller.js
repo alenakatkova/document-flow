@@ -6,12 +6,11 @@ exports.findAll = (req, res) => {
       .then(data => {
         res.send(data)
       })
-      .catch(err => {
+      .catch(error => {
         res.status(500).send({
-          message:
-            err.message || "Some error occurred while retrieving users."
+          message: error.message || "Some error occurred while retrieving users"
         });
-      })
+      });
 };
 
 exports.create = (req, res) => {
@@ -19,13 +18,13 @@ exports.create = (req, res) => {
       .create(req.body)
       .then((user) => {
         res.status(201).json({
-          status: "user created",
+          status: "New user created",
           newUserId: user.id
         })
       })
-      .catch(e =>{
-        res.status(400).json({
-          status: "fail to create new user"
+      .catch(error =>{
+        res.status(400).send({
+          message: error.message || "Fail to create new user"
         })
       });
 }
