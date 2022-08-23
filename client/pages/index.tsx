@@ -12,7 +12,7 @@ const Home: NextPage = () => {
     username: "",
     email: "",
     password: "",
-    age: undefined
+    age: 0
   })
 
   const getUsersFromServer = useCallback(async () => {
@@ -21,17 +21,27 @@ const Home: NextPage = () => {
   }, []);
 
   useEffect(() => {
-    getUsersFromServer()
-        .then(users => setUsers(users));
+    getUsersFromServer().then(users => setUsers(users));
   }, [getUsersFromServer]);
 
-  async function saveUser (event: React.FormEvent<HTMLFormElement>) {
+  async function saveUser(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     await createUser(newUser);
+    reset();
+    getUsersFromServer().then(users => setUsers(users));
   }
 
-  const handleChange = (event : React.ChangeEvent<HTMLInputElement>) => {
+  function handleChange(event : React.ChangeEvent<HTMLInputElement>) {
     setNewUser({...newUser, [event.target.name] : event.target.value});
+  }
+
+  function reset() {
+    setNewUser({
+      username: "",
+      email: "",
+      password: "",
+      age: 0
+    })
   }
 
   return (
@@ -50,22 +60,22 @@ const Home: NextPage = () => {
         <form method="post" className={styles.userForm} onSubmit={saveUser}>
           <div className={styles.formLine}>
             <label htmlFor="username">Username:</label>
-            <input name="username" id="username"  onChange={handleChange} />
+            <input name="username" id="username"  onChange={handleChange} value={newUser.username} />
           </div>
 
           <div className={styles.formLine}>
             <label htmlFor="password">Password:</label>
-            <input name="password" id="password"  onChange={handleChange} />
+            <input name="password" id="password"  onChange={handleChange} value={newUser.password} />
           </div>
 
           <div className={styles.formLine}>
             <label htmlFor="email">E-mail:</label>
-            <input name="email" id="email"  onChange={handleChange} />
+            <input name="email" id="email"  onChange={handleChange} value={newUser.email} />
           </div>
 
           <div className={styles.formLine}>
             <label htmlFor="age">Age:</label>
-            <input name="age" id="age" type="number" onChange={handleChange} />
+            <input name="age" id="age" type="number" onChange={handleChange} value={newUser.age} />
           </div>
 
           <button>Save</button>
@@ -88,4 +98,4 @@ const Home: NextPage = () => {
   )
 }
 
-export default Home
+export default Home;
