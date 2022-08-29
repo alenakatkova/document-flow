@@ -4,32 +4,21 @@ import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import { getUsers, createUser } from "./api/users";
 import { UserFromDB, User } from "../interfaces/user";
-import UserCard from "../components/UserCard";
 import UsersList from "../components/UsersList";
 
 const Home: NextPage = () => {
-  const [users, setUsers] = useState<UserFromDB[]>([])
   const [newUser, setNewUser] = useState<User>({
     username: "",
     email: "",
     password: "",
     age: 0
-  })
-
-  const getUsersFromServer = useCallback(async () => {
-    const usersFromServer = await getUsers();
-    return usersFromServer === undefined ? [] : usersFromServer;
-  }, []);
-
-  useEffect(() => {
-    getUsersFromServer().then(users => setUsers(users));
-  }, [getUsersFromServer]);
+  });
+  const [idOfLastCreatedUser, setIdOfLastCreatedUser] = useState<number | null>(null)
 
   async function saveUser(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    await createUser(newUser);
+    await createUser(newUser).then(res => res && setIdOfLastCreatedUser(res.data.newUserId));
     reset();
-    getUsersFromServer().then(users => setUsers(users));
   }
 
   function handleChange(event : React.ChangeEvent<HTMLInputElement>) {
@@ -82,7 +71,9 @@ const Home: NextPage = () => {
           <button>Save</button>
         </form>
 
-        <UsersList users={users} />
+        <UsersList
+            // users={users}
+            idOfLastCreatedUser={idOfLastCreatedUser} />
       </main>
 
       <footer className={styles.footer}>
