@@ -5,6 +5,7 @@ import styles from "../styles/Home.module.css";
 import { getUsers, createUser } from "./api/users";
 import { UserFromDB, User } from "../interfaces/user";
 import UserCard from "../components/UserCard";
+import UsersList from "../components/UsersList";
 
 const Home: NextPage = () => {
   const [users, setUsers] = useState<UserFromDB[]>([])
@@ -81,12 +82,7 @@ const Home: NextPage = () => {
           <button>Save</button>
         </form>
 
-        <div className={styles.cardContainer}>
-          <h2>Users stored in DB:</h2>
-          {users.map(user => (
-            <UserCard key={user.id} {...user} />
-          ))}
-        </div>
+        <UsersList users={users} />
       </main>
 
       <footer className={styles.footer}>

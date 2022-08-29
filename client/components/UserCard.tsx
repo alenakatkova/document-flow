@@ -60,7 +60,7 @@ export default function UserCard(props: UserFromDB) {
                     value={newAge}
                     onChange={(e) => setNewAge(Number(e.target.value))}
                 />
-                : email
+                : age
             }
           </p>
           {isBeingEdited
