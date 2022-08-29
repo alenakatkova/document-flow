@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { User } from "../interfaces/user";
+import { User, UserFromDB } from "../interfaces/user";
 import styles from "../styles/UserCard.module.css";
 import { deleteUser, editUser } from "../pages/api/users";
 
-export default function UserCard(props: User) {
+export default function UserCard(props: UserFromDB) {
   const { id, username, email, password, age } = props;
   const [isBeingEdited, setIsBeingEdited] = useState<boolean>(false);
   const [newEmail, setNewEmail] = useState<string>(email);
@@ -15,12 +15,12 @@ export default function UserCard(props: User) {
     await deleteUser(userId);
   }
 
-  function editUserData() {
+  function startEditingUserData() {
     setIsBeingEdited(true);
   }
 
   async function saveUserData() {
-    const newData = {
+    const newData: User = {
       username: newUsername,
       password: newPassword,
       age: newAge,
@@ -82,7 +82,7 @@ export default function UserCard(props: User) {
             : (
                 <div className={styles.btnsContainer}>
                   <button onClick={() => deleteUserData(id)}>Delete</button>
-                  <button onClick={editUserData}>Edit</button>
+                  <button onClick={startEditingUserData}>Edit</button>
                 </div>
             )
         }

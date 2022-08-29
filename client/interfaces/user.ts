@@ -1,16 +1,12 @@
 export interface User {
-  id: number,
   username: string;
   email: string;
-  age: number;
   password: string;
-  createdAt: string;
-  updatedAt: string;
+  age: number;
 }
 
-export interface NewUserData {
-  username: string;
-  email: string;
-  password: string;
-  age: number;
+export interface UserFromDB extends User {
+  id: number;
+  createdAt: string;
+  updatedAt: string;
 }

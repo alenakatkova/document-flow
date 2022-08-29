@@ -3,12 +3,12 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import { getUsers, createUser } from "./api/users";
-import { User, NewUserData } from "../interfaces/user";
+import { UserFromDB, User } from "../interfaces/user";
 import UserCard from "../components/UserCard";
 
 const Home: NextPage = () => {
-  const [users, setUsers] = useState<User[]>([])
-  const [newUser, setNewUser] = useState<NewUserData>({
+  const [users, setUsers] = useState<UserFromDB[]>([])
+  const [newUser, setNewUser] = useState<User>({
     username: "",
     email: "",
     password: "",
