@@ -36,8 +36,10 @@ exports.delete = (req, res) => {
           id: req.body.id
         }
       })
-      .then((res) => {
-        console.log(res)
+      .then((status) => {
+        res.status(200).json({
+          status: `User with id ${req.body.id} was successfully deleted`
+        })
       })
       .catch(error => {
         res.status(500).send({

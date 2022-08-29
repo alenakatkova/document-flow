@@ -31,7 +31,7 @@ export default function UsersList({ idOfLastCreatedUser }: UsersListProps) {
       <div className={styles.cardContainer}>
         <h2>Users stored in DB:</h2>
         {users.map((user: UserFromDB) => (
-            <UserCard key={user.id} {...user} />
+            <UserCard key={user.id} user={user} updateUsersList={() => getUsersFromServer().catch(console.error)} />
         ))}
       </div>
   )

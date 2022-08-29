@@ -3,8 +3,13 @@ import { User, UserFromDB } from "../interfaces/user";
 import styles from "../styles/UserCard.module.css";
 import { deleteUser, editUser } from "../pages/api/users";
 
-export default function UserCard(props: UserFromDB) {
-  const { id, username, email, password, age } = props;
+interface UserCardProps {
+  user: UserFromDB;
+  updateUsersList: () => void;
+}
+
+export default function UserCard({ user, updateUsersList }: UserCardProps) {
+  const { id, username, email, password, age } = user;
   const [isBeingEdited, setIsBeingEdited] = useState<boolean>(false);
   const [newEmail, setNewEmail] = useState<string>(email);
   const [newUsername, setNewUsername] = useState<string>(username);
@@ -13,6 +18,7 @@ export default function UserCard(props: UserFromDB) {
 
   async function deleteUserData(userId: number) {
     await deleteUser(userId);
+    updateUsersList();
   }
 
   function startEditingUserData() {
@@ -25,9 +31,10 @@ export default function UserCard(props: UserFromDB) {
       password: newPassword,
       age: newAge,
       email: newEmail
-    }
-    await editUser(newData, id)
+    };
+    await editUser(newData, id);
     setIsBeingEdited(false);
+    updateUsersList();
   }
 
   return (
