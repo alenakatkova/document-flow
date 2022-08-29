@@ -44,4 +44,24 @@ exports.delete = (req, res) => {
           message: error.message || "Some error occurred while deleting user"
         });
       });
-}
+};
+
+exports.update = (req, res) => {
+  User
+      .update(req.body.newData, {
+        where: {
+          id: req.body.id
+        }
+      })
+      .then((user) => {
+        res.status(201).json({
+          status: "User data successfully edited"
+        })
+      })
+      .catch(error =>{
+        res.status(400).send({
+          message: error.message || "Fail to edit existing user"
+        })
+      });
+};
+

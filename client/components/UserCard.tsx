@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { User } from "../interfaces/user";
 import styles from "../styles/UserCard.module.css";
-import { deleteUser } from "../pages/api/users";
+import { deleteUser, editUser } from "../pages/api/users";
 
 export default function UserCard(props: User) {
   const { id, username, email, password, age } = props;
@@ -19,7 +19,14 @@ export default function UserCard(props: User) {
     setIsBeingEdited(true);
   }
 
-  function saveUserData() {
+  async function saveUserData() {
+    const newData = {
+      username: newUsername,
+      password: newPassword,
+      age: newAge,
+      email: newEmail
+    }
+    await editUser(newData, id)
     setIsBeingEdited(false);
   }
 
@@ -60,7 +67,7 @@ export default function UserCard(props: User) {
               ? <p>Password:
                 <input
                     type="string"
-                    value={password}
+                    value={newPassword}
                     onChange={(e) => setNewPassword(e.target.value)}
                 />
               </p>

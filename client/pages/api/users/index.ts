@@ -32,3 +32,14 @@ export async function deleteUser(id: number) {
     console.error(error);
   }
 }
+
+export async function editUser(userData: NewUserData, id: number) {
+  try {
+    return await instance.post("/users/" + id, {
+        id: id,
+        newData: userData
+    });
+  } catch (error) {
+    console.error(error);
+  }
+}
