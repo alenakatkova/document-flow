@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { User, UserFromDB } from "../interfaces/user";
 import styles from "../styles/UserCard.module.css";
 import { deleteUser, editUser } from "../pages/api/users";
+import Button from "@mui/material/Button";
 
 interface UserCardProps {
   user: UserFromDB;
@@ -48,8 +49,8 @@ export default function UserCard({ user, updateUsersList }: UserCardProps) {
                     <p className={styles.line}>Password: {password}</p>
                   </div>
                   <div className={styles.btnsContainer}>
-                    <button onClick={() => deleteUserData(id)}>Delete</button>
-                    <button onClick={startEditingUserData}>Edit</button>
+                    <Button variant="outlined" onClick={() => deleteUserData(id)}>Delete</Button>
+                    <Button variant="outlined" onClick={startEditingUserData}>Edit</Button>
                   </div>
                 </>
               : <>
@@ -92,7 +93,7 @@ export default function UserCard({ user, updateUsersList }: UserCardProps) {
                     </p>
                   </div>
                   <div className={styles.btnsContainer}>
-                    <button onClick={saveUserData}>Save</button>
+                    <Button variant="outlined" onClick={saveUserData}>Save</Button>
                   </div>
               </>
           }

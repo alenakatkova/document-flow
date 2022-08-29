@@ -12,18 +12,7 @@
 }
 
 .btnsContainer button {
-    margin: 1rem auto 0 auto;
-    padding: 0.3rem;
-    border: 1px solid lightgray;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: 0.2s;
-}
-
-.btnsContainer button:hover {
-    -webkit-box-shadow: 4px 4px 8px 0 rgba(102, 124, 141, 0.2);
-    -moz-box-shadow: 4px 4px 8px 0 rgba(102, 124, 141, 0.2);
-    box-shadow: 4px 4px 8px 0 rgba(102, 124, 141, 0.2);
+    margin-bottom: 1rem;
 }
 
 .input {
