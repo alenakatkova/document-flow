@@ -39,60 +39,63 @@ export default function UserCard({ user, updateUsersList }: UserCardProps) {
 
   return (
       <div className={styles.card}>
-        <div>
-          <p>Username:
-            {isBeingEdited
-                ? <input
-                    type="string"
-                    value={newUsername}
-                    onChange={(e) => setNewUsername(e.target.value)}
-                />
-                : username
-            }
-          </p>
-          <p>E-mail:
-            {isBeingEdited
-                ? <input
-                    type="string"
-                    value={newEmail}
-                    onChange={(e) => setNewEmail(e.target.value)}
-                />
-                : email
-            }
-          </p>
-          <p>Age:
-            {isBeingEdited
-                ? <input
-                    type="number"
-                    value={newAge}
-                    onChange={(e) => setNewAge(Number(e.target.value))}
-                />
-                : age
-            }
-          </p>
-          {isBeingEdited
-              ? <p>Password:
-                <input
-                    type="string"
-                    value={newPassword}
-                    onChange={(e) => setNewPassword(e.target.value)}
-                />
-              </p>
-              : ""
+          {!isBeingEdited
+              ? <>
+                  <div className={styles.infoContainer}>
+                    <p className={styles.line}>Username: {username}</p>
+                    <p className={styles.line}>E-mail: {email}</p>
+                    <p className={styles.line}>Age: {age}</p>
+                    <p className={styles.line}>Password: {password}</p>
+                  </div>
+                  <div className={styles.btnsContainer}>
+                    <button onClick={() => deleteUserData(id)}>Delete</button>
+                    <button onClick={startEditingUserData}>Edit</button>
+                  </div>
+                </>
+              : <>
+                  <div className={styles.infoContainer}>
+                    <p className={styles.line}>
+                      <span>Username: </span>
+                      <input
+                          className={styles.input}
+                          type="string"
+                          value={newUsername}
+                          onChange={(e) => setNewUsername(e.target.value)}
+                      />
+                    </p>
+                    <p className={styles.line}>
+                      <span>E-mail: </span>
+                      <input
+                          className={styles.input}
+                          type="string"
+                          value={newEmail}
+                          onChange={(e) => setNewEmail(e.target.value)}
+                      />
+                    </p>
+                    <p className={styles.line}>
+                      <span>Age: </span>
+                      <input
+                          className={styles.input}
+                          type="number"
+                          value={newAge}
+                          onChange={(e) => setNewAge(Number(e.target.value))}
+                      />
+                    </p>
+                    <p className={styles.line}>
+                      <span>Password: </span>
+                      <input
+                          className={styles.input}
+                          type="string"
+                          value={newPassword}
+                          onChange={(e) => setNewPassword(e.target.value)}
+                      />
+                    </p>
+                  </div>
+                  <div className={styles.btnsContainer}>
+                    <button onClick={saveUserData}>Save</button>
+                  </div>
+              </>
           }
-        </div>
-        {isBeingEdited
-            ? (
-                <div className={styles.btnsContainer}>
-                  <button onClick={saveUserData}>Save</button>
-                </div>)
-            : (
-                <div className={styles.btnsContainer}>
-                  <button onClick={() => deleteUserData(id)}>Delete</button>
-                  <button onClick={startEditingUserData}>Edit</button>
-                </div>
-            )
-        }
       </div>
   )
 }
