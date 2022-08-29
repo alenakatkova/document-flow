@@ -8,7 +8,7 @@ export default function UserCard(props: User) {
   const [isBeingEdited, setIsBeingEdited] = useState<boolean>(false);
   const [newEmail, setNewEmail] = useState<string>(email);
   const [newUsername, setNewUsername] = useState<string>(username);
-  const [newPassword, setNewUPassword] = useState<string>(password);
+  const [newPassword, setNewPassword] = useState<string>(password);
   const [newAge, setNewAge] = useState<number>(age);
 
   async function deleteUserData(userId: number) {
