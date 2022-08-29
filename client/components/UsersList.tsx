@@ -12,17 +12,18 @@ export default function UsersList({ idOfLastCreatedUser }: UsersListProps) {
   const [users, setUsers] = useState<UserFromDB[]>([]);
 
   const getUsersFromServer = useCallback(async () => {
-    const usersFromServer = await getUsers();
-    return usersFromServer === undefined ? [] : usersFromServer;
+    await getUsers().then(usersFromDB => {
+      setUsers(usersFromDB === undefined ? [] : usersFromDB);
+    });
   }, []);
 
   useEffect(() => {
-    getUsersFromServer().then(users => setUsers(users));
+    getUsersFromServer().catch(console.error);
   }, [getUsersFromServer]);
 
   useEffect(() => {
     if (typeof idOfLastCreatedUser === "number" && users.find(user => user.id === idOfLastCreatedUser) === undefined) {
-      getUsersFromServer().then(usersFromDB => setUsers(usersFromDB));
+      getUsersFromServer().catch(console.error);
     }
   }, [idOfLastCreatedUser]);
 

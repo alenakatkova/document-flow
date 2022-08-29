@@ -71,9 +71,7 @@ const Home: NextPage = () => {
           <button>Save</button>
         </form>
 
-        <UsersList
-            // users={users}
-            idOfLastCreatedUser={idOfLastCreatedUser} />
+        <UsersList idOfLastCreatedUser={idOfLastCreatedUser} />
       </main>
 
       <footer className={styles.footer}>
