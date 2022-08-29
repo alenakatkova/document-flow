@@ -46,32 +46,33 @@ const Home: NextPage = () => {
           Create new user here!
         </h1>
 
+        <div className={styles.contentContainer}>
+          <form method="post" className={styles.userForm} onSubmit={saveUser}>
+            <div className={styles.formLine}>
+              <label htmlFor="username">Username:</label>
+              <input name="username" id="username"  onChange={handleChange} value={newUser.username} />
+            </div>
 
-        <form method="post" className={styles.userForm} onSubmit={saveUser}>
-          <div className={styles.formLine}>
-            <label htmlFor="username">Username:</label>
-            <input name="username" id="username"  onChange={handleChange} value={newUser.username} />
-          </div>
+            <div className={styles.formLine}>
+              <label htmlFor="password">Password:</label>
+              <input name="password" id="password"  onChange={handleChange} value={newUser.password} />
+            </div>
 
-          <div className={styles.formLine}>
-            <label htmlFor="password">Password:</label>
-            <input name="password" id="password"  onChange={handleChange} value={newUser.password} />
-          </div>
+            <div className={styles.formLine}>
+              <label htmlFor="email">E-mail:</label>
+              <input name="email" id="email"  onChange={handleChange} value={newUser.email} />
+            </div>
 
-          <div className={styles.formLine}>
-            <label htmlFor="email">E-mail:</label>
-            <input name="email" id="email"  onChange={handleChange} value={newUser.email} />
-          </div>
+            <div className={styles.formLine}>
+              <label htmlFor="age">Age:</label>
+              <input name="age" id="age" type="number" onChange={handleChange} value={newUser.age} />
+            </div>
 
-          <div className={styles.formLine}>
-            <label htmlFor="age">Age:</label>
-            <input name="age" id="age" type="number" onChange={handleChange} value={newUser.age} />
-          </div>
+            <button>Save</button>
+          </form>
 
-          <button>Save</button>
-        </form>
-
-        <UsersList idOfLastCreatedUser={idOfLastCreatedUser} />
+          <UsersList idOfLastCreatedUser={idOfLastCreatedUser} />
+        </div>
       </main>
 
       <footer className={styles.footer}>

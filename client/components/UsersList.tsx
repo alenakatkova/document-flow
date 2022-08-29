@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect, useState} from "react";
 import { User, UserFromDB } from "../interfaces/user";
-import styles from "../styles/UserCard.module.css";
+import styles from "../styles/UsersList.module.css";
 import {deleteUser, editUser, getUsers} from "../pages/api/users";
 import UserCard from "./UserCard";
 

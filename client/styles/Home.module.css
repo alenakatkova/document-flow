@@ -4,7 +4,6 @@
 
 .main {
   padding: 4rem 0;
-  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -78,8 +77,10 @@
   box-shadow: 4px 4px 8px 0 rgba(102, 124, 141, 0.2);
 }
 
-.cardContainer {
-  min-width: 50%;
-  margin-top: 1.5rem;
+.contentContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }
 
