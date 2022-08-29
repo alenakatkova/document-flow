@@ -4,11 +4,13 @@ export interface User {
   email: string;
   age: number;
   password: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface NewUserData {
   username: string;
   email: string;
   password: string;
-  age?: number;
+  age: number;
 }
