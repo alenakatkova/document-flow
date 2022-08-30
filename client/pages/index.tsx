@@ -5,6 +5,7 @@ import styles from "../styles/Home.module.css";
 import { getUsers, createUser } from "./api/users";
 import { UserFromDB, User } from "../interfaces/user";
 import UsersList from "../components/UsersList";
+import Layout from "../components/layout";
 
 const Home: NextPage = () => {
   const [newUser, setNewUser] = useState<User>({
@@ -35,52 +36,53 @@ const Home: NextPage = () => {
   }
 
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>Create new user</title>
-        <meta name="description" />
-      </Head>
+      <Layout title="HOME">
+        <div className={styles.container}>
+          <Head>
+            <meta name="description" />
+          </Head>
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Create new user here!
-        </h1>
+          <main className={styles.main}>
+            <h1 className={styles.title}>
+              Create new user here!
+            </h1>
 
-        <div className={styles.contentContainer}>
-          <form method="post" className={styles.userForm} onSubmit={saveUser}>
-            <div className={styles.formLine}>
-              <label htmlFor="username">Username:</label>
-              <input name="username" id="username"  onChange={handleChange} value={newUser.username} />
+            <div className={styles.contentContainer}>
+              <form method="post" className={styles.userForm} onSubmit={saveUser}>
+                <div className={styles.formLine}>
+                  <label htmlFor="username">Username:</label>
+                  <input name="username" id="username"  onChange={handleChange} value={newUser.username} />
+                </div>
+
+                <div className={styles.formLine}>
+                  <label htmlFor="password">Password:</label>
+                  <input name="password" id="password"  onChange={handleChange} value={newUser.password} />
+                </div>
+
+                <div className={styles.formLine}>
+                  <label htmlFor="email">E-mail:</label>
+                  <input name="email" id="email"  onChange={handleChange} value={newUser.email} />
+                </div>
+
+                <div className={styles.formLine}>
+                  <label htmlFor="age">Age:</label>
+                  <input name="age" id="age" type="number" onChange={handleChange} value={newUser.age} />
+                </div>
+
+                <button>Save</button>
+              </form>
+
+              <UsersList idOfLastCreatedUser={idOfLastCreatedUser} />
             </div>
+          </main>
 
-            <div className={styles.formLine}>
-              <label htmlFor="password">Password:</label>
-              <input name="password" id="password"  onChange={handleChange} value={newUser.password} />
-            </div>
-
-            <div className={styles.formLine}>
-              <label htmlFor="email">E-mail:</label>
-              <input name="email" id="email"  onChange={handleChange} value={newUser.email} />
-            </div>
-
-            <div className={styles.formLine}>
-              <label htmlFor="age">Age:</label>
-              <input name="age" id="age" type="number" onChange={handleChange} value={newUser.age} />
-            </div>
-
-            <button>Save</button>
-          </form>
-
-          <UsersList idOfLastCreatedUser={idOfLastCreatedUser} />
+          <footer className={styles.footer}>
+            <p className={styles.description}>
+              This is an example page for the boilerplate built on NodeJS, Express.js, PostgreSQL, Sequelize, TypeScript and Next.js.
+            </p>
+          </footer>
         </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <p className={styles.description}>
-          This is an example page for the boilerplate built on NodeJS, Express.js, PostgreSQL, Sequelize, TypeScript and Next.js.
-        </p>
-      </footer>
-    </div>
+      </Layout>
   )
 }
 
