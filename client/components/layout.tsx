@@ -8,6 +8,7 @@ import Box from "@mui/material/Box";
 import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "../styles/theme";
 
+
 interface LayoutProps {
   children : ReactNode;
   title : string;
@@ -37,6 +38,7 @@ const Layout = ({ children, title } : LayoutProps) => {
                   bgcolor: "neutral.main",
                   color: "neutral.contrastText",
                   height: "100%",
+                  padding: "1rem"
                 }}
             >
               {children}
@@ -48,3 +50,4 @@ const Layout = ({ children, title } : LayoutProps) => {
 }
 
 export default Layout;
+

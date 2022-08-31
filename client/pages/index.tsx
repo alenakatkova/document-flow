@@ -1,11 +1,12 @@
-import React, {useState, useEffect, useCallback} from "react";
-import type {NextPage} from "next";
+import React, { useState, useEffect, useCallback } from "react";
+import type { NextPage } from "next";
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
-import {getUsers, createUser} from "./api/users";
-import {UserFromDB, User} from "../interfaces/user";
+import { getUsers, createUser } from "./api/users";
+import { UserFromDB, User } from "../interfaces/user";
 import UsersList from "../components/UsersList";
 import Layout from "../components/layout";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 const Home : NextPage = () => {
   const [newUser, setNewUser] = useState<User>({
@@ -14,7 +15,7 @@ const Home : NextPage = () => {
     password: "",
     age: 0
   });
-  const [idOfLastCreatedUser, setIdOfLastCreatedUser] = useState<number | null>(null)
+  const [idOfLastCreatedUser, setIdOfLastCreatedUser] = useState<number|null>(null)
 
   async function saveUser(event : React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -23,7 +24,7 @@ const Home : NextPage = () => {
   }
 
   function handleChange(event : React.ChangeEvent<HTMLInputElement>) {
-    setNewUser({...newUser, [event.target.name]: event.target.value});
+    setNewUser({ ...newUser, [event.target.name]: event.target.value });
   }
 
   function reset() {
@@ -85,6 +86,14 @@ const Home : NextPage = () => {
         </div>
       </Layout>
   )
+}
+
+export async function getStaticProps({ locale } : { locale : string }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ["common", "signup"])),
+    },
+  };
 }
 
 export default Home;

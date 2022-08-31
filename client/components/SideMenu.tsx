@@ -9,18 +9,17 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import ButtonGroup from '@mui/material/ButtonGroup';
 import { useRouter } from "next/router";
+import { useTranslation } from "next-i18next";
 
 export default function SideMenu() {
   const { locale, asPath } = useRouter();
+  const { t } = useTranslation("common");
 
   return (
       <>
         <Box
             sx={{
               padding: "1rem",
-              // display: "flex",
-              // flexDirection: "row",
-              // justifyContent: "space-between"
             }}
         >
           <NextLink href={asPath} locale="ru">
@@ -51,9 +50,13 @@ export default function SideMenu() {
             </MUILink>
           </NextLink>
         </Box>
+
         <MenuList>
           <MenuItem>
-            <ListItemText>1.15</ListItemText>
+            <NextLink href="/"><ListItemText>{t("menu.home")}</ListItemText></NextLink>
+          </MenuItem>
+          <MenuItem>
+            <NextLink href="/signup"><ListItemText>{t("menu.signup")}</ListItemText></NextLink>
           </MenuItem>
           <MenuItem>
             <ListItemText>Double</ListItemText>
