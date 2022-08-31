@@ -1,19 +1,19 @@
-import {ReactNode} from "react";
+import { ReactNode } from "react";
 import Head from "next/head";
 import SideMenu from "./SideMenu";
 
 import * as React from "react";
 import Grid from "@mui/material/Unstable_Grid2";
 import Box from "@mui/material/Box";
-import {ThemeProvider} from "@mui/material/styles";
-import {theme} from "../styles/theme";
+import { ThemeProvider } from "@mui/material/styles";
+import { theme } from "../styles/theme";
 
 interface LayoutProps {
   children : ReactNode;
   title : string;
 }
 
-const Layout = ({children, title} : LayoutProps) => {
+const Layout = ({ children, title } : LayoutProps) => {
   return (
       <ThemeProvider theme={theme}>
         <Head>
@@ -23,9 +23,9 @@ const Layout = ({children, title} : LayoutProps) => {
           <Grid xs={3} lg={2} minWidth={230}>
             <Box
                 sx={{
-                  bgcolor: "primary.main",
+                  bgcolor: "accent.main",
                   height: "100%",
-                  color: "primary.contrastText"
+                  color: "accent.contrastText"
                 }}
             >
               <SideMenu/>
@@ -34,8 +34,8 @@ const Layout = ({children, title} : LayoutProps) => {
           <Grid xs={9} lg={10}>
             <Box
                 sx={{
-                  bgcolor: "secondary.main",
-                  color: "secondary.contrastText",
+                  bgcolor: "neutral.main",
+                  color: "neutral.contrastText",
                   height: "100%",
                 }}
             >
