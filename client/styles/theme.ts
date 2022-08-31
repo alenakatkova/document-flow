@@ -5,34 +5,34 @@ import { createTheme } from '@mui/material/styles';
 export const theme = createTheme({
   palette: {
     neutral: {
-      main: "#e8fce2",
+      main: "#ffffff",
       contrastText: "#000000",
       light: "#ffffff",
-      dark: "#b6c9b0",
+      dark: "#cccccc",
     },
     accent: {
-      main: "#A3F7B5",
+      main: "#DFF3E3",
       contrastText: "#000000",
-      light: "#d6ffe7",
-      dark: "#71c485",
+      light: "#ffffff",
+      dark: "#adc0b1",
     },
     warning: {
-      main: "#c94067",
+      main: "#7c0c30",
       contrastText: "#ffffff",
-      light: "#ff7395",
-      dark: "#93003d",
+      light: "#b04259",
+      dark: "#4a0007",
     },
     primary: {
-      main: "#664147",
+      main: "#0C7C59",
       contrastText: "#ffffff",
-      light: "#956c72",
-      dark: "#3a1920",
+      light: "#4bac86",
+      dark: "#004f30",
     },
     secondary: {
-      main: "#2F9C95",
-      contrastText: "#000000",
-      light: "#67cdc5",
-      dark: "#006d67",
+      main: "#0c307c",
+      contrastText: "#ffffff",
+      light: "#4a59ac",
+      dark: "#000a4f",
     }
   },
 });

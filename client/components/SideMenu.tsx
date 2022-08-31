@@ -18,8 +18,9 @@ export default function SideMenu() {
         <Box
             sx={{
               padding: "1rem",
-              display: "flex",
-
+              // display: "flex",
+              // flexDirection: "row",
+              // justifyContent: "space-between"
             }}
         >
           <NextLink href={asPath} locale="ru">
@@ -29,7 +30,7 @@ export default function SideMenu() {
                 sx={{
                   cursor: "pointer",
                   marginRight: "1rem",
-                  fontWeight: locale === "ru" ? 700 : 400
+                  fontWeight: locale === "ru" ? 700 : 400,
                 }}
             >
               Русский
@@ -43,7 +44,7 @@ export default function SideMenu() {
                 sx={{
                   cursor: "pointer",
                   marginRight: "1rem",
-                  fontWeight: locale === "en" ? 700 : 400
+                  fontWeight: locale === "en" ? 700 : 400,
                 }}
             >
               English
@@ -51,9 +52,6 @@ export default function SideMenu() {
           </NextLink>
         </Box>
         <MenuList>
-          <MenuItem>
-            <ListItemText>Single</ListItemText>
-          </MenuItem>
           <MenuItem>
             <ListItemText>1.15</ListItemText>
           </MenuItem>
