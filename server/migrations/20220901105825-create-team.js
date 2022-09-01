@@ -15,10 +15,16 @@ module.exports = {
       password: {
         type: Sequelize.STRING
       },
-      main_contact: {
+      assistant_name: {
         type: Sequelize.STRING
       },
-      additional_contact: {
+      assistant_email: {
+        type: Sequelize.STRING
+      },
+      junior_name: {
+        type: Sequelize.STRING
+      },
+      junior_email: {
         type: Sequelize.STRING
       },
       createdAt: {
