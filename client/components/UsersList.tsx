@@ -1,14 +1,14 @@
-import React, {useCallback, useEffect, useState} from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { User, UserFromDB } from "../interfaces/user";
 import styles from "../styles/UsersList.module.css";
-import {deleteUser, editUser, getUsers} from "../pages/api/users";
+import { deleteUser, editUser, getUsers } from "../api/users";
 import UserCard from "./UserCard";
 
 interface UsersListProps {
-  idOfLastCreatedUser: number | null;
+  idOfLastCreatedUser : number|null;
 }
 
-export default function UsersList({ idOfLastCreatedUser }: UsersListProps) {
+export default function UsersList({ idOfLastCreatedUser } : UsersListProps) {
   const [users, setUsers] = useState<UserFromDB[]>([]);
 
   const getUsersFromServer = useCallback(async () => {
@@ -30,8 +30,8 @@ export default function UsersList({ idOfLastCreatedUser }: UsersListProps) {
   return (
       <div className={styles.cardContainer}>
         <h2>Users stored in DB:</h2>
-        {users.map((user: UserFromDB) => (
-            <UserCard key={user.id} user={user} updateUsersList={() => getUsersFromServer().catch(console.error)} />
+        {users.map((user : UserFromDB) => (
+            <UserCard key={user.id} user={user} updateUsersList={() => getUsersFromServer().catch(console.error)}/>
         ))}
       </div>
   )

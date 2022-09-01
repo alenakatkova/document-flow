@@ -1,8 +1,8 @@
-import { User, UserFromDB } from "../../../interfaces/user";
-import { instance } from "../utils";
+import { User, UserFromDB } from "../../interfaces/user";
+import { instance, performPostRequest } from "../utils";
 
 export async function getUsers() {
-  let users: UserFromDB[] = [];
+  let users : UserFromDB[] = [];
 
   try {
     const res = await instance.get("/users");
@@ -13,15 +13,11 @@ export async function getUsers() {
   }
 }
 
-export async function createUser(userData: User) {
-  try {
-    return await instance.post("/users/signup", userData);
-  } catch (error) {
-    console.error(error);
-  }
+export async function createUser(userData : User) {
+  return await performPostRequest("/users/signup", userData);
 }
 
-export async function deleteUser(id: number) {
+export async function deleteUser(id : number) {
   try {
     return await instance.delete("/users/" + id, {
       data: {
@@ -33,11 +29,11 @@ export async function deleteUser(id: number) {
   }
 }
 
-export async function editUser(userData: User, id: number) {
+export async function editUser(userData : User, id : number) {
   try {
     return await instance.post("/users/" + id, {
-        id: id,
-        newData: userData
+      id: id,
+      newData: userData
     });
   } catch (error) {
     console.error(error);
