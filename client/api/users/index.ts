@@ -1,29 +1,8 @@
 import { User } from "../../interfaces/user";
-import { instance, performPostRequest } from "../utils";
+import { performPostRequest, performDeleteRequest, performUpdateRequest } from "../utils";
 
-export async function createUser(userData : User) {
-  return await performPostRequest("/users/signup", userData);
-}
+export const createUser = async (userData : User) => await performPostRequest("/users/signup", userData);
 
-export async function deleteUser(id : number) {
-  try {
-    return await instance.delete("/users/" + id, {
-      data: {
-        id: id
-      }
-    });
-  } catch (error) {
-    console.error(error);
-  }
-}
+export const deleteUser = async (id : number) => await performDeleteRequest("/users/", id);
 
-export async function editUser(userData : User, id : number) {
-  try {
-    return await instance.post("/users/" + id, {
-      id: id,
-      newData: userData
-    });
-  } catch (error) {
-    console.error(error);
-  }
-}
+export const editUser = async (userData : User, id : number) => await performUpdateRequest("/users/", id, userData);
