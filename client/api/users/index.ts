@@ -1,17 +1,5 @@
-import { User, UserFromDB } from "../../interfaces/user";
+import { User } from "../../interfaces/user";
 import { instance, performPostRequest } from "../utils";
-
-export async function getUsers() {
-  let users : UserFromDB[] = [];
-
-  try {
-    const res = await instance.get("/users");
-    users = res.data;
-    return users;
-  } catch (error) {
-    console.error(error);
-  }
-}
 
 export async function createUser(userData : User) {
   return await performPostRequest("/users/signup", userData);
