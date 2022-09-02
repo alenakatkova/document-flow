@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const port = process.env.PORT || 8080;
 const userRouter = require("./routes/user");
+const teamRouter = require("./routes/team");
 const cors = require("cors");
 app.use(cors({ origin: true, credentials: true }));
 
@@ -15,6 +16,7 @@ app.get("/api", (req, res) => {
 });
 
 app.use("/api/users", userRouter);
+app.use("/api/teams", teamRouter);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useEffect } from "react";
 import type { NextPage } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
@@ -8,9 +8,14 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Unstable_Grid2";
 import Button from "@mui/material/Button";
 import TextField from '@mui/material/TextField';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
 import Layout from "../components/layout";
-import { Team as Inputs } from "../interfaces/team";
+import { Team as Inputs, TeamFromDB } from "../interfaces/team";
 import { CARD_SPACING, CARD } from "../styles/constants";
+import useFetch from "../api/useFetch";
+import { createTeam } from "../api/team";
 
 const Signup : NextPage = () => {
   const { handleSubmit, reset, formState: { isSubmitSuccessful }, control } = useForm<Inputs>({
@@ -24,13 +29,14 @@ const Signup : NextPage = () => {
     }
   });
   const { t } = useTranslation("signup");
+  const { data: teams, fetchData: refetchTeams, isLoading, error } = useFetch<TeamFromDB[]>("/teams", []);
 
   useEffect(() => {
     reset();
   }, [reset, isSubmitSuccessful])
 
   const onSubmit : SubmitHandler<Inputs> = data => {
-    console.log(data);
+    createTeam(data);
   };
 
   return (
@@ -148,19 +154,28 @@ const Signup : NextPage = () => {
               <Grid container spacing={CARD_SPACING}>
                 <Grid xs={12}>
                   <Box sx={CARD}>
-                    <Typography>{t("instruction.callAdmin")}</Typography>
-                    <Typography>{t("instruction.ifExists")}</Typography>
-                    <Typography>{t("instruction.ifCantCreate")}</Typography>
+                    <Typography>{t("instruction.text")}</Typography>
                   </Box>
                 </Grid>
                 <Grid xs={12}>
                   <Box sx={CARD}>
-                    <Typography>{t("teams.heading")}</Typography>
+                    <Typography variant="h6">{t("teams.heading")}</Typography>
+                    {isLoading
+                        ? <div>Loading...</div>
+                        : <List>
+                          {teams.map(team => {
+                            return (
+                                <ListItem key={team.id + team.name}>
+                                  <ListItemText primary={team.name}/>
+                                </ListItem>
+                            )
+                          })}
+                        </List>
+                    }
                   </Box>
                 </Grid>
               </Grid>
             </Grid>
-
           </Grid>
         </Box>
       </Layout>
