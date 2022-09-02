@@ -11,10 +11,16 @@ const useFetch = <T>(url : string, initialState : T) => {
         .get(url)
         .then(res => {
           setData(res.data === undefined ? [] : res.data);
+          setIsLoading(false);
+        })
+        .catch(error => {
+          setError(error);
+          setIsLoading(false);
         });
   }, [url]);
 
   useEffect(() => {
+    setIsLoading(true);
     fetchData().catch(console.error);
   }, [fetchData]);
 
