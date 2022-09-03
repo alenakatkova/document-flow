@@ -8,8 +8,8 @@ services:
     volumes:
       - ./client:/client
       - /client/node_modules
-#    depends_on:
-#      - server
+    depends_on:
+      - server
 
   server:
     build: ./server
@@ -23,6 +23,7 @@ services:
       - postgres-db
     environment:
       - DB_HOST=postgres-db
+      - SESSION_SECRET=secret
     command: yarn run dev
 
   postgres-db:
@@ -37,6 +38,10 @@ services:
       - POSTGRES_DB=api
     volumes:
       - db:/var/lib/postgresql/data
+
+  redis:
+    image: redis
+    container_name: redis-sessions
 
 volumes:
   db:
