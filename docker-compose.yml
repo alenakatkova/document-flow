@@ -41,7 +41,7 @@ services:
 
   redis:
     image: redis
-    container_name: redis-sessions
+    container_name: redis
 
 volumes:
   db:

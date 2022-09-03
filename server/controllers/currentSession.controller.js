@@ -1,8 +1,9 @@
 const { Team } = require("../models");
 
 exports.getCurrentSession = async (req, res) => {
+  console.log("getCurrentSession")
   try {
-    const userId = req.session.team_id;
+    const teamId = req.session.teamId;
 
     res.status(200).json({
       status: "success",
@@ -16,4 +17,3 @@ exports.getCurrentSession = async (req, res) => {
     });
   }
 };
-Footer

@@ -49,13 +49,14 @@ exports.delete = (req, res) => {
 };
 
 exports.update = (req, res) => {
+  console.log("why am i in update")
   Team
       .update(req.body.newData, {
         where: {
           id: req.body.id
         }
       })
-      .then((user) => {
+      .then((code) => {
         res.status(201).json({
           status: "Team data successfully edited"
         })
@@ -66,4 +67,3 @@ exports.update = (req, res) => {
         })
       });
 };
-

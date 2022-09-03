@@ -11,11 +11,12 @@ const {
 let RedisStore = require("connect-redis")(session);
 let redisClient = redis.createClient({
   host: REDIS_URL,
-  port: REDIS_PORT,
+  port: REDIS_PORT
 });
 
 const userRouter = require("./routes/user");
 const teamRouter = require("./routes/team");
+const authRouter = require("./routes/auth");
 
 const port = process.env.PORT || 8080;
 const app = express();
@@ -31,7 +32,7 @@ app.use(
       cookie: {
         secure: false,
         httpOnly: false,
-        maxAge: 10000,
+        maxAge: 100000,
       },
     })
 );
@@ -47,6 +48,7 @@ app.get("/api", (req, res) => {
 
 app.use("/api/users", userRouter);
 app.use("/api/teams", teamRouter);
+app.use("/api/auth", authRouter);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
