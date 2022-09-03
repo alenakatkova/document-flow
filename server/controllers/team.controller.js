@@ -16,10 +16,10 @@ exports.findAll = (req, res) => {
 exports.create = (req, res) => {
   Team
       .create(req.body)
-      .then((user) => {
+      .then((team) => {
         res.status(201).json({
           status: "New team created",
-          newUserId: user.id
+          team
         })
       })
       .catch(error => {

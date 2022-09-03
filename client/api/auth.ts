@@ -2,7 +2,7 @@ import { instance } from "./utils";
 
 export const logUserIn = async (teamManagerName : string, password : string) => {
   try {
-    return await instance.post("/teams/login", {
+    return await instance.post("/auth/login", {
       teamManagerName,
       password,
     });
@@ -13,7 +13,7 @@ export const logUserIn = async (teamManagerName : string, password : string) => 
 
 export const logUserOut = async () => {
   try {
-    return await instance.delete("/teams/logout");
+    return await instance.delete("/auth/logout");
   } catch (e) {
     console.error(e);
   }

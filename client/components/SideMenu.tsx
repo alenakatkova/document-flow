@@ -59,6 +59,9 @@ export default function SideMenu() {
             <NextLink href="/signup"><ListItemText>{t("menu.signup")}</ListItemText></NextLink>
           </MenuItem>
           <MenuItem>
+            <NextLink href="/test"><ListItemText>TEST</ListItemText></NextLink>
+          </MenuItem>
+          <MenuItem>
             <ListItemText>Double</ListItemText>
           </MenuItem>
           <Divider/>

@@ -36,7 +36,9 @@ const Signup : NextPage = () => {
   }, [reset, isSubmitSuccessful])
 
   const onSubmit : SubmitHandler<Inputs> = data => {
-    createTeam(data);
+    createTeam(data).then((t) => {
+      console.log(t?.data?.team)
+    });
   };
 
   return (
