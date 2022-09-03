@@ -16,6 +16,7 @@ import { Team as Inputs, TeamFromDB } from "../interfaces/team";
 import { CARD_SPACING, CARD } from "../styles/constants";
 import useFetch from "../api/useFetch";
 import { createTeam } from "../api/team";
+import { useAuth } from "../contexts/authProvider";
 
 const Signup : NextPage = () => {
   const { handleSubmit, reset, formState: { isSubmitSuccessful }, control } = useForm<Inputs>({
@@ -30,15 +31,17 @@ const Signup : NextPage = () => {
   });
   const { t } = useTranslation("signup");
   const { data: teams, fetchData: refetchTeams, isLoading, error } = useFetch<TeamFromDB[]>("/teams", []);
+  const auth = useAuth();
 
   useEffect(() => {
     reset();
   }, [reset, isSubmitSuccessful])
 
   const onSubmit : SubmitHandler<Inputs> = data => {
-    createTeam(data).then((t) => {
-      console.log(t?.data?.team)
-    });
+    // createTeam(data).then((t) => {
+    //   console.log(t?.data?.team)
+    // });
+    auth.signUp(data);
   };
 
   return (

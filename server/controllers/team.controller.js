@@ -17,6 +17,11 @@ exports.create = (req, res) => {
   Team
       .create(req.body)
       .then((team) => {
+        req.session.teamId = team.id;
+        console.log(req.session)
+        console.log(team.id)
+        console.log(req.session.id)
+        
         res.status(201).json({
           status: "New team created",
           team

@@ -1,19 +1,16 @@
 import React, { ReactNode, useState, createContext, useEffect, useMemo } from "react";
-// import { useLocation } from "react-router-dom";
-// import { useNavigate } from "react-router-dom";
 import { useRouter } from "next/router";
 import { instance } from "../api/utils";
 import { createTeam } from "../api/team";
 import { logUserIn, logUserOut } from "../api/auth";
 import { Team, TeamFromDB } from "../interfaces/team";
-import { use } from "i18next";
 
 interface ProviderProps {
   children : ReactNode;
 }
 
 interface AuthCtx {
-  team : TeamFromDB|null;
+  team : number|null;
   loading : boolean;
   error : unknown;
   signUp : (teamData : Team) => void;
@@ -24,14 +21,11 @@ interface AuthCtx {
 const AuthContext = createContext<AuthCtx|null>(null);
 
 export const AuthProvider = ({ children } : ProviderProps) => {
-  const [team, setTeam] = useState<TeamFromDB|null>(null);
+  const [team, setTeam] = useState<number|null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [error, setError] = useState<unknown|null>(null);
   const [loading, setLoading] = useState(false);
   const [loadingInitial, setLoadingInitial] = useState(true);
-
-  // const navigate = useNavigate();
-  // const location = useLocation();
 
   const router = useRouter();
 
@@ -42,12 +36,8 @@ export const AuthProvider = ({ children } : ProviderProps) => {
   const getCurrentSession = React.useCallback(async () => {
     try {
       const fetchedData = await instance.get("/auth/current_session");
-      console.log(fetchedData)
-      console.log(fetchedData.data)
-      console.log(fetchedData.data.data)
-      console.log(fetchedData.data.data.team)
       setTeam(fetchedData.data.data.team);
-      setIsAuthenticated(fetchedData.data.data.team !== undefined);
+      setIsAuthenticated(fetchedData.data.team !== undefined);
     } catch (err) {
       throw new Error("fail");
     } finally {
@@ -65,8 +55,7 @@ export const AuthProvider = ({ children } : ProviderProps) => {
         .then((res) => {
           setTeam(res?.data?.team);
           setIsAuthenticated(true);
-          // navigate("/");
-          router.push("/signup");
+          router.push("/");
         })
         .catch((error) => setError(error))
         .finally(() => {

@@ -1,9 +1,8 @@
 const { Team } = require("../models");
 
 exports.logIn = async (req, res) => {
-  console.log("i am trying to log in")
   const { teamManagerName, password } = req.body;
-  console.log(req.body);
+
   if (typeof teamManagerName === "string") {
     try {
       const team = await Team.findOne({ where: { name: teamManagerName } });
