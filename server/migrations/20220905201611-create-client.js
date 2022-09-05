@@ -2,30 +2,48 @@
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("team", {
+    await queryInterface.createTable("client", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      name: {
+      fullName: {
         type: Sequelize.STRING
       },
-      password: {
+      shortName: {
         type: Sequelize.STRING
       },
-      assistantName: {
+      businessAddress: {
         type: Sequelize.STRING
       },
-      assistantEmail: {
+      postalAddress: {
         type: Sequelize.STRING
       },
-      juniorName: {
+      inn: {
         type: Sequelize.STRING
       },
-      juniorEmail: {
+      kpp: {
         type: Sequelize.STRING
+      },
+      account: {
+        type: Sequelize.STRING
+      },
+      corrAccount: {
+        type: Sequelize.STRING
+      },
+      phone: {
+        type: Sequelize.STRING
+      },
+      teamId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: {
+            tableName: "team"
+          },
+          key: "id"
+        }
       },
       createdAt: {
         allowNull: false,
@@ -38,6 +56,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("team");
+    await queryInterface.dropTable("client");
   }
 };

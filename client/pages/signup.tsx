@@ -22,10 +22,10 @@ const Signup : NextPage = () => {
     defaultValues: {
       name: "",
       password: "",
-      assistant_name: "",
-      assistant_email: "",
-      junior_name: "",
-      junior_email: ""
+      assistantName: "",
+      assistantEmail: "",
+      juniorName: "",
+      juniorEmail: ""
     }
   });
   const { t } = useTranslation("signup");
@@ -94,7 +94,7 @@ const Signup : NextPage = () => {
                   />
                   <Controller
                       control={control}
-                      name="assistant_name"
+                      name="assistantName"
                       render={({ field: { ref, ...field } }) => (
                           <TextField
                               {...field}
@@ -106,7 +106,7 @@ const Signup : NextPage = () => {
                   />
                   <Controller
                       control={control}
-                      name="assistant_email"
+                      name="assistantEmail"
                       render={({ field: { ref, ...field } }) => (
                           <TextField
                               {...field}
@@ -118,7 +118,7 @@ const Signup : NextPage = () => {
                   />
                   <Controller
                       control={control}
-                      name="junior_name"
+                      name="juniorName"
                       render={({ field: { ref, ...field } }) => (
                           <TextField
                               {...field}
@@ -130,7 +130,7 @@ const Signup : NextPage = () => {
                   />
                   <Controller
                       control={control}
-                      name="junior_email"
+                      name="juniorEmail"
                       render={({ field: { ref, ...field } }) => (
                           <TextField
                               {...field}

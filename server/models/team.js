@@ -13,16 +13,17 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      this.hasMany(models.Client);
     }
   }
 
   Team.init({
     name: DataTypes.STRING,
     password: DataTypes.STRING,
-    assistant_name: DataTypes.STRING,
-    assistant_email: DataTypes.STRING,
-    junior_name: DataTypes.STRING,
-    junior_email: DataTypes.STRING,
+    assistantName: DataTypes.STRING,
+    assistantEmail: DataTypes.STRING,
+    juniorName: DataTypes.STRING,
+    juniorEmail: DataTypes.STRING
   }, {
     sequelize,
     modelName: "Team",
@@ -30,3 +31,4 @@ module.exports = (sequelize, DataTypes) => {
   });
   return Team;
 };
+

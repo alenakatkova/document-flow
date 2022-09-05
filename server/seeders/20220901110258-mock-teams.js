@@ -6,20 +6,20 @@ module.exports = {
       {
         name: "Назаровва И.А.",
         password: "password",
-        assistant_name: "Алла Смуглова",
-        assistant_email: "nazarova_assistant@example.com",
-        junior_name: "Анастасия Иванова",
-        junior_email: "nazarova_junior@example.com",
+        assistantName: "Алла Смуглова",
+        assistantEmail: "nazarova_assistant@example.com",
+        juniorName: "Анастасия Иванова",
+        juniorEmail: "nazarova_junior@example.com",
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
         name: "Цветочки",
         password: "password",
-        assistant_name: "Сергей Петров",
-        assistant_email: "cvetochki_assistant@example.com",
-        junior_name: "Петр Сергеев",
-        junior_email: "cvetochki_junior@example.com",
+        assistantName: "Сергей Петров",
+        assistantEmail: "cvetochki_assistant@example.com",
+        juniorName: "Петр Сергеев",
+        juniorEmail: "cvetochki_junior@example.com",
         createdAt: new Date(),
         updatedAt: new Date()
       },

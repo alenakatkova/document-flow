@@ -1,10 +1,10 @@
 export interface Team {
   name : string;
   password : string;
-  assistant_name : string;
-  assistant_email : string;
-  junior_name : string;
-  junior_email : string;
+  assistantName : string;
+  assistantEmail : string;
+  juniorName : string;
+  juniorEmail : string;
 }
 
 export interface TeamFromDB extends Team {
