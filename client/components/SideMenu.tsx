@@ -10,11 +10,13 @@ import Button from "@mui/material/Button";
 import ButtonGroup from '@mui/material/ButtonGroup';
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
+import { useAuth } from "../contexts/authProvider";
 
 export default function SideMenu() {
   const { locale, asPath } = useRouter();
   const { t } = useTranslation("common");
-
+  const { isAuthenticated } = useAuth();
+  console.log(isAuthenticated)
   return (
       <>
         <Box
@@ -35,7 +37,6 @@ export default function SideMenu() {
               Русский
             </MUILink>
           </NextLink>
-
           <NextLink href={asPath} locale="en">
             <MUILink
                 color="primary.dark"
@@ -51,31 +52,25 @@ export default function SideMenu() {
           </NextLink>
         </Box>
 
-        <MenuList>
-          <MenuItem>
-            <NextLink href="/"><ListItemText>{t("menu.home")}</ListItemText></NextLink>
-          </MenuItem>
-          <MenuItem>
-            <NextLink href="/signup"><ListItemText>{t("menu.signup")}</ListItemText></NextLink>
-          </MenuItem>
-          <MenuItem>
-            <NextLink href="/test"><ListItemText>TEST</ListItemText></NextLink>
-          </MenuItem>
-          <MenuItem>
-            <ListItemText>Double</ListItemText>
-          </MenuItem>
-          <Divider/>
-          <MenuItem>
-            <ListItemText>Add space before paragraph</ListItemText>
-          </MenuItem>
-          <MenuItem>
-            <ListItemText>Add space after paragraph</ListItemText>
-          </MenuItem>
-          <Divider/>
-          <MenuItem>
-            <ListItemText>Custom spacing...</ListItemText>
-          </MenuItem>
-        </MenuList>
+        {isAuthenticated
+            ? <MenuList>
+              <MenuItem>
+                <NextLink href="/"><ListItemText>{t("menu.home")}</ListItemText></NextLink>
+              </MenuItem>
+              <MenuItem>
+                <NextLink href="/test"><ListItemText>TEST</ListItemText></NextLink>
+              </MenuItem>
+              <Divider/>
+            </MenuList>
+            : <MenuList>
+              <MenuItem>
+                <NextLink href="/"><ListItemText>{t("menu.home")}</ListItemText></NextLink>
+              </MenuItem>
+              <MenuItem>
+                <NextLink href="/signup"><ListItemText>{t("menu.signup")}</ListItemText></NextLink>
+              </MenuItem>
+            </MenuList>
+        }
       </>
   );
 }

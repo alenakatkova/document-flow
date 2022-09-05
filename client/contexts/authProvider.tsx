@@ -37,7 +37,7 @@ export const AuthProvider = ({ children } : ProviderProps) => {
     try {
       const fetchedData = await instance.get("/auth/current_session");
       setTeam(fetchedData.data.data.team);
-      setIsAuthenticated(fetchedData.data.team !== undefined);
+      setIsAuthenticated(team !== undefined);
     } catch (err) {
       throw new Error("fail");
     } finally {
@@ -111,7 +111,7 @@ export const AuthProvider = ({ children } : ProviderProps) => {
 export const useAuth = () => {
   let context = React.useContext(AuthContext)
 
-  if (context === null) throw Error("df")
+  if (context === null) throw Error("AuthContext is not provided");
 
   return context;
 };
