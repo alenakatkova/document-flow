@@ -1,4 +1,20 @@
 {
-  "title": "Sign up for the teams",
-  "heading": "Sign up"
+  "title": "Sign up for teams",
+  "heading": "Sign up for teams",
+  "form": {
+    "name": "Manager's name",
+    "password": "Password",
+    "repeatPassword": "Подтвердите пароль",
+    "assistantName": "Assistant's name",
+    "assistantEmail": "Assistant's e-mail",
+    "juniorName": "Junior media planner's name",
+    "juniorEmail": "Junior media planner's  e-mail",
+    "submit": "Sign up"
+  },
+  "instruction": {
+    "text": "Call admin if your team's account already exists but you don't know the password or you get any error while creating account"
+  },
+  "teams": {
+    "heading": "List of the managers who already have accounts:"
+  }
 }
