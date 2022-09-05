@@ -82,7 +82,7 @@ export default function SideMenu() {
                 </MenuItem>
               </NextLink>
               <Typography sx={subHeading}>{t("menu.clients.heading")}</Typography>
-              <NextLink href="/">
+              <NextLink href="/clients">
                 <MenuItem sx={subMenuItem}>
                   <ListItemIcon><SummarizeOutlinedIcon/></ListItemIcon>
                   <ListItemText>{t("menu.clients.all")}
