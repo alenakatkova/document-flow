@@ -18,6 +18,7 @@ module.exports = (sequelize, DataTypes) => {
           name: "teamId"
         }
       });
+      this.hasMany(models.ClientContract);
     }
   }
 
