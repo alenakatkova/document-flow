@@ -15,7 +15,6 @@ import Layout from "../components/layout";
 import { Team as Inputs, TeamFromDB } from "../interfaces/team";
 import { CARD_SPACING, CARD } from "../styles/constants";
 import useFetch from "../api/useFetch";
-import { createTeam } from "../api/team";
 import { useAuth } from "../contexts/authProvider";
 
 const Signup : NextPage = () => {
@@ -38,9 +37,6 @@ const Signup : NextPage = () => {
   }, [reset, isSubmitSuccessful])
 
   const onSubmit : SubmitHandler<Inputs> = data => {
-    // createTeam(data).then((t) => {
-    //   console.log(t?.data?.team)
-    // });
     auth.signUp(data);
   };
 
@@ -155,7 +151,7 @@ const Signup : NextPage = () => {
                 </Box>
               </Box>
             </Grid>
-            <Grid xs={3}>
+            <Grid xs={6}>
               <Grid container spacing={CARD_SPACING}>
                 <Grid xs={12}>
                   <Box sx={CARD}>
