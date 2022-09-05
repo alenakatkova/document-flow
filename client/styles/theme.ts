@@ -12,9 +12,9 @@ export const theme = createTheme({
     },
     accent: {
       main: "#DFF3E3",
-      contrastText: "#000000",
+      contrastText: "#2A2A2A",
       light: "#ffffff",
-      dark: "#adc0b1",
+      dark: "#d9ecdc",
     },
     warning: {
       main: "#7c0c30",

@@ -22,7 +22,7 @@ import RequireAuth from "../components/RequireAuth";
 
 const Test : NextPage = () => {
 
-  const { t } = useTranslation("signup");
+  const { t } = useTranslation("dashboard");
 
   let { team } = useAuth();
   const router = useRouter();
