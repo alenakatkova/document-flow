@@ -55,7 +55,7 @@ export default function SideMenu() {
                 <NextLink href="/"><ListItemText>{t("menu.home")}</ListItemText></NextLink>
               </MenuItem>
               <MenuItem>
-                <NextLink href="/test"><ListItemText>TEST</ListItemText></NextLink>
+                <NextLink href="/dashboard"><ListItemText>{t("menu.dashboard")}</ListItemText></NextLink>
               </MenuItem>
               <Divider/>
             </MenuList>
