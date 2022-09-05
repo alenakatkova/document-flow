@@ -46,7 +46,7 @@ export const AuthProvider = ({ children } : ProviderProps) => {
   }, []);
 
   useEffect(() => {
-    getCurrentSession().then(() => console.log("isAuthenticated " + isAuthenticated));
+    getCurrentSession();
   }, [router.pathname, getCurrentSession]);
 
   const signUp = (teamData : Team) => {
@@ -85,7 +85,7 @@ export const AuthProvider = ({ children } : ProviderProps) => {
   //       .catch((error) => setError(error))
   //       .finally(() => setLoading(false));
   // };
-  
+
   const value : AuthCtx = {
     team,
     loading,

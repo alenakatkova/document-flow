@@ -89,7 +89,7 @@ export default function SideMenu() {
                   </ListItemText>
                 </MenuItem>
               </NextLink>
-              <NextLink href="/">
+              <NextLink href="/clients/add-contract">
                 <MenuItem sx={subMenuItem}>
                   <ListItemIcon><AddBoxIcon/></ListItemIcon>
                   <ListItemText>{t("menu.clients.addContract")}

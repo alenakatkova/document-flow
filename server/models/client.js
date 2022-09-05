@@ -18,19 +18,21 @@ module.exports = (sequelize, DataTypes) => {
           name: "teamId"
         }
       });
-      this.hasMany(models.ClientContract);
+      this.hasMany(models.ClientContract, {
+        foreignKey: "clientId"
+      });
     }
   }
 
   Client.init({
-    full_name: DataTypes.STRING,
-    short_name: DataTypes.STRING,
-    business_address: DataTypes.STRING,
-    postal_address: DataTypes.STRING,
+    fullName: DataTypes.STRING,
+    shortName: DataTypes.STRING,
+    businessAddress: DataTypes.STRING,
+    postalAddress: DataTypes.STRING,
     inn: DataTypes.STRING,
     kpp: DataTypes.STRING,
     account: DataTypes.STRING,
-    corr_account: DataTypes.STRING,
+    corrAccount: DataTypes.STRING,
     phone: DataTypes.STRING
   }, {
     sequelize,
