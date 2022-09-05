@@ -37,7 +37,7 @@ export const AuthProvider = ({ children } : ProviderProps) => {
     try {
       const fetchedData = await instance.get("/auth/current_session");
       setTeam(fetchedData.data.data.team);
-      setIsAuthenticated(team !== undefined);
+      setIsAuthenticated(!!fetchedData.data.data.team);
     } catch (err) {
       throw new Error("fail");
     } finally {
@@ -46,7 +46,7 @@ export const AuthProvider = ({ children } : ProviderProps) => {
   }, []);
 
   useEffect(() => {
-    getCurrentSession();
+    getCurrentSession().then(() => console.log("isAuthenticated " + isAuthenticated));
   }, [router.pathname, getCurrentSession]);
 
   const signUp = (teamData : Team) => {
@@ -85,24 +85,21 @@ export const AuthProvider = ({ children } : ProviderProps) => {
   //       .catch((error) => setError(error))
   //       .finally(() => setLoading(false));
   // };
+  
+  const value : AuthCtx = {
+    team,
+    loading,
+    error,
+    signUp,
+    // logIn,
+    isAuthenticated,
+    loadingInitial
+    // logOut,
+  };
 
-
-  const memoedValue : AuthCtx = useMemo(
-      () => ({
-        team,
-        loading,
-        error,
-        signUp,
-        // logIn,
-        isAuthenticated,
-        loadingInitial
-        // logOut,
-      }),
-      [team, isAuthenticated, loading, error]
-  );
 
   return (
-      <AuthContext.Provider value={memoedValue}>
+      <AuthContext.Provider value={value}>
         {!loadingInitial && children}
       </AuthContext.Provider>
   );

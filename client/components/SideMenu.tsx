@@ -6,8 +6,6 @@ import NextLink from "next/link";
 import MUILink from '@mui/material/Link';
 import ListItemText from "@mui/material/ListItemText";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import ButtonGroup from '@mui/material/ButtonGroup';
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import { useAuth } from "../contexts/authProvider";
@@ -16,7 +14,6 @@ export default function SideMenu() {
   const { locale, asPath } = useRouter();
   const { t } = useTranslation("common");
   const { isAuthenticated } = useAuth();
-  console.log(isAuthenticated)
   return (
       <>
         <Box
