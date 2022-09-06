@@ -14,7 +14,6 @@ let redisClient = redis.createClient({
   port: REDIS_PORT
 });
 
-const userRouter = require("./routes/user");
 const teamRouter = require("./routes/team");
 const authRouter = require("./routes/auth");
 const clientRouter = require("./routes/client");
@@ -48,12 +47,10 @@ app.get("/api", (req, res) => {
   res.send("<h2>Hello there</h2>");
 });
 
-app.use("/api/users", userRouter);
 app.use("/api/teams", teamRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/clients", clientRouter);
 app.use("/api/counterparty-types", counterpartyTypeRouter);
-
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
