@@ -9,7 +9,10 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      name: {
+      username: {
+        type: Sequelize.STRING
+      },
+      managerName: {
         type: Sequelize.STRING
       },
       password: {
@@ -19,12 +22,6 @@ module.exports = {
         type: Sequelize.STRING
       },
       assistantEmail: {
-        type: Sequelize.STRING
-      },
-      juniorName: {
-        type: Sequelize.STRING
-      },
-      juniorEmail: {
         type: Sequelize.STRING
       },
       createdAt: {

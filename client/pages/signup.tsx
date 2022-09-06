@@ -20,14 +20,14 @@ import { useAuth } from "../contexts/authProvider";
 const Signup : NextPage = () => {
   const { handleSubmit, reset, formState: { isSubmitSuccessful }, control } = useForm<Inputs>({
     defaultValues: {
-      name: "",
+      username: "",
+      managerName: "",
       password: "",
       assistantName: "",
-      assistantEmail: "",
-      juniorName: "",
-      juniorEmail: ""
+      assistantEmail: ""
     }
   });
+
   const { t } = useTranslation("signup");
   const { data: teams, fetchData: refetchTeams, isLoading, error } = useFetch<TeamFromDB[]>("/teams", []);
   const auth = useAuth();
@@ -66,13 +66,27 @@ const Signup : NextPage = () => {
                 >
                   <Controller
                       control={control}
-                      name="name"
+                      name="username"
                       rules={{ required: true }}
                       render={({ field: { ref, ...field } }) => (
                           <TextField
                               {...field}
                               inputRef={ref}
-                              label={t("form.name")}
+                              label={t("form.username")}
+                              variant="outlined"
+                              required
+                          />
+                      )}
+                  />
+                  <Controller
+                      control={control}
+                      name="managerName"
+                      rules={{ required: true }}
+                      render={({ field: { ref, ...field } }) => (
+                          <TextField
+                              {...field}
+                              inputRef={ref}
+                              label={t("form.managerName")}
                               variant="outlined"
                               required
                           />
@@ -116,30 +130,6 @@ const Signup : NextPage = () => {
                           />
                       )}
                   />
-                  <Controller
-                      control={control}
-                      name="juniorName"
-                      render={({ field: { ref, ...field } }) => (
-                          <TextField
-                              {...field}
-                              inputRef={ref}
-                              label={t("form.juniorName")}
-                              variant="outlined"
-                          />
-                      )}
-                  />
-                  <Controller
-                      control={control}
-                      name="juniorEmail"
-                      render={({ field: { ref, ...field } }) => (
-                          <TextField
-                              {...field}
-                              inputRef={ref}
-                              label={t("form.juniorEmail")}
-                              variant="outlined"
-                          />
-                      )}
-                  />
                   <Button type="submit" variant="contained"
                           sx={{
                             width: "auto",
@@ -166,8 +156,8 @@ const Signup : NextPage = () => {
                         : <List>
                           {teams.map(team => {
                             return (
-                                <ListItem key={team.id + team.name}>
-                                  <ListItemText primary={team.name}/>
+                                <ListItem key={team.id + team.managerName}>
+                                  <ListItemText primary={team.managerName}/>
                                 </ListItem>
                             )
                           })}

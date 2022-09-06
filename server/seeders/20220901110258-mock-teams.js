@@ -4,22 +4,20 @@ module.exports = {
   async up(queryInterface, Sequelize) {
     return queryInterface.bulkInsert("team", [
       {
-        name: "Назаровва И.А.",
+        username: "nazarova",
+        managerName: "Назаровва И.А.",
         password: "password",
         assistantName: "Алла Смуглова",
-        assistantEmail: "nazarova_assistant@example.com",
-        juniorName: "Анастасия Иванова",
-        juniorEmail: "nazarova_junior@example.com",
+        assistantEmail: "smuglovaa@example.com",
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        name: "Цветочки",
+        username: "andreev",
+        managerName: "Андреев П.П.",
         password: "password",
         assistantName: "Сергей Петров",
-        assistantEmail: "cvetochki_assistant@example.com",
-        juniorName: "Петр Сергеев",
-        juniorEmail: "cvetochki_junior@example.com",
+        assistantEmail: "petrovs@example.com",
         createdAt: new Date(),
         updatedAt: new Date()
       },

@@ -20,12 +20,11 @@ module.exports = (sequelize, DataTypes) => {
   }
 
   Team.init({
-    name: DataTypes.STRING,
+    username: DataTypes.STRING,
+    managerName: DataTypes.STRING,
     password: DataTypes.STRING,
     assistantName: DataTypes.STRING,
-    assistantEmail: DataTypes.STRING,
-    juniorName: DataTypes.STRING,
-    juniorEmail: DataTypes.STRING
+    assistantEmail: DataTypes.STRING
   }, {
     sequelize,
     modelName: "Team",
