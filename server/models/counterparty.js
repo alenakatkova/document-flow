@@ -27,7 +27,8 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     isPriority: DataTypes.BOOLEAN,
     type: DataTypes.STRING,
-    phone: DataTypes.STRING
+    phone: DataTypes.STRING,
+    bankDetails: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Counterparty',

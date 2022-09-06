@@ -20,6 +20,9 @@ module.exports = {
       phone: {
         type: Sequelize.STRING
       },
+      bankDetails: {
+        type: Sequelize.STRING
+      },
       teamId: {
         type: Sequelize.DataTypes.INTEGER,
         references: {

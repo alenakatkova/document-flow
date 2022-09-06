@@ -14,6 +14,15 @@ module.exports = {
       isAssistantResponsibility: {
         type: Sequelize.BOOLEAN
       },
+      internalDepartmentId: {
+        type: Sequelize.DataTypes.INTEGER,
+        references: {
+          model: {
+            tableName: 'InternalDepartments',
+          },
+          key: 'id'
+        }
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

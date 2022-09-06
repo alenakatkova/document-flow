@@ -3,7 +3,7 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class DocumentStatus extends Model {
+  class InternalDepartment extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -11,21 +11,20 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      this.hasMany(models.ContractTransaction, {
-        foreignKey: "documentStatusId"
+      this.hasOne(models.DocumentStatus, {
+        foreignKey: "internalDepartmentId"
       });
-      this.belongsTo(models.InternalDepartment, {
+      this.hasMany(models.InternalContact, {
         foreignKey: "internalDepartmentId"
       });
     }
   }
 
-  DocumentStatus.init({
-    stage: DataTypes.STRING,
-    isAssistantResponsibility: DataTypes.BOOLEAN
+  InternalDepartment.init({
+    name: DataTypes.STRING
   }, {
     sequelize,
-    modelName: 'DocumentStatus',
+    modelName: 'InternalDepartment',
   });
-  return DocumentStatus;
+  return InternalDepartment;
 };

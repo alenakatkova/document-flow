@@ -11,20 +11,23 @@ module.exports = {
       name: {
         type: Sequelize.STRING
       },
-      department: {
-        type: Sequelize.STRING
-      },
-      phone: {
+      internalPhoneCode: {
         type: Sequelize.STRING
       },
       email: {
         type: Sequelize.STRING
       },
-      documentStatusId: {
+      birthday: {
+        type: Sequelize.STRING
+      },
+      job: {
+        type: Sequelize.STRING
+      },
+      internalDepartmentId: {
         type: Sequelize.DataTypes.INTEGER,
         references: {
           model: {
-            tableName: 'DocumentStatuses',
+            tableName: 'InternalDepartments',
           },
           key: 'id'
         }
