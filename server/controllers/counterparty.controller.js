@@ -1,12 +1,35 @@
 const { Counterparty } = require("../models");
+const { Contract } = require("../models")
+const { Agreement } = require("../models")
+const { Invoice } = require("../models")
+const { AgreementTransaction } = require("../models")
+const { ContractTransaction } = require("../models")
 // const { ClientContract } = require("../models");
 
 exports.findAllByTeamId = (req, res) => {
+  console.log(req.body)
   Counterparty
       .findAll({
         where: {
           teamId: req.body.teamId
-        }
+        },
+        include: [{
+          model: Contract,
+          include: [{
+            model: Agreement,
+            include: [
+              {
+                model: Invoice,
+              },
+              {
+                model: AgreementTransaction
+              }
+            ]
+          },
+            {
+              model: ContractTransaction
+            }]
+        }]
       })
       .then(data => {
         console.log(data)

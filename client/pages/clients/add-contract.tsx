@@ -80,12 +80,7 @@ const AddClientContract : NextPage = () => {
 
   return (
       <RequireAuth>
-        <Layout title={t("addContract.title")}>
-          <Typography variant="body1" sx={{
-            fontWeight: 300,
-            textTransform: "uppercase",
-            letterSpacing: "0.1rem"
-          }}>{t("addContract.heading")}</Typography>
+        <Layout title={t("addContract.title")} heading={t("addContract.heading")}>
           <Box sx={{ flexGrow: 1, marginTop: "1rem" }}>
             <Grid container spacing={CARD_SPACING}>
               <Grid xs={6}>

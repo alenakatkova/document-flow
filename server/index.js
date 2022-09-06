@@ -48,7 +48,7 @@ app.get("/api", (req, res) => {
 
 app.use("/api/teams", teamRouter);
 app.use("/api/auth", authRouter);
-app.use("/api/counterparty", counterpartyRouter);
+app.use("/api/counterparties", counterpartyRouter);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);

@@ -21,26 +21,35 @@ import { useRouter } from "next/router";
 import RequireAuth from "../../components/RequireAuth";
 
 const Clients : NextPage = () => {
-
   const { t } = useTranslation("clients");
-
   let { team } = useAuth();
   const router = useRouter();
 
+  const {
+    data: clients,
+    fetchData: refetchClients,
+    isLoading,
+    error
+  } = useFetch<TeamFromDB[]>("/counterparties", [], { teamId: team, type: "client" });
+
   return (
       <RequireAuth>
-        <Layout title={t("title")}>
-          <Typography variant="body1" sx={{
-            fontWeight: 300,
-            textTransform: "uppercase",
-            letterSpacing: "0.1rem"
-          }}>{t("heading")}</Typography>
+        <Layout title={t("title")} heading={t("heading")}>
           <Box sx={{ flexGrow: 1, marginTop: "1rem" }}>
             <Grid container spacing={CARD_SPACING}>
               <Grid xs={7}>
                 <Box sx={CARD}>
                   <Typography variant="h6">{t("inWork.heading")}</Typography>
-                  <Box>содержание</Box>
+                  <Box>{!isLoading && (
+                      <div>
+                        {clients.map(client => (
+                            <Box sx={{ border: "1px solid blue", marginBottom: "1rem" }}
+                                 key={client.name.toLowerCase()}>
+                              {JSON.stringify(client)}
+                            </Box>
+                        ))}
+                      </div>
+                  )}</Box>
                 </Box>
               </Grid>
               <Grid xs={5}>
