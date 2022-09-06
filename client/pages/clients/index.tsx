@@ -11,7 +11,7 @@ import useFetch from "../../api/useFetch";
 import { useAuth } from "../../contexts/authProvider";
 import { useRouter } from "next/router";
 import RequireAuth from "../../components/RequireAuth";
-import { ClientFromDB } from "../../interfaces/client";
+import { CounterpartyFromDB } from "../../interfaces/counterparty";
 
 const Clients : NextPage = () => {
   const { t } = useTranslation("clients");
@@ -21,7 +21,7 @@ const Clients : NextPage = () => {
   const {
     data: clients,
     isLoading
-  } = useFetch<ClientFromDB[]>("/counterparties", [], { teamId: team, type: "client" });
+  } = useFetch<CounterpartyFromDB[]>("/counterparties", [], { teamId: team, type: "client" });
 
   return (
       <RequireAuth>
@@ -40,18 +40,18 @@ const Clients : NextPage = () => {
                               <div>{client.phone}</div>
                               <div>{JSON.stringify(client.Contacts)}</div>
                               <div>
-                                {client.Contracts.map(contract => (
+                                {client?.Contracts?.map(contract => (
                                     <Box sx={{ border: "1px solid red", marginBottom: "1rem" }}
                                          key={contract.number}>
                                       Договор № {contract.number}
-                                      Статус: {JSON.stringify(contract.ContractTransactions[0].DocumentStatus.stage)}
+                                      Статус: {contract?.ContractTransactions && JSON.stringify(contract?.ContractTransactions[0].DocumentStatus?.stage)}
                                       <div>
-                                        {contract.Agreements.map(agreement => (
+                                        {contract?.Agreements?.map(agreement => (
                                             <Box sx={{ border: "1px solid green", marginBottom: "1rem" }}
                                                  key={agreement.number}>
                                               Дополнительное соглашение № {agreement.number}
                                               Счет № {agreement.Invoice && agreement.Invoice.number}
-                                              Статус {JSON.stringify(agreement.AgreementTransactions[0].DocumentStatus.stage)}
+                                              Статус: {agreement?.AgreementTransactions && JSON.stringify(agreement?.AgreementTransactions[0].DocumentStatus?.stage)}
                                             </Box>
                                         ))}
                                       </div>

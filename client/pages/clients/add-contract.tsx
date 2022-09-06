@@ -16,7 +16,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Layout from "../../components/layout";
 // import { Team as Inputs, TeamFromDB } from "../../interfaces/team";
-import { Client, ClientFromDB } from "../../interfaces/client";
+import { Client, ClientFromDB } from "../../interfaces/counterparty";
 import { ClientContract, ClientContractFromDB } from "../../interfaces/contract";
 import { CARD_SPACING, CARD } from "../../styles/constants";
 import useFetch from "../../api/useFetch";

@@ -1,13 +1,20 @@
-export interface ClientContract {
+import { DocumentTransactionFromDB } from "./documentTransaction";
+import { AgreementFromDB } from "./agreement";
+
+export interface Contract {
   number : string;
   startDate? : Date;
   endDate? : Date;
-  linkToFile? : string;
+  linkToFileOnDisk? : string;
+  signDate? : Date;
 }
 
-export interface ClientContractFromDB extends ClientContract {
+export interface ContractFromDB extends Contract {
   id : number;
-  clientId : number;
-  createdAt : string;
-  updatedAt : string;
+  ContractTransactions? : DocumentTransactionFromDB[];
+  Agreements? : AgreementFromDB[];
+  clientId? : number;
+  createdAt? : string;
+  updatedAt? : string;
 }
+
