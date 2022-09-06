@@ -12,6 +12,7 @@ import { useAuth } from "../../contexts/authProvider";
 import { useRouter } from "next/router";
 import RequireAuth from "../../components/RequireAuth";
 import { CounterpartyFromDB } from "../../interfaces/counterparty";
+import Link from "next/link";
 
 const Clients : NextPage = () => {
   const { t } = useTranslation("clients");
@@ -36,6 +37,9 @@ const Clients : NextPage = () => {
                         {clients.map(client => (
                             <Box sx={{ border: "1px solid blue", marginBottom: "1rem" }}
                                  key={client.name}>
+                              <Link href={`/clients/${client.id}`}>
+                                <a>ССЫЛКА</a>
+                              </Link>
                               <div>{client.name}</div>
                               <div>{client.phone}</div>
                               <div>{JSON.stringify(client.Contacts)}</div>
@@ -43,12 +47,18 @@ const Clients : NextPage = () => {
                                 {client?.Contracts?.map(contract => (
                                     <Box sx={{ border: "1px solid red", marginBottom: "1rem" }}
                                          key={contract.number}>
+                                      <Link href={`/contracts/${contract.id}`}>
+                                        <a>ССЫЛКА</a>
+                                      </Link>
                                       Договор № {contract.number}
                                       Статус: {contract?.ContractTransactions && JSON.stringify(contract?.ContractTransactions[0].DocumentStatus?.stage)}
                                       <div>
                                         {contract?.Agreements?.map(agreement => (
                                             <Box sx={{ border: "1px solid green", marginBottom: "1rem" }}
                                                  key={agreement.number}>
+                                              <Link href={`/agreements/${agreement.id}`}>
+                                                <a>ССЫЛКА</a>
+                                              </Link>
                                               Дополнительное соглашение № {agreement.number}
                                               Счет № {agreement.Invoice && agreement.Invoice.number}
                                               Статус: {agreement?.AgreementTransactions && JSON.stringify(agreement?.AgreementTransactions[0].DocumentStatus?.stage)}
