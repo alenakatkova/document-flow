@@ -69,14 +69,15 @@ export default function SideMenu() {
 
         {isAuthenticated
             ? <MenuList>
+              <Typography sx={subHeading}>{t("menu.dashboard.heading")}</Typography>
               <NextLink href="/">
                 <MenuItem>
-                  <ListItemText>{t("menu.home")}</ListItemText>
+                  <ListItemText>Все документы</ListItemText>
                 </MenuItem>
               </NextLink>
               <NextLink href="/dashboard">
                 <MenuItem>
-                  <ListItemText>{t("menu.dashboard")}</ListItemText>
+                  <ListItemText>Задачи</ListItemText>
                 </MenuItem>
               </NextLink>
               <Typography sx={subHeading}>{t("menu.clients.heading")}</Typography>
@@ -98,6 +99,13 @@ export default function SideMenu() {
                 <MenuItem sx={subMenuItem}>
                   <ListItemIcon><AddBoxIcon/></ListItemIcon>
                   <ListItemText>{t("menu.clients.addAgreement")}
+                  </ListItemText>
+                </MenuItem>
+              </NextLink>
+              <NextLink href="/">
+                <MenuItem sx={subMenuItem}>
+                  <ListItemIcon><AddBoxIcon/></ListItemIcon>
+                  <ListItemText>{t("menu.clients.addInvoice")}
                   </ListItemText>
                 </MenuItem>
               </NextLink>
@@ -124,7 +132,19 @@ export default function SideMenu() {
                   </ListItemText>
                 </MenuItem>
               </NextLink>
-              <MenuItem><Button onClick={() => logOut()}>{t("auth.logOut")}</Button></MenuItem>
+              <NextLink href="/">
+                <MenuItem sx={subMenuItem}>
+                  <ListItemIcon><AddBoxIcon/></ListItemIcon>
+                  <ListItemText>{t("menu.clients.addInvoice")}
+                  </ListItemText>
+                </MenuItem>
+              </NextLink>
+              <MenuItem sx={{ marginTop: "2rem" }}>
+                <Button onClick={() => logOut()}
+                        variant="outlined">
+                  {t("auth.logOut")}
+                </Button>
+              </MenuItem>
             </MenuList>
             : <MenuList>
               <MenuItem>
