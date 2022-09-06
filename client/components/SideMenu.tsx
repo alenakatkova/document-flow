@@ -2,16 +2,15 @@ import * as React from 'react';
 import MenuList from '@mui/material/MenuList';
 import MenuItem from '@mui/material/MenuItem';
 import NextLink from "next/link";
-import MUILink from '@mui/material/Link';
 import ListItemText from "@mui/material/ListItemText";
 import { ListItemIcon } from "@mui/material";
-import Box from "@mui/material/Box";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import { useAuth } from "../contexts/authProvider";
 import { Typography } from "@mui/material";
 import SummarizeOutlinedIcon from "@mui/icons-material/SummarizeOutlined";
 import AddBoxIcon from '@mui/icons-material/AddBox';
+import Button from "@mui/material/Button";
 
 const subHeading = {
   display: "block",
@@ -32,7 +31,7 @@ const subMenuItem = {
 export default function SideMenu() {
   const { locale, asPath } = useRouter();
   const { t } = useTranslation("common");
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, logOut } = useAuth();
   return (
       <>
         {/*<Box*/}
@@ -125,6 +124,7 @@ export default function SideMenu() {
                   </ListItemText>
                 </MenuItem>
               </NextLink>
+              <MenuItem><Button onClick={() => logOut()}>{t("auth.logOut")}</Button></MenuItem>
             </MenuList>
             : <MenuList>
               <MenuItem>

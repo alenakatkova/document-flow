@@ -19,6 +19,7 @@ interface AuthCtx {
   loading : boolean;
   error : unknown;
   signUp : (teamData : Team) => void;
+  logOut : () => void;
   logIn : (logInDetails : LogInDetails) => void;
   isAuthenticated : boolean;
   loadingInitial : boolean;
@@ -81,17 +82,17 @@ export const AuthProvider = ({ children } : ProviderProps) => {
         .catch((error) => setError(error))
         .finally(() => setLoading(false));
   };
-  //
-  // const logOut = () => {
-  //   setLoading(true);
-  //   logUserOut()
-  //       .then(() => {
-  //         setTeam(null);
-  //         setIsAuthenticated(false);
-  //       })
-  //       .catch((error) => setError(error))
-  //       .finally(() => setLoading(false));
-  // };
+
+  const logOut = () => {
+    setLoading(true);
+    logUserOut()
+        .then(() => {
+          setTeam(null);
+          setIsAuthenticated(false);
+        })
+        .catch((error) => setError(error))
+        .finally(() => setLoading(false));
+  };
 
   const value : AuthCtx = {
     team,
@@ -100,8 +101,8 @@ export const AuthProvider = ({ children } : ProviderProps) => {
     signUp,
     logIn,
     isAuthenticated,
-    loadingInitial
-    // logOut,
+    loadingInitial,
+    logOut,
   };
 
 
