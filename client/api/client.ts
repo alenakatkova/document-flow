@@ -1,4 +1,4 @@
-import { ClientContract } from "../interfaces/clientContract";
+import { ClientContract } from "../interfaces/contract";
 import { performPostRequest } from "./utils";
 
 export const createContract = async (clientContractData : ClientContract, clientId : number) => {

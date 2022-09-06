@@ -3,8 +3,9 @@ const { Contract } = require("../models")
 const { Agreement } = require("../models")
 const { Invoice } = require("../models")
 const { AgreementTransaction } = require("../models")
+const { Contact } = require("../models")
 const { ContractTransaction } = require("../models")
-// const { ClientContract } = require("../models");
+const { DocumentStatus } = require("../models")
 
 exports.findAllByTeamId = (req, res) => {
   console.log(req.body)
@@ -13,23 +14,51 @@ exports.findAllByTeamId = (req, res) => {
         where: {
           teamId: req.body.teamId
         },
-        include: [{
-          model: Contract,
-          include: [{
-            model: Agreement,
+        attributes: ["id", "name", "isPriority", "phone"],
+        include: [
+          {
+            model: Contact,
+            attributes: ["name", "phone", "email", "job"]
+          },
+          {
+            model: Contract,
+            attributes: ["id", "number"],
             include: [
               {
-                model: Invoice,
+                model: ContractTransaction,
+                order: [["createdAt", "DESC"]],
+                attributes: ["createdAt"],
+                include: [
+                  {
+                    model: DocumentStatus,
+                    attributes: ["stage"]
+                  }
+                ]
               },
               {
-                model: AgreementTransaction
+                model: Agreement,
+                attributes: ["id", "number"],
+                include: [
+                  {
+                    model: Invoice,
+                    attributes: ["id", "number"],
+                  },
+                  {
+                    model: AgreementTransaction,
+                    order: [["createdAt", "DESC"]],
+                    attributes: ["id", "createdAt"],
+                    include: [
+                      {
+                        model: DocumentStatus,
+                        attributes: ["id", "stage"]
+                      }
+                    ]
+                  }
+                ]
               }
             ]
-          },
-            {
-              model: ContractTransaction
-            }]
-        }]
+          }
+        ]
       })
       .then(data => {
         console.log(data)

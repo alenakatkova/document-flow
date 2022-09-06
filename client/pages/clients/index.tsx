@@ -1,24 +1,17 @@
-import React, { useEffect } from "react";
+import React from "react";
 import type { NextPage } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
-import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Unstable_Grid2";
-import Button from "@mui/material/Button";
-import TextField from '@mui/material/TextField';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
 import Layout from "../../components/layout";
-import { Team as Inputs, TeamFromDB } from "../../interfaces/team";
 import { CARD_SPACING, CARD } from "../../styles/constants";
 import useFetch from "../../api/useFetch";
-import { createTeam } from "../../api/team";
 import { useAuth } from "../../contexts/authProvider";
 import { useRouter } from "next/router";
 import RequireAuth from "../../components/RequireAuth";
+import { ClientFromDB } from "../../interfaces/client";
 
 const Clients : NextPage = () => {
   const { t } = useTranslation("clients");
@@ -27,10 +20,8 @@ const Clients : NextPage = () => {
 
   const {
     data: clients,
-    fetchData: refetchClients,
-    isLoading,
-    error
-  } = useFetch<TeamFromDB[]>("/counterparties", [], { teamId: team, type: "client" });
+    isLoading
+  } = useFetch<ClientFromDB[]>("/counterparties", [], { teamId: team, type: "client" });
 
   return (
       <RequireAuth>
@@ -44,8 +35,30 @@ const Clients : NextPage = () => {
                       <div>
                         {clients.map(client => (
                             <Box sx={{ border: "1px solid blue", marginBottom: "1rem" }}
-                                 key={client.name.toLowerCase()}>
-                              {JSON.stringify(client)}
+                                 key={client.name}>
+                              <div>{client.name}</div>
+                              <div>{client.phone}</div>
+                              <div>{JSON.stringify(client.Contacts)}</div>
+                              <div>
+                                {client.Contracts.map(contract => (
+                                    <Box sx={{ border: "1px solid red", marginBottom: "1rem" }}
+                                         key={contract.number}>
+                                      Договор № {contract.number}
+                                      Статус: {JSON.stringify(contract.ContractTransactions[0].DocumentStatus.stage)}
+                                      <div>
+                                        {contract.Agreements.map(agreement => (
+                                            <Box sx={{ border: "1px solid green", marginBottom: "1rem" }}
+                                                 key={agreement.number}>
+                                              Дополнительное соглашение № {agreement.number}
+                                              Счет № {agreement.Invoice && agreement.Invoice.number}
+                                              Статус {JSON.stringify(agreement.AgreementTransactions[0].DocumentStatus.stage)}
+                                            </Box>
+                                        ))}
+                                      </div>
+                                    </Box>
+                                ))}
+                              </div>
+
                             </Box>
                         ))}
                       </div>
