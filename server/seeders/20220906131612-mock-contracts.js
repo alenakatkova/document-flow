@@ -18,7 +18,7 @@ module.exports = {
         startDate: new Date(2022, 10, 30),
         endDate: new Date(2024, 11, 31),
         linkToFileOnDisk: "https://drive.google.com/drive/u/0/my-drive",
-        signDate: "",
+        signDate: undefined,
         counterpartyId: 5,
         createdAt: new Date(),
         updatedAt: new Date()

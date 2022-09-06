@@ -12,7 +12,7 @@ module.exports = {
       },
       {
         number: "2",
-        signDate: new Date(2022, 11, 11),
+        signDate: undefined,
         contractId: 1,
         createdAt: new Date(),
         updatedAt: new Date()
