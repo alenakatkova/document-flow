@@ -1,7 +1,7 @@
 const { Client } = require("../models");
+const { ClientContract } = require("../models");
 
 exports.findAllByTeamId = (req, res) => {
-  console.log(req.body)
   Client
       .findAll({
         where: {
@@ -17,6 +17,29 @@ exports.findAllByTeamId = (req, res) => {
           message: error.message || `Some error occurred while retrieving clients of team with id ${req.body.teamId}`
         });
       });
+};
+
+exports.createContract = (req, res) => {
+  console.log(req.body)
+  console.log(req)
+  // ClientContract
+  //     .create(req.body)
+  //     .then((team) => {
+  //       req.session.teamId = team.id;
+  //       console.log(req.session)
+  //       console.log(team.id)
+  //       console.log(req.session.id)
+  //
+  //       res.status(201).json({
+  //         status: "New team created",
+  //         team
+  //       })
+  //     })
+  //     .catch(error => {
+  //       res.status(400).send({
+  //         message: error.message || "Fail to create new team"
+  //       })
+  //     });
 };
 
 // exports.create = (req, res) => {

@@ -17,8 +17,8 @@ module.exports = {
       endDate: {
         type: Sequelize.DATE
       },
-      signedVersion: {
-        type: Sequelize.BLOB
+      file: {
+        type: Sequelize.STRING
       },
       clientId: {
         type: Sequelize.INTEGER,

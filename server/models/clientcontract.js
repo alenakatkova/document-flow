@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
     number: DataTypes.STRING,
     startDate: DataTypes.DATE,
     endDate: DataTypes.DATE,
-    signedVersion: DataTypes.BLOB
+    file: DataTypes.STRING
   }, {
     sequelize,
     modelName: "ClientContract",
