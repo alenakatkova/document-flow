@@ -29,12 +29,7 @@ const Dashboard : NextPage = () => {
 
   return (
       <RequireAuth>
-        <Layout title={t("title")}>
-          <Typography variant="body1" sx={{
-            fontWeight: 300,
-            textTransform: "uppercase",
-            letterSpacing: "0.1rem"
-          }}>{t("heading")}</Typography>
+        <Layout title={t("title")} heading={t("heading")}>
           <Box sx={{ flexGrow: 1, marginTop: "1rem" }}>
             <Grid container spacing={CARD_SPACING}>
               <Grid xs={7}>

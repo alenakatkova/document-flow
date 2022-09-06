@@ -1,24 +1,24 @@
 const { Team } = require("../models");
 
 exports.logIn = async (req, res) => {
-  const { teamManagerName, password } = req.body;
-
-  if (typeof teamManagerName === "string") {
+  const { username, password } = req.body;
+  console.log(req.body)
+  if (typeof username === "string") {
     try {
-      const team = await Team.findOne({ where: { name: teamManagerName } });
-      console.log("searching...");
-      console.log(team.password);
+      const team = await Team.findOne({
+        where: {
+          username: username
+        }
+      });
+
       if (!team) {
         res.status(400).json({
           status: "fail",
           message: "team not found",
         });
-
-        return;
       }
 
       const isPasswordCorrect = password === team.password;
-
       if (isPasswordCorrect) {
         req.session.teamId = team.id;
         console.log(req.session)
@@ -30,21 +30,11 @@ exports.logIn = async (req, res) => {
             team: team.id,
           },
         });
-      } else {
-        res.status(400).json({
-          status: "fail",
-          message: "incorrect manager name or password",
-        });
       }
     } catch (e) {
-      res.status(400).json({
-        status: "fail",
-      });
+      console.error(e)
     }
-  } else {
-    throw new Error("Team manager name is not provided");
   }
-
 };
 
 exports.logOut = async (req, res) => {

@@ -9,11 +9,17 @@ interface ProviderProps {
   children : ReactNode;
 }
 
+interface LogInDetails {
+  username : string;
+  password : string;
+}
+
 interface AuthCtx {
   team : number|null;
   loading : boolean;
   error : unknown;
   signUp : (teamData : Team) => void;
+  logIn : (logInDetails : LogInDetails) => void;
   isAuthenticated : boolean;
   loadingInitial : boolean;
 }
@@ -63,17 +69,18 @@ export const AuthProvider = ({ children } : ProviderProps) => {
         });
   };
 
-  // const logIn = (username, password) => {
-  //   setLoading(true);
-  //   logUserIn(username, password)
-  //       .then((res) => {
-  //         setTeam(res.data.data.user);
-  //         setIsAuthenticated(true);
-  //         navigate("/");
-  //       })
-  //       .catch((error) => setError(error))
-  //       .finally(() => setLoading(false));
-  // };
+  const logIn = (logInDetails : LogInDetails) => {
+    setLoading(true);
+    console.log(logInDetails)
+    logUserIn(logInDetails.username, logInDetails.password)
+        .then((res) => {
+          setTeam(res?.data.data.user);
+          setIsAuthenticated(true);
+          router.push("/");
+        })
+        .catch((error) => setError(error))
+        .finally(() => setLoading(false));
+  };
   //
   // const logOut = () => {
   //   setLoading(true);
@@ -91,7 +98,7 @@ export const AuthProvider = ({ children } : ProviderProps) => {
     loading,
     error,
     signUp,
-    // logIn,
+    logIn,
     isAuthenticated,
     loadingInitial
     // logOut,

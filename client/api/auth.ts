@@ -1,9 +1,9 @@
 import { instance } from "./utils";
 
-export const logUserIn = async (teamManagerName : string, password : string) => {
+export const logUserIn = async (username : string, password : string) => {
   try {
     return await instance.post("/auth/login", {
-      teamManagerName,
+      username,
       password,
     });
   } catch (e) {

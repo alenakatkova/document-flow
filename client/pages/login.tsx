@@ -36,7 +36,7 @@ const Login : NextPage = () => {
 
   const onSubmit : SubmitHandler<Inputs> = data => {
     console.log(data)
-    // auth.logIn(data);
+    auth.logIn(data);
   };
 
   return (
