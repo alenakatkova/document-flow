@@ -3,10 +3,14 @@ import type { NextPage } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
+import { Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Unstable_Grid2";
 import Button from "@mui/material/Button";
 import TextField from '@mui/material/TextField';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
 import Layout from "../components/layout";
 import { Team as Inputs, TeamFromDB } from "../interfaces/team";
 import { CARD_SPACING, CARD } from "../styles/constants";
@@ -14,19 +18,16 @@ import useFetch from "../api/useFetch";
 import { useAuth } from "../contexts/authProvider";
 import AuthInstruction from "../components/AuthInstruction";
 
-const Signup : NextPage = () => {
+const Login : NextPage = () => {
   const { handleSubmit, reset, formState: { isSubmitSuccessful }, control } = useForm<Inputs>({
     defaultValues: {
       username: "",
-      managerName: "",
       password: "",
-      assistantName: "",
-      assistantEmail: ""
     }
   });
 
-  const { t } = useTranslation("signup");
-  const { data: teams, fetchData: refetchTeams, isLoading, error } = useFetch<TeamFromDB[]>("/teams", []);
+  const { t } = useTranslation("login");
+
   const auth = useAuth();
 
   useEffect(() => {
@@ -34,7 +35,8 @@ const Signup : NextPage = () => {
   }, [reset, isSubmitSuccessful])
 
   const onSubmit : SubmitHandler<Inputs> = data => {
-    auth.signUp(data);
+    console.log(data)
+    // auth.logIn(data);
   };
 
   return (
@@ -70,20 +72,7 @@ const Signup : NextPage = () => {
                           />
                       )}
                   />
-                  <Controller
-                      control={control}
-                      name="managerName"
-                      rules={{ required: true }}
-                      render={({ field: { ref, ...field } }) => (
-                          <TextField
-                              {...field}
-                              inputRef={ref}
-                              label={t("form.managerName")}
-                              variant="outlined"
-                              required
-                          />
-                      )}
-                  />
+
                   <Controller
                       control={control}
                       name="password"
@@ -98,30 +87,7 @@ const Signup : NextPage = () => {
                           />
                       )}
                   />
-                  <Controller
-                      control={control}
-                      name="assistantName"
-                      render={({ field: { ref, ...field } }) => (
-                          <TextField
-                              {...field}
-                              inputRef={ref}
-                              label={t("form.assistantName")}
-                              variant="outlined"
-                          />
-                      )}
-                  />
-                  <Controller
-                      control={control}
-                      name="assistantEmail"
-                      render={({ field: { ref, ...field } }) => (
-                          <TextField
-                              {...field}
-                              inputRef={ref}
-                              label={t("form.assistantEmail")}
-                              variant="outlined"
-                          />
-                      )}
-                  />
+
                   <Button type="submit" variant="contained"
                           sx={{
                             width: "auto",
@@ -145,9 +111,9 @@ const Signup : NextPage = () => {
 export async function getStaticProps({ locale } : { locale : string }) {
   return {
     props: {
-      ...(await serverSideTranslations(locale, ["common", "signup"])),
+      ...(await serverSideTranslations(locale, ["common", "login"])),
     },
   };
 }
 
-export default Signup;
+export default Login;

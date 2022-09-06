@@ -7,14 +7,16 @@ import Grid from "@mui/material/Unstable_Grid2";
 import Box from "@mui/material/Box";
 import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "../styles/theme";
+import { Typography } from "@mui/material";
 
 
 interface LayoutProps {
   children : ReactNode;
   title : string;
+  heading : string;
 }
 
-const Layout = ({ children, title } : LayoutProps) => {
+const Layout = ({ children, title, heading } : LayoutProps) => {
   return (
       <ThemeProvider theme={theme}>
         <Head>
@@ -41,7 +43,13 @@ const Layout = ({ children, title } : LayoutProps) => {
                   padding: "1rem"
                 }}
             >
-              {children}
+              <Typography variant="body1" sx={{
+                fontWeight: 300,
+                fontSize: "1.5rem",
+                textTransform: "uppercase",
+                letterSpacing: "0.1rem"
+              }}>{heading}</Typography>
+              <Box>{children}</Box>
             </Box>
           </Grid>
         </Grid>

@@ -1,8 +1,8 @@
-const { Client } = require("../models");
-const { ClientContract } = require("../models");
+const { Counterparty } = require("../models");
+// const { ClientContract } = require("../models");
 
 exports.findAllByTeamId = (req, res) => {
-  Client
+  Counterparty
       .findAll({
         where: {
           teamId: req.body.teamId

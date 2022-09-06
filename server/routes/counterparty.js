@@ -1,4 +1,4 @@
-const clientController = require("../controllers/client.controller.js");
+const clientController = require("../controllers/counterparty.controller.js");
 const router = require("express").Router();
 
 router.post("/", clientController.findAllByTeamId);

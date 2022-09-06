@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Divider from '@mui/material/Divider';
 import MenuList from '@mui/material/MenuList';
 import MenuItem from '@mui/material/MenuItem';
 import NextLink from "next/link";
@@ -36,38 +35,38 @@ export default function SideMenu() {
   const { isAuthenticated } = useAuth();
   return (
       <>
-        <Box
-            sx={{
-              padding: "1rem",
-            }}
-        >
-          <NextLink href={asPath} locale="ru">
-            <MUILink
-                color="primary.dark"
-                underline={locale === "ru" ? "none" : "hover"}
-                sx={{
-                  cursor: "pointer",
-                  marginRight: "1rem",
-                  fontWeight: locale === "ru" ? 700 : 400,
-                }}
-            >
-              Русский
-            </MUILink>
-          </NextLink>
-          <NextLink href={asPath} locale="en">
-            <MUILink
-                color="primary.dark"
-                underline={locale === "en" ? "none" : "hover"}
-                sx={{
-                  cursor: "pointer",
-                  marginRight: "1rem",
-                  fontWeight: locale === "en" ? 700 : 400,
-                }}
-            >
-              English
-            </MUILink>
-          </NextLink>
-        </Box>
+        {/*<Box*/}
+        {/*    sx={{*/}
+        {/*      padding: "1rem",*/}
+        {/*    }}*/}
+        {/*>*/}
+        {/*  <NextLink href={asPath} locale="ru">*/}
+        {/*    <MUILink*/}
+        {/*        color="primary.dark"*/}
+        {/*        underline={locale === "ru" ? "none" : "hover"}*/}
+        {/*        sx={{*/}
+        {/*          cursor: "pointer",*/}
+        {/*          marginRight: "1rem",*/}
+        {/*          fontWeight: locale === "ru" ? 700 : 400,*/}
+        {/*        }}*/}
+        {/*    >*/}
+        {/*      Русский*/}
+        {/*    </MUILink>*/}
+        {/*  </NextLink>*/}
+        {/*  <NextLink href={asPath} locale="en">*/}
+        {/*    <MUILink*/}
+        {/*        color="primary.dark"*/}
+        {/*        underline={locale === "en" ? "none" : "hover"}*/}
+        {/*        sx={{*/}
+        {/*          cursor: "pointer",*/}
+        {/*          marginRight: "1rem",*/}
+        {/*          fontWeight: locale === "en" ? 700 : 400,*/}
+        {/*        }}*/}
+        {/*    >*/}
+        {/*      English*/}
+        {/*    </MUILink>*/}
+        {/*  </NextLink>*/}
+        {/*</Box>*/}
 
         {isAuthenticated
             ? <MenuList>
@@ -130,6 +129,9 @@ export default function SideMenu() {
             : <MenuList>
               <MenuItem>
                 <NextLink href="/"><ListItemText>{t("menu.home")}</ListItemText></NextLink>
+              </MenuItem>
+              <MenuItem>
+                <NextLink href="/login"><ListItemText>{t("menu.login")}</ListItemText></NextLink>
               </MenuItem>
               <MenuItem>
                 <NextLink href="/signup"><ListItemText>{t("menu.signup")}</ListItemText></NextLink>
