@@ -9,28 +9,16 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      fullName: {
+      name: {
         type: Sequelize.STRING
       },
-      shortName: {
+      isPriority: {
+        type: Sequelize.BOOLEAN
+      },
+      bankDetails: {
         type: Sequelize.STRING
       },
-      businessAddress: {
-        type: Sequelize.STRING
-      },
-      postalAddress: {
-        type: Sequelize.STRING
-      },
-      inn: {
-        type: Sequelize.STRING
-      },
-      kpp: {
-        type: Sequelize.STRING
-      },
-      account: {
-        type: Sequelize.STRING
-      },
-      corrAccount: {
+      officeAddress: {
         type: Sequelize.STRING
       },
       phone: {
