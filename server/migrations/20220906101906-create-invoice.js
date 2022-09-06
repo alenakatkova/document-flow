@@ -17,6 +17,9 @@ module.exports = {
       status: {
         type: Sequelize.STRING
       },
+      linkToFile: {
+        type: Sequelize.STRING
+      },
       agreementId: {
         type: Sequelize.DataTypes.INTEGER,
         references: {

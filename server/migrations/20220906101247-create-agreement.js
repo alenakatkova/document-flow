@@ -14,6 +14,9 @@ module.exports = {
       signDate: {
         type: Sequelize.DATE
       },
+      linkToFile: {
+        type: Sequelize.STRING
+      },
       contractId: {
         type: Sequelize.DataTypes.INTEGER,
         references: {

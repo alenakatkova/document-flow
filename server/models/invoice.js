@@ -20,7 +20,8 @@ module.exports = (sequelize, DataTypes) => {
   Invoice.init({
     number: DataTypes.STRING,
     due: DataTypes.DATE,
-    status: DataTypes.STRING
+    status: DataTypes.STRING,
+    linkToFile: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'Invoice',

@@ -25,7 +25,8 @@ module.exports = (sequelize, DataTypes) => {
 
   Agreement.init({
     number: DataTypes.STRING,
-    signDate: DataTypes.DATE
+    signDate: DataTypes.DATE,
+    linkToFile: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'Agreement',
