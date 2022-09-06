@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
     number: DataTypes.STRING,
     startDate: DataTypes.DATE,
     endDate: DataTypes.DATE,
-    file: DataTypes.STRING
+    linkToFile: DataTypes.STRING
   }, {
     sequelize,
     modelName: "ClientContract",

@@ -1,8 +1,8 @@
 export interface ClientContract {
   number : string;
-  startDate : Date;
-  endDate : Date;
-  file? : string;
+  startDate? : Date;
+  endDate? : Date;
+  linkToFile? : string;
 }
 
 export interface ClientContractFromDB extends ClientContract {

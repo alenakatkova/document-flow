@@ -17,7 +17,7 @@ module.exports = {
       endDate: {
         type: Sequelize.DATE
       },
-      file: {
+      linkToFile: {
         type: Sequelize.STRING
       },
       clientId: {

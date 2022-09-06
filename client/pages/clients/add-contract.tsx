@@ -24,28 +24,30 @@ import { useAuth } from "../../contexts/authProvider";
 import RequireAuth from "../../components/RequireAuth";
 import { createContract } from "../../api/client";
 
+type NumberFieldValue = number|""
+
 interface Inputs {
   number : string,
-  startDateDay : number,
-  startDateMonth : number,
-  startDateYear : number,
-  endDateDay : number,
-  endDateMonth : number,
-  endDateYear : number,
-  file? : string
+  startDateDay : NumberFieldValue,
+  startDateMonth : NumberFieldValue,
+  startDateYear : NumberFieldValue,
+  endDateDay : NumberFieldValue,
+  endDateMonth : NumberFieldValue,
+  endDateYear : NumberFieldValue,
+  linkToFile? : string
 }
 
 const AddClientContract : NextPage = () => {
   const { handleSubmit, reset, formState: { isSubmitSuccessful }, control, watch, register } = useForm<Inputs>({
     defaultValues: {
       number: "",
-      startDateDay: 0,
-      startDateMonth: 0,
-      startDateYear: 0,
-      endDateDay: 0,
-      endDateMonth: 0,
-      endDateYear: 0,
-      file: undefined
+      startDateDay: "",
+      startDateMonth: "",
+      startDateYear: "",
+      endDateDay: "",
+      endDateMonth: "",
+      endDateYear: "",
+      linkToFile: undefined
     }
   });
   const { t } = useTranslation("clients");
@@ -64,11 +66,11 @@ const AddClientContract : NextPage = () => {
   // }, [reset, isSubmitSuccessful])
 
   const onSubmit : SubmitHandler<Inputs> = data => {
-    const startDate : Date = new Date(data.startDateYear, data.startDateMonth - 1, data.startDateDay);
-    const endDate = new Date(data.endDateYear, data.endDateMonth - 1, data.endDateDay);
+    const startDate = new Date(Number(data.startDateYear), Number(data.startDateMonth) - 1, Number(data.startDateDay));
+    const endDate = new Date(Number(data.endDateYear), Number(data.endDateMonth) - 1, Number(data.endDateDay));
     const formData : ClientContract = {
       number: data.number,
-      file: data.file,
+      linkToFile: data.linkToFile,
       startDate,
       endDate
     }
@@ -231,34 +233,18 @@ const AddClientContract : NextPage = () => {
                         </Box>
                       </Box>
                     </Box>
-
-                    {/*<Controller*/}
-                    {/*    control={control}*/}
-                    {/*    name="signedVersion"*/}
-                    {/*    render={({ field: { ref, ...field } }) => (*/}
-                    {/*        // <TextField*/}
-                    {/*        //     {...field}*/}
-                    {/*        //     inputRef={ref}*/}
-                    {/*        //     label={t("addContract.form.year")}*/}
-                    {/*        //     variant="outlined"*/}
-                    {/*        // />*/}
-                    {/*        // <Button*/}
-                    {/*        //     variant="contained"*/}
-                    {/*        //     component="label"*/}
-                    {/*        // >*/}
-                    {/*        //   {t("addContract.form.upload")}*/}
-                    <input
-                        // name="signedVersion"
-                        {...register('file')}
-                        // {...field}
-                        // inputRef={ref}
-                        type="file"
-                        // hidden
+                    <Controller
+                        control={control}
+                        name="linkToFile"
+                        render={({ field: { ref, ...field } }) => (
+                            <TextField
+                                {...field}
+                                inputRef={ref}
+                                label={t("addContract.form.linkToFile")}
+                                variant="outlined"
+                            />
+                        )}
                     />
-                    {/*// </Button>*/}
-                    {/*)}*/}
-                    {/*/>*/}
-
 
                     <Button type="submit" variant="contained"
                             sx={{
