@@ -1,7 +1,7 @@
-"use strict";
+'use strict';
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("ClientContract", {
+    await queryInterface.createTable('ContractorContracts', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -20,11 +20,11 @@ module.exports = {
       linkToFile: {
         type: Sequelize.STRING
       },
-      clientId: {
+      contractorId: {
         type: Sequelize.INTEGER,
         references: {
           model: {
-            tableName: "Client"
+            tableName: "Contractor"
           },
           key: "id"
         }
@@ -40,6 +40,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("ClientContract");
+    await queryInterface.dropTable('ContractorContracts');
   }
 };

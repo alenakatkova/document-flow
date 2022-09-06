@@ -2,7 +2,7 @@
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    return queryInterface.bulkInsert("client", [
+    return queryInterface.bulkInsert("Client", [
       {
         name: "«Банк «Оренбург»",
         isPriority: false,
@@ -27,6 +27,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    return queryInterface.bulkDelete("client", null, {});
+    return queryInterface.bulkDelete("Client", null, {});
   }
 };
