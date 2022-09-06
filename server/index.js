@@ -18,6 +18,7 @@ const userRouter = require("./routes/user");
 const teamRouter = require("./routes/team");
 const authRouter = require("./routes/auth");
 const clientRouter = require("./routes/client");
+const counterpartyTypeRouter = require("./routes/counterpartyType");
 
 const port = process.env.PORT || 8080;
 const app = express();
@@ -51,6 +52,8 @@ app.use("/api/users", userRouter);
 app.use("/api/teams", teamRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/clients", clientRouter);
+app.use("/api/counterparty-types", counterpartyTypeRouter);
+
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
