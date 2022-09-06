@@ -21,6 +21,9 @@ module.exports = (sequelize, DataTypes) => {
       this.hasMany(models.ClientContract, {
         foreignKey: "clientId"
       });
+      this.hasMany(models.ClientEmployee, {
+        foreignKey: 'clientId'
+      });
     }
   }
 
