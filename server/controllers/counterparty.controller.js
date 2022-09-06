@@ -6,15 +6,78 @@ const { AgreementTransaction } = require("../models")
 const { Contact } = require("../models")
 const { ContractTransaction } = require("../models")
 const { DocumentStatus } = require("../models")
+const { InternalDepartment } = require("../models")
+const { InternalContact } = require("../models")
 
 exports.findAllByTeamId = (req, res) => {
-  console.log(req.body)
   Counterparty
       .findAll({
         where: {
           teamId: req.body.teamId
         },
         attributes: ["id", "name", "isPriority", "phone"],
+        include: [
+          {
+            model: Contact,
+            attributes: ["name", "phone", "email", "job"]
+          },
+          {
+            model: Contract,
+            attributes: ["id", "number"],
+            include: [
+              {
+                model: ContractTransaction,
+                order: [["createdAt", "DESC"]],
+                attributes: ["createdAt"],
+                include: [
+                  {
+                    model: DocumentStatus,
+                    attributes: ["stage"]
+                  }
+                ]
+              },
+              {
+                model: Agreement,
+                attributes: ["id", "number"],
+                include: [
+                  {
+                    model: Invoice,
+                    attributes: ["id", "number"],
+                  },
+                  {
+                    model: AgreementTransaction,
+                    order: [["createdAt", "DESC"]],
+                    attributes: ["id", "createdAt"],
+                    include: [
+                      {
+                        model: DocumentStatus,
+                        attributes: ["id", "stage"]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      })
+      .then(data => {
+        res.send(data)
+      })
+      .catch(error => {
+        res.status(500).send({
+          message: error.message || `Some error occurred while retrieving clients of team with id ${req.body.teamId}`
+        });
+      });
+};
+
+exports.retrieveAllDataForCounterparty = (req, res) => {
+  console.log(req);
+  Counterparty
+      .findOne({
+        where: {
+          id: req.params.id
+        },
         include: [
           {
             model: Contact,

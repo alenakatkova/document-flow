@@ -8,7 +8,6 @@ const useFetch = <T>(url : string, initialState : T, options? : object) => {
 
   const fetchData = useCallback(async () => {
     if (!!options) {
-      console.log(options);
       await instance
           .post(url, options)
           .then(res => {
