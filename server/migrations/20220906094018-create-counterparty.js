@@ -1,32 +1,32 @@
 'use strict';
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('ContractorContracts', {
+    await queryInterface.createTable('Counterparties', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      number: {
+      name: {
         type: Sequelize.STRING
       },
-      startDate: {
-        type: Sequelize.DATE
+      isPriority: {
+        type: Sequelize.BOOLEAN
       },
-      endDate: {
-        type: Sequelize.DATE
-      },
-      linkToFile: {
+      type: {
         type: Sequelize.STRING
       },
-      contractorId: {
-        type: Sequelize.INTEGER,
+      phone: {
+        type: Sequelize.STRING
+      },
+      teamId: {
+        type: Sequelize.DataTypes.INTEGER,
         references: {
           model: {
-            tableName: "Contractor"
+            tableName: 'Teams',
           },
-          key: "id"
+          key: 'id'
         }
       },
       createdAt: {
@@ -40,6 +40,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('ContractorContracts');
+    await queryInterface.dropTable('Counterparties');
   }
 };

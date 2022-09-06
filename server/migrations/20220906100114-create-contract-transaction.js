@@ -1,36 +1,32 @@
-"use strict";
-
+'use strict';
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("Client", {
+    await queryInterface.createTable('ContractTransactions', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      name: {
+      comment: {
         type: Sequelize.STRING
       },
-      isPriority: {
-        type: Sequelize.BOOLEAN
-      },
-      bankDetails: {
-        type: Sequelize.STRING
-      },
-      officeAddress: {
-        type: Sequelize.STRING
-      },
-      phone: {
-        type: Sequelize.STRING
-      },
-      teamId: {
-        type: Sequelize.INTEGER,
+      documentStatusId: {
+        type: Sequelize.DataTypes.INTEGER,
         references: {
           model: {
-            tableName: "Team"
+            tableName: 'DocumentStatuses',
           },
-          key: "id"
+          key: 'id'
+        }
+      },
+      contractId: {
+        type: Sequelize.DataTypes.INTEGER,
+        references: {
+          model: {
+            tableName: 'Contracts',
+          },
+          key: 'id'
         }
       },
       createdAt: {
@@ -44,6 +40,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("Client");
+    await queryInterface.dropTable('ContractTransactions');
   }
 };

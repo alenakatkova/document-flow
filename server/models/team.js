@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      this.hasMany(models.Client, {
+      this.hasMany(models.Counterparty, {
         foreignKey: 'teamId'
       });
     }

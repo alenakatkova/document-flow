@@ -1,28 +1,36 @@
-"use strict";
-
+'use strict';
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("Teams", {
+    await queryInterface.createTable('Contracts', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      username: {
+      number: {
         type: Sequelize.STRING
       },
-      managerName: {
+      startDate: {
+        type: Sequelize.DATE
+      },
+      endDate: {
+        type: Sequelize.DATE
+      },
+      linkToFileOnDisk: {
         type: Sequelize.STRING
       },
-      password: {
-        type: Sequelize.STRING
+      signDate: {
+        type: Sequelize.DATE
       },
-      assistantName: {
-        type: Sequelize.STRING
-      },
-      assistantEmail: {
-        type: Sequelize.STRING
+      counterpartyId: {
+        type: Sequelize.DataTypes.INTEGER,
+        references: {
+          model: {
+            tableName: 'Counterparties',
+          },
+          key: 'id'
+        }
       },
       createdAt: {
         allowNull: false,
@@ -35,6 +43,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("Teams");
+    await queryInterface.dropTable('Contracts');
   }
 };
