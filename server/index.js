@@ -18,7 +18,8 @@ const teamRouter = require("./routes/team");
 const authRouter = require("./routes/auth");
 const counterpartyRouter = require("./routes/counterparty");
 const contactRouter = require("./routes/contact");
-const agreementController = require("./routes/agreement");
+const agreementRouter = require("./routes/agreement");
+const contractRouter = require("./routes/contract");
 
 const port = process.env.PORT || 8080;
 const app = express();
@@ -52,7 +53,8 @@ app.use("/api/teams", teamRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/counterparties", counterpartyRouter);
 app.use("/api/contacts", contactRouter);
-app.use("/api/agreements", agreementController);
+app.use("/api/agreements", agreementRouter);
+app.use("/api/contracts", contractRouter);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);

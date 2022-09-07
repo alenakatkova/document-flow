@@ -83,7 +83,7 @@ const DocumentsFullTable = ({ isLoading, contracts } : DocumentsFullTableProps) 
                               <TableCell align="center">
                                 {/*<Button>Редактировать</Button>*/}
                                 {/*<Button>Удалить</Button>*/}
-                                <Link href={`/agreements/${contract.id}`}>
+                                <Link href={`/contracts/${contract.id}`}>
                                   <Button>Открыть</Button>
                                 </Link>
                               </TableCell>
