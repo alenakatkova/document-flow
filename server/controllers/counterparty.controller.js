@@ -102,7 +102,7 @@ exports.retrieveAllDataForCounterparty = (req, res) => {
                 include: [
                   {
                     model: Invoice,
-                    attributes: ["id", "number"],
+                    attributes: ["id", "number", "linkToFile", "status"],
                   },
                   {
                     model: AgreementTransaction,

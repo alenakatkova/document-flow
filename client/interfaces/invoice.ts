@@ -2,7 +2,7 @@ export interface Invoice {
   number : string;
   due? : Date;
   status? : "string";
-  linkToFileOnDisk? : string;
+  linkToFile? : string;
 }
 
 export interface InvoiceFromDB extends Invoice {
