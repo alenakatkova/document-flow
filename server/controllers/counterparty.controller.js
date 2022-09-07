@@ -8,13 +8,6 @@ const { ContractTransaction } = require("../models");
 const { DocumentStatus } = require("../models");
 const { InternalDepartment } = require("../models");
 const { InternalContact } = require("../models");
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
 
 exports.findAllByTeamId = (req, res) => {
   Counterparty

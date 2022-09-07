@@ -10,6 +10,15 @@ import Grid from "@mui/material/Unstable_Grid2";
 import { CARD_SPACING, CARD } from "../../styles/constants";
 import { CounterpartyFromDB } from "../../interfaces/counterparty";
 import { Typography } from "@mui/material";
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import Button from "@mui/material/Button";
+import format from "date-fns/format";
 
 const Client : NextPage = () => {
   const router = useRouter();
@@ -30,9 +39,48 @@ const Client : NextPage = () => {
               <Grid xs={12}>
                 <Box sx={CARD}>
                   <Typography variant="h6">Контакты</Typography>
-                  {!isLoading && client?.Contacts?.map(contact => (
-                      <Box key={contact.id}>{JSON.stringify(contact)}</Box>
-                  ))}
+                  {isLoading
+                      ? ""
+                      : (
+                          <TableContainer>
+                            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                              <TableHead>
+                                <TableRow>
+                                  <TableCell>ФИО</TableCell>
+                                  <TableCell align="center">Должность</TableCell>
+                                  <TableCell align="center">Телефон</TableCell>
+                                  <TableCell align="center">Почта</TableCell>
+                                  <TableCell align="center">День рождения</TableCell>
+                                  <TableCell align="center">Действия</TableCell>
+                                </TableRow>
+                              </TableHead>
+                              <TableBody>
+                                {client?.Contacts?.map((contact) => (
+                                    <TableRow
+                                        key={contact.name}
+                                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                    >
+                                      <TableCell component="th" scope="row">
+                                        {contact.name}
+                                      </TableCell>
+                                      <TableCell align="center">{contact.job}</TableCell>
+                                      <TableCell align="center">{contact.phone}</TableCell>
+                                      <TableCell align="center">{contact.email}</TableCell>
+                                      <TableCell align="center">
+                                        {contact.birthday && format(new Date(contact.birthday), 'MM/dd/yyyy')}
+                                      </TableCell>
+                                      <TableCell align="center">
+                                        <Button>Редактировать</Button>
+                                        <Button>Удалить</Button>
+                                      </TableCell>
+                                    </TableRow>
+                                ))}
+                              </TableBody>
+                            </Table>
+                          </TableContainer>
+                      )
+                  }
+                  <Button variant="contained">Добавить новый контакт</Button>
                 </Box>
               </Grid>
               <Grid xs={12}>
