@@ -9,7 +9,7 @@ export interface Contact {
 export interface ContactFromDB extends Contact {
   id : number;
   counterpartyId? : number;
-  createdAt? : string;
-  updatedAt? : string;
+  createdAt? : Date;
+  updatedAt? : Date;
 }
 

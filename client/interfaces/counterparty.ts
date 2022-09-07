@@ -15,6 +15,6 @@ export interface CounterpartyFromDB extends Counterparty {
   Contacts? : ContactFromDB[];
   type? : string;
   teamId? : number;
-  createdAt? : string;
-  updatedAt? : string;
+  createdAt? : Date;
+  updatedAt? : Date;
 }

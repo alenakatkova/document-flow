@@ -8,7 +8,7 @@ export interface Invoice {
 export interface InvoiceFromDB extends Invoice {
   id : number;
   agreementId? : number;
-  createdAt? : string;
-  updatedAt? : string;
+  createdAt? : Date;
+  updatedAt? : Date;
 }
 

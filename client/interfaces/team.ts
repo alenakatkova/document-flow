@@ -8,6 +8,6 @@ export interface Team {
 
 export interface TeamFromDB extends Team {
   id : number;
-  createdAt? : string;
-  updatedAt? : string;
+  createdAt? : Date;
+  updatedAt? : Date;
 }

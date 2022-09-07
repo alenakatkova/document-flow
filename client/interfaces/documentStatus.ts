@@ -4,6 +4,6 @@ export interface DocumentStatusFromDB {
   internalDepartmentId? : number;
   isAssistantResponsibility? : boolean;
   teamId? : number;
-  createdAt? : string;
-  updatedAt? : string;
+  createdAt? : Date;
+  updatedAt? : Date;
 }

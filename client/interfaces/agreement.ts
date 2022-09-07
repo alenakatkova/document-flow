@@ -12,7 +12,7 @@ export interface AgreementFromDB extends Agreement {
   Invoice? : InvoiceFromDB;
   AgreementTransactions? : DocumentTransactionFromDB[];
   contractId? : number;
-  createdAt? : string;
-  updatedAt? : string;
+  createdAt? : Date;
+  updatedAt? : Date;
 }
 

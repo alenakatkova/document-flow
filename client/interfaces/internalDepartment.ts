@@ -7,7 +7,7 @@ export interface InternalDepartment {
 export interface InternalDepartmentFromDB extends InternalDepartment {
   id : number;
   InternalContacts? : InternalContactFromDB[];
-  createdAt? : string;
-  updatedAt? : string;
+  createdAt? : Date;
+  updatedAt? : Date;
 }
 
