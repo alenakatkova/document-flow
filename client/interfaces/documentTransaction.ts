@@ -10,7 +10,7 @@ export interface DocumentTransactionFromDB extends DocumentTransaction {
   id : number;
   DocumentStatus? : DocumentStatusFromDB;
   clientId? : number;
-  createdAt? : string;
-  updatedAt? : string;
+  createdAt? : Date;
+  updatedAt? : Date;
 }
 

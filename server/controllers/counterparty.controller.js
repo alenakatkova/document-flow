@@ -85,12 +85,10 @@ exports.retrieveAllDataForCounterparty = (req, res) => {
           },
           {
             model: Contract,
-            attributes: ["id", "number"],
+            attributes: ["id", "number", "startDate", "endDate", "linkToFileOnDisk", "signDate"],
             include: [
               {
                 model: ContractTransaction,
-                order: [["createdAt", "DESC"]],
-                attributes: ["createdAt"],
                 include: [
                   {
                     model: DocumentStatus,
@@ -108,8 +106,6 @@ exports.retrieveAllDataForCounterparty = (req, res) => {
                   },
                   {
                     model: AgreementTransaction,
-                    order: [["createdAt", "DESC"]],
-                    attributes: ["id", "createdAt"],
                     include: [
                       {
                         model: DocumentStatus,

@@ -14,7 +14,7 @@ export interface ContractFromDB extends Contract {
   ContractTransactions? : DocumentTransactionFromDB[];
   Agreements? : AgreementFromDB[];
   clientId? : number;
-  createdAt? : string;
-  updatedAt? : string;
+  createdAt? : Date;
+  updatedAt? : Date;
 }
 

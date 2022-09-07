@@ -19,6 +19,45 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import format from "date-fns/format";
+import HtmlLink from '@mui/material/Link';
+import Collapse from '@mui/material/Collapse';
+import IconButton from '@mui/material/IconButton';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import isBefore from 'date-fns/isBefore';
+import { DocumentTransactionFromDB } from "../../interfaces/documentTransaction";
+
+function sortById(a : DocumentTransactionFromDB, b : DocumentTransactionFromDB) {
+  if (a.id > b.id) {
+    return -1;
+  }
+  if (a.id < b.id) {
+    return 1;
+  }
+  return 0;
+}
+
+const findLastStatusChange = (transactions : DocumentTransactionFromDB[]) => {
+  const sorted = transactions.sort(sortById);
+  return sorted[0];
+}
+
+const formatLastTransactionDate = (transactions : DocumentTransactionFromDB[]) => {
+  const transaction = findLastStatusChange(transactions);
+
+  return !!transaction?.createdAt
+      ? (
+          <>
+            {
+              format(
+                  new Date(transaction?.createdAt),
+                  'dd/MM/yyyy'
+              )
+            }
+          </>
+      )
+      : ""
+};
 
 const Client : NextPage = () => {
   const router = useRouter();
@@ -38,8 +77,8 @@ const Client : NextPage = () => {
             <Grid container spacing={CARD_SPACING}>
               <Grid xs={12}>
                 <Box sx={CARD}>
-                  <Typography variant="h6">Контакты</Typography>
-                  {isLoading
+                  <Typography variant="h6" sx={{ marginBottom: "1rem" }}>Контакты</Typography>
+                  {isLoading && !client?.Contacts
                       ? ""
                       : (
                           <TableContainer>
@@ -67,7 +106,7 @@ const Client : NextPage = () => {
                                       <TableCell align="center">{contact.phone}</TableCell>
                                       <TableCell align="center">{contact.email}</TableCell>
                                       <TableCell align="center">
-                                        {contact.birthday && format(new Date(contact.birthday), 'MM/dd/yyyy')}
+                                        {contact.birthday && format(new Date(contact.birthday), 'dd/MM/yyyy')}
                                       </TableCell>
                                       <TableCell align="center">
                                         <Button>Редактировать</Button>
@@ -80,13 +119,156 @@ const Client : NextPage = () => {
                           </TableContainer>
                       )
                   }
-                  <Button variant="contained">Добавить новый контакт</Button>
+                  <Button variant="contained" sx={{ marginTop: "1rem" }}>Добавить контактное лицо</Button>
                 </Box>
               </Grid>
               <Grid xs={12}>
                 <Box sx={CARD}>
-                  <Typography variant="h6">Документы</Typography>
-                  {!isLoading && JSON.stringify(client)}
+                  <Typography variant="h6" sx={{ marginBottom: "1rem" }}>Документы</Typography>
+                  {isLoading && !client?.Contacts
+                      ? ""
+                      : (
+                          <TableContainer>
+                            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                              <TableHead>
+                                <TableRow>
+                                  <TableCell>Номер</TableCell>
+                                  <TableCell align="center">Дата подписания</TableCell>
+                                  <TableCell align="center">Статус</TableCell>
+                                  <TableCell align="center">Дата присвоения статуса</TableCell>
+                                  <TableCell align="center">Срок действия</TableCell>
+                                  <TableCell align="center">Ссылка на последнюю версию</TableCell>
+                                  <TableCell align="center">Действия</TableCell>
+                                </TableRow>
+                              </TableHead>
+                              <TableBody>
+                                {client?.Contracts?.map((contract) => (
+                                    <>
+                                      <TableRow
+                                          key={contract?.number}
+                                          sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                      >
+                                        <TableCell component="th" scope="row">
+                                          {contract?.number}
+                                        </TableCell>
+                                        <TableCell align="center">
+                                          {contract?.signDate && format(new Date(contract?.signDate), 'dd/MM/yyyy')}
+                                        </TableCell>
+                                        <TableCell align="center">
+                                          {contract?.ContractTransactions
+                                              && contract?.ContractTransactions[0].DocumentStatus?.stage}
+                                        </TableCell>
+                                        <TableCell align="center">
+                                          {
+                                            contract?.ContractTransactions && contract?.ContractTransactions.length > 0
+                                                ? formatLastTransactionDate(contract?.ContractTransactions)
+
+                                                // format(
+                                                //     new Date(contract?.ContractTransactions[0].createdAt),
+                                                //     'dd/MM/yyyy'
+                                                // )
+                                                : ""
+                                          }
+                                        </TableCell>
+                                        <TableCell align="center">
+                                          {contract?.startDate && format(new Date(contract?.startDate), 'dd/MM/yyyy')}
+                                          —
+                                          {contract?.endDate && format(new Date(contract?.endDate), 'dd/MM/yyyy')}
+                                          ,
+                                          {
+                                              contract?.endDate
+                                              && isBefore(new Date(), new Date(contract?.endDate))
+                                              && <Typography color="warning.main"> действует</Typography>
+                                          }
+                                        </TableCell>
+                                        <TableCell align="center">
+                                          {<HtmlLink href={contract?.linkToFileOnDisk}>Ссылка</HtmlLink>}
+                                        </TableCell>
+                                        <TableCell align="center">
+                                          <Button>Редактировать</Button>
+                                          <Button>Удалить</Button>
+                                        </TableCell>
+                                      </TableRow>
+                                      {isLoading && !contract?.Agreements
+                                          ? ""
+                                          : (
+                                              <TableRow>
+                                                <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+                                                  <Box sx={{ margin: 1 }}>
+                                                    <Typography gutterBottom component="div"
+                                                                sx={{ margin: "1.5rem 0" }}>
+                                                      Дополнительные соглашения к договору
+                                                    </Typography>
+                                                    <TableContainer
+                                                        sx={{ border: "1px solid", borderColor: "lightgray" }}>
+                                                      <Table size="small" aria-label="a dense table">
+                                                        <TableHead>
+                                                          <TableRow>
+                                                            <TableCell>Номер</TableCell>
+                                                            <TableCell align="center">Дата подписания</TableCell>
+                                                            <TableCell align="center">Статус</TableCell>
+                                                            <TableCell align="center">Дата присвоения
+                                                              статуса</TableCell>
+                                                            <TableCell align="center">Ссылка на последнюю
+                                                              версию</TableCell>
+                                                            <TableCell align="center">Действия</TableCell>
+                                                          </TableRow>
+                                                        </TableHead>
+                                                        <TableBody>
+                                                          {contract?.Agreements?.map((agreement) => (
+                                                                  <TableRow
+                                                                      key={agreement?.number}
+                                                                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                                                  >
+                                                                    <TableCell component="th" scope="row">
+                                                                      {agreement?.number}
+                                                                    </TableCell>
+                                                                    <TableCell align="center">
+                                                                      {agreement?.signDate && format(new Date(agreement?.signDate), 'dd/MM/yyyy')}
+                                                                    </TableCell>
+                                                                    <TableCell align="center">
+                                                                      {agreement?.AgreementTransactions
+                                                                          && agreement?.AgreementTransactions[0].DocumentStatus?.stage}
+                                                                    </TableCell>
+                                                                    <TableCell align="center">
+                                                                      {agreement?.AgreementTransactions &&
+                                                                      agreement?.AgreementTransactions?.length > 0
+                                                                          ? formatLastTransactionDate(agreement?.AgreementTransactions)
+                                                                          // format(
+                                                                          //     new Date(findLastStatusChange(agreement?.AgreementTransactions).createdAt),
+                                                                          //     'dd/MM/yyyy'
+                                                                          // )
+                                                                          : ""
+                                                                      }
+                                                                    </TableCell>
+                                                                    <TableCell align="center">
+                                                                      {<HtmlLink
+                                                                          href={contract?.linkToFileOnDisk}>Ссылка</HtmlLink>}
+                                                                    </TableCell>
+                                                                    <TableCell align="center">
+                                                                      <Button>Редактировать</Button>
+                                                                      <Button>Удалить</Button>
+                                                                    </TableCell>
+                                                                  </TableRow>
+                                                              )
+                                                          )
+                                                          }
+                                                        </TableBody>
+                                                      </Table>
+                                                    </TableContainer>
+                                                  </Box>
+                                                </TableCell>
+                                              </TableRow>
+                                          )
+                                      }
+                                    </>
+                                ))}
+                              </TableBody>
+                            </Table>
+                          </TableContainer>
+                      )
+                  }
+                  {!isLoading && JSON.stringify(client?.Contracts)}
                 </Box>
               </Grid>
             </Grid>
