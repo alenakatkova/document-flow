@@ -72,7 +72,6 @@ exports.findAllByTeamId = (req, res) => {
 };
 
 exports.retrieveAllDataForCounterparty = (req, res) => {
-  console.log(req);
   Counterparty
       .findOne({
         where: {
@@ -120,7 +119,6 @@ exports.retrieveAllDataForCounterparty = (req, res) => {
         ]
       })
       .then(data => {
-        console.log(data)
         res.send(data)
       })
       .catch(error => {
@@ -130,9 +128,26 @@ exports.retrieveAllDataForCounterparty = (req, res) => {
       });
 };
 
+exports.createContact = (req, res) => {
+  Contact
+      .create(req.body)
+      .then((contact) => {
+        res.status(201).json({
+          status: "New counterparty contact created",
+          contact
+        })
+      })
+      .catch(error => {
+        res.status(400).send({
+          message: error.message || "Fail to create new team"
+        })
+      });
+};
+
 exports.createContract = (req, res) => {
   console.log(req.body)
   console.log(req)
+
   // ClientContract
   //     .create(req.body)
   //     .then((team) => {
