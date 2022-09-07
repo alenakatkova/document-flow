@@ -80,7 +80,7 @@ exports.retrieveAllDataForCounterparty = (req, res) => {
         include: [
           {
             model: Contact,
-            attributes: ["name", "phone", "email", "job", "birthday"]
+            attributes: ["id", "name", "phone", "email", "job", "birthday"]
           },
           {
             model: Contract,
@@ -125,22 +125,6 @@ exports.retrieveAllDataForCounterparty = (req, res) => {
         res.status(500).send({
           message: error.message || `Some error occurred while retrieving clients of team with id ${req.body.teamId}`
         });
-      });
-};
-
-exports.createContact = (req, res) => {
-  Contact
-      .create(req.body)
-      .then((contact) => {
-        res.status(201).json({
-          status: "New counterparty contact created",
-          contact
-        })
-      })
-      .catch(error => {
-        res.status(400).send({
-          message: error.message || "Fail to create new team"
-        })
       });
 };
 

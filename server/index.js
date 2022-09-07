@@ -17,6 +17,7 @@ let redisClient = redis.createClient({
 const teamRouter = require("./routes/team");
 const authRouter = require("./routes/auth");
 const counterpartyRouter = require("./routes/counterparty");
+const contactRouter = require("./routes/contact");
 
 const port = process.env.PORT || 8080;
 const app = express();
@@ -49,6 +50,7 @@ app.get("/api", (req, res) => {
 app.use("/api/teams", teamRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/counterparties", counterpartyRouter);
+app.use("/api/contacts", contactRouter);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
