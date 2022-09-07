@@ -14,6 +14,7 @@ import { InvoiceFromDB } from "../interfaces/invoice";
 import { AgreementFromDB } from "../interfaces/agreement";
 import { formatLastTransactionDate } from "../utils/functions";
 import Link from "next/link";
+import { deleteAgreement } from "../api/agreement";
 
 const translateInvoiceStatus = (invoice : InvoiceFromDB) : string => {
   const status = invoice.status;
@@ -38,12 +39,12 @@ const translateInvoiceStatus = (invoice : InvoiceFromDB) : string => {
   }
 }
 
-interface CounterpartyAgreementsTableProps {
+interface AgreementsTableProps {
   isLoading : boolean;
   agreements : AgreementFromDB[]|undefined;
 }
 
-const CounterpartyAgreementsTable = ({ isLoading, agreements } : CounterpartyAgreementsTableProps) => {
+const AgreementsTable = ({ isLoading, agreements } : AgreementsTableProps) => {
   return (
       <>
         {isLoading || (agreements === undefined) || (agreements.length === 0)
@@ -65,10 +66,8 @@ const CounterpartyAgreementsTable = ({ isLoading, agreements } : CounterpartyAgr
                               <TableCell>Номер</TableCell>
                               <TableCell align="center">Дата подписания</TableCell>
                               <TableCell align="center">Статус</TableCell>
-                              <TableCell align="center">Дата присвоения
-                                статуса</TableCell>
-                              <TableCell align="center">Ссылка на последнюю
-                                версию</TableCell>
+                              <TableCell align="center">Дата присвоения статуса</TableCell>
+                              <TableCell align="center">Документ в облачном хранилище</TableCell>
                               <TableCell align="center">Счет</TableCell>
                               <TableCell align="center">Статус счета</TableCell>
                               <TableCell align="center">Действия</TableCell>
@@ -82,12 +81,6 @@ const CounterpartyAgreementsTable = ({ isLoading, agreements } : CounterpartyAgr
                                     >
                                       <TableCell component="th" scope="row">
                                         {agreement?.number}
-                                        {" "}
-                                        <Link href={`/agreements/${agreement.id}`}>
-                                          <HtmlLink
-                                              sx={{ cursor: "pointer" }}
-                                          >Подробно</HtmlLink>
-                                        </Link>
                                       </TableCell>
                                       <TableCell align="center">
                                         {agreement?.signDate && format(new Date(agreement?.signDate), 'dd/MM/yyyy')}
@@ -125,8 +118,11 @@ const CounterpartyAgreementsTable = ({ isLoading, agreements } : CounterpartyAgr
                                         {agreement?.Invoice && translateInvoiceStatus(agreement?.Invoice)}
                                       </TableCell>
                                       <TableCell align="center">
-                                        <Button>Редактировать</Button>
-                                        <Button>Удалить</Button>
+                                        {/*<Button>Редактировать</Button>*/}
+                                        {/*<Button>Удалить</Button>*/}
+                                        <Link href={`/agreements/${agreement.id}`}>
+                                          <Button>Открыть</Button>
+                                        </Link>
                                       </TableCell>
                                     </TableRow>
                                 )
@@ -144,5 +140,5 @@ const CounterpartyAgreementsTable = ({ isLoading, agreements } : CounterpartyAgr
   )
 }
 
-export default CounterpartyAgreementsTable;
+export default AgreementsTable;
 

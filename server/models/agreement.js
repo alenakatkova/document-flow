@@ -15,9 +15,13 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "contractId"
       });
       this.hasMany(models.AgreementTransaction, {
+        onDelete: "cascade",
+        onUpdate: "cascade",
         foreignKey: "agreementId"
       });
       this.hasOne(models.Invoice, {
+        onDelete: "cascade",
+        onUpdate: "cascade",
         foreignKey: "agreementId"
       });
     }

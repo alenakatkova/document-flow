@@ -10,7 +10,7 @@ import Grid from "@mui/material/Unstable_Grid2";
 import { CARD_SPACING, CARD } from "../../styles/constants";
 import { CounterpartyFromDB } from "../../interfaces/counterparty";
 import CounterpartyContactsBigBlock from "../../components/CounterpartyContactsBigBlock";
-import CounterpartyDocumentsBigBlock from "../../components/CounterpartyDocumentsBigBlock";
+import DocumentsFullTable from "../../components/DocumentsFullTable";
 
 const Client : NextPage = () => {
   const router = useRouter();
@@ -31,7 +31,7 @@ const Client : NextPage = () => {
                 <CounterpartyContactsBigBlock isLoading={isLoading} contacts={client?.Contacts}/>
               </Grid>
               <Grid xs={12}>
-                <CounterpartyDocumentsBigBlock isLoading={isLoading} contracts={client?.Contracts}/>
+                <DocumentsFullTable isLoading={isLoading} contracts={client?.Contracts}/>
               </Grid>
             </Grid>
           </Box>

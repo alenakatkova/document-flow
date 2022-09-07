@@ -1,4 +1,4 @@
-const { Team, Contact } = require("../models");
+const { Contact } = require("../models");
 
 exports.createContact = (req, res) => {
   Contact

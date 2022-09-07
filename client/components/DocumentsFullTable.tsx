@@ -13,16 +13,16 @@ import format from "date-fns/format";
 import HtmlLink from '@mui/material/Link';
 import isBefore from 'date-fns/isBefore';
 import { ContractFromDB } from "../interfaces/contract";
-import CounterpartyAgreementsTable from "./CounterpartyAgreementsTable";
+import AgreementsTable from "./AgreementsTable";
 import { formatLastTransactionDate } from "../utils/functions";
 import Link from "next/link";
 
-interface CounterpartyDocumentsBigBlockProps {
+interface DocumentsFullTableProps {
   isLoading : boolean;
   contracts : ContractFromDB[]|undefined;
 }
 
-const CounterpartyDocumentsBigBlock = ({ isLoading, contracts } : CounterpartyDocumentsBigBlockProps) => {
+const DocumentsFullTable = ({ isLoading, contracts } : DocumentsFullTableProps) => {
   return (
       <Box sx={CARD}>
         <Typography variant="h6" sx={{ marginBottom: "1rem" }}>Документы</Typography>
@@ -38,7 +38,7 @@ const CounterpartyDocumentsBigBlock = ({ isLoading, contracts } : CounterpartyDo
                         <TableCell align="center">Статус</TableCell>
                         <TableCell align="center">Дата присвоения статуса</TableCell>
                         <TableCell align="center">Срок действия</TableCell>
-                        <TableCell align="center">Ссылка на последнюю версию</TableCell>
+                        <TableCell align="center">Документ в облачном хранилище</TableCell>
                         <TableCell align="center">Действия</TableCell>
                       </TableRow>
                     </TableHead>
@@ -51,12 +51,6 @@ const CounterpartyDocumentsBigBlock = ({ isLoading, contracts } : CounterpartyDo
                             >
                               <TableCell component="th" scope="row">
                                 {contract?.number}
-                                {" "}
-                                <Link href={`/contracts/${contract.id}`}>
-                                  <HtmlLink
-                                      sx={{ cursor: "pointer" }}
-                                  >Подробно</HtmlLink>
-                                </Link>
                               </TableCell>
                               <TableCell align="center">
                                 {contract?.signDate && format(new Date(contract?.signDate), 'dd/MM/yyyy')}
@@ -87,11 +81,14 @@ const CounterpartyDocumentsBigBlock = ({ isLoading, contracts } : CounterpartyDo
                                 {<HtmlLink href={contract?.linkToFileOnDisk}>Ссылка</HtmlLink>}
                               </TableCell>
                               <TableCell align="center">
-                                <Button>Редактировать</Button>
-                                <Button>Удалить</Button>
+                                {/*<Button>Редактировать</Button>*/}
+                                {/*<Button>Удалить</Button>*/}
+                                <Link href={`/agreements/${contract.id}`}>
+                                  <Button>Открыть</Button>
+                                </Link>
                               </TableCell>
                             </TableRow>
-                            <CounterpartyAgreementsTable isLoading={isLoading} agreements={contract?.Agreements}/>
+                            <AgreementsTable isLoading={isLoading} agreements={contract?.Agreements}/>
                           </>
                       ))}
                     </TableBody>
@@ -103,5 +100,5 @@ const CounterpartyDocumentsBigBlock = ({ isLoading, contracts } : CounterpartyDo
   )
 }
 
-export default CounterpartyDocumentsBigBlock;
+export default DocumentsFullTable;
 

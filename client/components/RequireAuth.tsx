@@ -10,10 +10,10 @@ interface RequireAuthProps {
 const RequireAuth = ({ children } : RequireAuthProps) => {
   let { team } = useAuth();
   const router = useRouter();
-  
+
   useEffect(() => {
     if (!team) {
-      router.push("/signup")
+      router.push("/")
     }
   }, [team])
 
