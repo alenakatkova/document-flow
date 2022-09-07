@@ -13,6 +13,7 @@ import HtmlLink from '@mui/material/Link';
 import { InvoiceFromDB } from "../interfaces/invoice";
 import { AgreementFromDB } from "../interfaces/agreement";
 import { formatLastTransactionDate } from "../utils/functions";
+import Link from "next/link";
 
 const translateInvoiceStatus = (invoice : InvoiceFromDB) : string => {
   const status = invoice.status;
@@ -81,6 +82,12 @@ const CounterpartyAgreementsTable = ({ isLoading, agreements } : CounterpartyAgr
                                     >
                                       <TableCell component="th" scope="row">
                                         {agreement?.number}
+                                        {" "}
+                                        <Link href={`/agreements/${agreement.id}`}>
+                                          <HtmlLink
+                                              sx={{ cursor: "pointer" }}
+                                          >Подробно</HtmlLink>
+                                        </Link>
                                       </TableCell>
                                       <TableCell align="center">
                                         {agreement?.signDate && format(new Date(agreement?.signDate), 'dd/MM/yyyy')}

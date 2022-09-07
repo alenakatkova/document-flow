@@ -15,6 +15,7 @@ import isBefore from 'date-fns/isBefore';
 import { ContractFromDB } from "../interfaces/contract";
 import CounterpartyAgreementsTable from "./CounterpartyAgreementsTable";
 import { formatLastTransactionDate } from "../utils/functions";
+import Link from "next/link";
 
 interface CounterpartyDocumentsBigBlockProps {
   isLoading : boolean;
@@ -50,6 +51,12 @@ const CounterpartyDocumentsBigBlock = ({ isLoading, contracts } : CounterpartyDo
                             >
                               <TableCell component="th" scope="row">
                                 {contract?.number}
+                                {" "}
+                                <Link href={`/contracts/${contract.id}`}>
+                                  <HtmlLink
+                                      sx={{ cursor: "pointer" }}
+                                  >Подробно</HtmlLink>
+                                </Link>
                               </TableCell>
                               <TableCell align="center">
                                 {contract?.signDate && format(new Date(contract?.signDate), 'dd/MM/yyyy')}
