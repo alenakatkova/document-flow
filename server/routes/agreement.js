@@ -1,6 +1,6 @@
 const agreementController = require("../controllers/agreement.controller.js");
 const router = require("express").Router();
 
-router.delete("/:id", agreementController.delete);
+router.get("/:id", agreementController.retrieveAllDataForAgreement);
 
 module.exports = router;

@@ -1,4 +1,12 @@
-const { Agreement } = require("../models");
+const {
+  AgreementTransaction,
+  DocumentStatus,
+  Agreement,
+  InternalDepartment,
+  InternalContacts,
+  Invoice
+} = require("../models");
+
 exports.delete = (req, res) => {
   Agreement
       .destroy({
@@ -14,6 +22,41 @@ exports.delete = (req, res) => {
       .catch(error => {
         res.status(500).send({
           message: error.message || "Some error occurred while deleting Agreement"
+        });
+      });
+};
+
+exports.retrieveAllDataForAgreement = (req, res) => {
+  Agreement
+      .findOne({
+        where: {
+          id: req.params.id
+        },
+        include: [
+          {
+            model: AgreementTransaction,
+            include: [
+              {
+                model: DocumentStatus,
+                include: [
+                  {
+                    model: InternalDepartment
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            model: Invoice
+          }
+        ]
+      })
+      .then(data => {
+        res.send(data)
+      })
+      .catch(error => {
+        res.status(500).send({
+          message: error.message || `Some error occurred while retrieving clients of agreement with id ${req.body.teamId}`
         });
       });
 };
