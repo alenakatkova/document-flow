@@ -69,7 +69,7 @@ export default function SideMenu() {
 
         {isAuthenticated
             ? <MenuList>
-              <Typography sx={subHeading}>{t("menu.dashboard.heading")}</Typography>
+              <Typography sx={subHeading}>Панель управления</Typography>
               <NextLink href="/">
                 <MenuItem>
                   <ListItemText>Все документы</ListItemText>
@@ -80,81 +80,96 @@ export default function SideMenu() {
                   <ListItemText>Задачи</ListItemText>
                 </MenuItem>
               </NextLink>
-              <Typography sx={subHeading}>{t("menu.clients.heading")}</Typography>
+              <Typography sx={subHeading}>Клиенты</Typography>
               <NextLink href="/clients">
                 <MenuItem sx={subMenuItem}>
                   <ListItemIcon><SummarizeOutlinedIcon/></ListItemIcon>
-                  <ListItemText>{t("menu.clients.all")}
+                  <ListItemText>Все клиенты
+                  </ListItemText>
+                </MenuItem>
+              </NextLink>
+              <NextLink href="/clients/add-client">
+                <MenuItem sx={subMenuItem}>
+                  <ListItemIcon><AddBoxIcon/></ListItemIcon>
+                  <ListItemText>Добавить клиента
                   </ListItemText>
                 </MenuItem>
               </NextLink>
               <NextLink href="/clients/add-contract">
                 <MenuItem sx={subMenuItem}>
                   <ListItemIcon><AddBoxIcon/></ListItemIcon>
-                  <ListItemText>{t("menu.clients.addContract")}
+                  <ListItemText>Добавить договор
                   </ListItemText>
                 </MenuItem>
               </NextLink>
-              <NextLink href="/">
+              <NextLink href="/clients/add-agreement">
                 <MenuItem sx={subMenuItem}>
                   <ListItemIcon><AddBoxIcon/></ListItemIcon>
-                  <ListItemText>{t("menu.clients.addAgreement")}
+                  <ListItemText>Добавить допсоглашение
                   </ListItemText>
                 </MenuItem>
               </NextLink>
-              <NextLink href="/">
+              <NextLink href="/clients/add-invoice">
                 <MenuItem sx={subMenuItem}>
                   <ListItemIcon><AddBoxIcon/></ListItemIcon>
-                  <ListItemText>{t("menu.clients.addInvoice")}
+                  <ListItemText>Добавить счет
                   </ListItemText>
                 </MenuItem>
               </NextLink>
 
-              <Typography sx={subHeading}>{t("menu.contractors.heading")}</Typography>
-              <NextLink href="/">
+              <Typography sx={subHeading}>Подрядчики</Typography>
+              <NextLink href="/contractors">
                 <MenuItem sx={subMenuItem}>
                   <ListItemIcon><SummarizeOutlinedIcon/></ListItemIcon>
-                  <ListItemText>{t("menu.contractors.all")}
+                  <ListItemText>Все клиенты
                   </ListItemText>
                 </MenuItem>
               </NextLink>
-              <NextLink href="/">
+              <NextLink href="/contractors/add-contractor">
                 <MenuItem sx={subMenuItem}>
                   <ListItemIcon><AddBoxIcon/></ListItemIcon>
-                  <ListItemText>{t("menu.contractors.addContract")}
+                  <ListItemText>Добавить подрядчика
                   </ListItemText>
                 </MenuItem>
               </NextLink>
-              <NextLink href="/">
+              <NextLink href="/contractors/add-contract">
                 <MenuItem sx={subMenuItem}>
                   <ListItemIcon><AddBoxIcon/></ListItemIcon>
-                  <ListItemText>{t("menu.contractors.addAgreement")}
+                  <ListItemText>Добавить договор
                   </ListItemText>
                 </MenuItem>
               </NextLink>
-              <NextLink href="/">
+              <NextLink href="/contractors/add-agreement">
                 <MenuItem sx={subMenuItem}>
                   <ListItemIcon><AddBoxIcon/></ListItemIcon>
-                  <ListItemText>{t("menu.clients.addInvoice")}
+                  <ListItemText>Добавить допсоглашение
                   </ListItemText>
                 </MenuItem>
               </NextLink>
+              <NextLink href="/contractors/add-invoice">
+                <MenuItem sx={subMenuItem}>
+                  <ListItemIcon><AddBoxIcon/></ListItemIcon>
+                  <ListItemText>Добавить счет
+                  </ListItemText>
+                </MenuItem>
+              </NextLink>
+
               <MenuItem sx={{ marginTop: "2rem" }}>
                 <Button onClick={() => logOut()}
                         variant="outlined">
-                  {t("auth.logOut")}
+                  Выйти
                 </Button>
               </MenuItem>
             </MenuList>
             : <MenuList>
               <MenuItem>
-                <NextLink href="/"><ListItemText>{t("menu.home")}</ListItemText></NextLink>
+                <NextLink href="/"><ListItemText>Главная</ListItemText></NextLink>
               </MenuItem>
               <MenuItem>
-                <NextLink href="/login"><ListItemText>{t("menu.login")}</ListItemText></NextLink>
+                <NextLink href="/login"><ListItemText>Авторизация</ListItemText></NextLink>
               </MenuItem>
               <MenuItem>
-                <NextLink href="/signup"><ListItemText>{t("menu.signup")}</ListItemText></NextLink>
+                <NextLink href="/signup"><ListItemText>Регистрация</ListItemText></NextLink>
               </MenuItem>
             </MenuList>
         }

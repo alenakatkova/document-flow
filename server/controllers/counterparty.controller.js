@@ -6,14 +6,14 @@ const { AgreementTransaction } = require("../models");
 const { Contact } = require("../models");
 const { ContractTransaction } = require("../models");
 const { DocumentStatus } = require("../models");
-const { InternalDepartment } = require("../models");
-const { InternalContact } = require("../models");
 
 exports.findAllByTeamId = (req, res) => {
+  console.log(req.body)
   Counterparty
       .findAll({
         where: {
-          teamId: req.body.teamId
+          teamId: req.body.teamId,
+          type: req.body.type
         },
         attributes: ["id", "name", "isPriority", "phone"],
         include: [
@@ -60,6 +60,25 @@ exports.findAllByTeamId = (req, res) => {
             ]
           }
         ]
+      })
+      .then(data => {
+        res.send(data)
+      })
+      .catch(error => {
+        res.status(500).send({
+          message: error.message || `Some error occurred while retrieving clients of team with id ${req.body.teamId}`
+        });
+      });
+};
+
+exports.findAllNamesByTeamId = (req, res) => {
+  Counterparty
+      .findAll({
+        where: {
+          teamId: req.body.teamId,
+          type: req.body.type
+        },
+        attributes: ["id", "name"]
       })
       .then(data => {
         res.send(data)
