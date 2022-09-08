@@ -121,7 +121,7 @@ export default function SideMenu() {
               <NextLink href="/contractors">
                 <MenuItem sx={subMenuItem}>
                   <ListItemIcon><SummarizeOutlinedIcon/></ListItemIcon>
-                  <ListItemText>Все клиенты
+                  <ListItemText>Все подрядчики
                   </ListItemText>
                 </MenuItem>
               </NextLink>

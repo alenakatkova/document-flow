@@ -9,10 +9,10 @@ import Grid from "@mui/material/Unstable_Grid2";
 import { CARD_SPACING, CARD } from "../../styles/constants";
 import { useAuth } from "../../contexts/authProvider";
 import RequireAuth from "../../components/RequireAuth";
-import { Typography } from "@mui/material";
 import { RadioButtonChoice } from "../../components/RadioButtonChoice";
+import { AddContractForm } from "../../components/AddContractForm";
 
-const AddContractorContract : NextPage = () => {
+const AddClientContract : NextPage = () => {
   const router = useRouter();
   let { team } = useAuth();
   const [chosenContractor, setChosenContractor] = useState<number|undefined>(undefined);
@@ -32,24 +32,19 @@ const AddContractorContract : NextPage = () => {
 
   return (
       <RequireAuth>
-        <Layout title="Форма добавления договора с подрядчиком"
-                heading={"Форма добавления договора с подрядчиком"}>
+        <Layout title="Форма добавления договора с клиентом"
+                heading={"Форма добавления договора с клиентом"}>
           <Box sx={{ flexGrow: 1, marginTop: "1rem" }}>
             <Grid container spacing={CARD_SPACING}>
               <Grid xs={12}>
                 <Box sx={CARD}>
-                  {isContractorsLoading && contractors.length !== 0
-                      ?
-                      <Typography>Ни одного клиента не найдено. Чтобы добавить договор, добавьте сначала
-                        клиента</Typography>
-                      : <pre>{JSON.stringify(contractors, null, 2)}</pre>}
-
-                  <RadioButtonChoice
+                  {contractors && <RadioButtonChoice
                       options={contractorsDataForRadioBtns}
-                      heading="Выберите клиента"
+                      heading="Выберите подрядчика"
                       setChosenOption={setChosenContractor}
-                  />
-                  {chosenContractor}
+                      whatToAdd="подрядчика"
+                  />}
+                  {chosenContractor !== undefined && <AddContractForm counterpartyId={chosenContractor}/>}
                 </Box>
               </Grid>
             </Grid>
@@ -59,4 +54,4 @@ const AddContractorContract : NextPage = () => {
   )
 }
 
-export default AddContractorContract;
+export default AddClientContract;
