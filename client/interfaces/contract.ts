@@ -1,5 +1,6 @@
 import { DocumentTransactionFromDB } from "./documentTransaction";
 import { AgreementFromDB } from "./agreement";
+import { CounterpartyFromDB } from "./counterparty";
 
 export interface Contract {
   number : string;
@@ -13,7 +14,8 @@ export interface ContractFromDB extends Contract {
   id : number;
   ContractTransactions? : DocumentTransactionFromDB[];
   Agreements? : AgreementFromDB[];
-  clientId? : number;
+  Counterparty? : CounterpartyFromDB;
+  counterpartyId? : number;
   createdAt? : Date;
   updatedAt? : Date;
 }

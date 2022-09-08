@@ -23,7 +23,11 @@ exports.retrieveAllDataForContract = (req, res) => {
           {
             model: Agreement,
             attributes: ["id", "number"]
-          }
+          },
+          {
+            model: Counterparty,
+            attributes: ["id", "name"]
+          },
         ]
       })
       .then(data => {
