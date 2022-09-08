@@ -9,7 +9,7 @@ import Grid from "@mui/material/Unstable_Grid2";
 import { CARD_SPACING, CARD } from "../../styles/constants";
 import RequireAuth from "../../components/RequireAuth";
 
-const AddClient : NextPage = () => {
+const AddContractor : NextPage = () => {
   const router = useRouter();
 
   // const { data: agreement, isLoading } = useFetch<CounterpartyFromDB>(`agreements/${router.query.id}`,
@@ -21,12 +21,12 @@ const AddClient : NextPage = () => {
 
   return (
       <RequireAuth>
-        <Layout title="Форма добавления клиента" heading={"Форма добавления клиента"}>
+        <Layout title="Форма добавления подрядчика" heading={"Форма добавления подрядчика"}>
           <Box sx={{ flexGrow: 1, marginTop: "1rem" }}>
             <Grid container spacing={CARD_SPACING}>
               <Grid xs={12}>
                 <Box sx={CARD}>
-                  boo
+                  foo
                 </Box>
               </Grid>
             </Grid>
@@ -36,4 +36,4 @@ const AddClient : NextPage = () => {
   )
 }
 
-export default AddClient;
+export default AddContractor;

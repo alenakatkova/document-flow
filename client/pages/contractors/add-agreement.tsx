@@ -12,7 +12,7 @@ import RequireAuth from "../../components/RequireAuth";
 import { Typography } from "@mui/material";
 import { RadioButtonChoice } from "../../components/RadioButtonChoice";
 
-const AddContractorContract : NextPage = () => {
+const AddContractorAgreement : NextPage = () => {
   const router = useRouter();
   let { team } = useAuth();
   const [chosenContractor, setChosenContractor] = useState<number|undefined>(undefined);
@@ -32,8 +32,8 @@ const AddContractorContract : NextPage = () => {
 
   return (
       <RequireAuth>
-        <Layout title="Форма добавления договора с подрядчиком"
-                heading={"Форма добавления договора с подрядчиком"}>
+        <Layout title="Форма добавления дополнительного соглашения с подрядчиком"
+                heading={"Форма добавления дополнительного соглашения с подрядчиком"}>
           <Box sx={{ flexGrow: 1, marginTop: "1rem" }}>
             <Grid container spacing={CARD_SPACING}>
               <Grid xs={12}>
@@ -59,4 +59,4 @@ const AddContractorContract : NextPage = () => {
   )
 }
 
-export default AddContractorContract;
+export default AddContractorAgreement;

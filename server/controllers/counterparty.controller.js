@@ -78,7 +78,25 @@ exports.findAllNamesByTeamId = (req, res) => {
           teamId: req.body.teamId,
           type: req.body.type
         },
-        attributes: ["id", "name"]
+        attributes: ["id", "name"],
+        include: [
+          {
+            model: Contract,
+            attributes: ["id", "number"],
+            include: [
+              {
+                model: Agreement,
+                attributes: ["id", "number"],
+                include: [
+                  {
+                    model: Invoice,
+                    attributes: ["id", "number"]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
       })
       .then(data => {
         res.send(data)
