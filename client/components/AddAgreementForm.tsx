@@ -43,6 +43,7 @@ export const AddAgreementForm = ({ contractId } : AddAgreementFormProps) => {
     }
 
     createAgreement(formData);
+    reset();
   };
 
   return (
