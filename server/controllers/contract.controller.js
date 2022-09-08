@@ -37,7 +37,6 @@ exports.retrieveAllDataForContract = (req, res) => {
 };
 
 exports.findAllDocumentsByCounterpartyId = (req, res) => {
-  console.log(req.body)
   Contract
       .findAll({
         where: {
@@ -64,5 +63,22 @@ exports.findAllDocumentsByCounterpartyId = (req, res) => {
         res.status(500).send({
           message: error.message || `Some error occurred while retrieving documents of contractor with id ${req.body.counterpartyId}`
         });
+      });
+};
+
+exports.create = (req, res) => {
+  console.log(req.body)
+  Contract
+      .create(req.body)
+      .then((contract) => {
+        res.status(201).json({
+          status: "New contract created",
+          contract
+        })
+      })
+      .catch(error => {
+        res.status(400).send({
+          message: error.message || "Fail to create new contract"
+        })
       });
 };

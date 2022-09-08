@@ -7,7 +7,9 @@ export const generateDateFromYYYYMMDD = (
     month : number|string|undefined,
     day : number|string|undefined
 ) => {
-  if (year === undefined || month === undefined || day === undefined) return undefined;
+  if (!year || !day || !month) {
+    return undefined;
+  }
   return new Date(Number(year), Number(month) - 1, Number(day))
 }
 

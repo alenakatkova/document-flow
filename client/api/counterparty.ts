@@ -1,6 +1,5 @@
 import { Contact } from "../interfaces/contact";
 import { performPostRequest } from "./utils";
-import { Contract } from "../interfaces/contract";
 import { Counterparty } from "../interfaces/counterparty";
 
 export const createContact = async (contactData : Contact, counterpartyId : number) => {

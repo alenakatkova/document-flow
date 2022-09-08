@@ -51,7 +51,7 @@ const Clients : NextPage = () => {
                                         <a>ССЫЛКА</a>
                                       </Link>
                                       Договор № {contract.number}
-                                      Статус: {contract?.ContractTransactions && JSON.stringify(contract?.ContractTransactions[0].DocumentStatus?.stage)}
+                                      Статус: {contract?.ContractTransactions && JSON.stringify(contract?.ContractTransactions[0]?.DocumentStatus?.stage)}
                                       <div>
                                         {contract?.Agreements?.map(agreement => (
                                             <Box sx={{ border: "1px solid green", marginBottom: "1rem" }}
