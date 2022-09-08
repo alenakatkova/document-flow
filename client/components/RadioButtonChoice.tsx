@@ -16,9 +16,16 @@ interface RadioButtonChoiceProps {
   heading : string;
   setChosenOption : (id : number) => void;
   whatToAdd : string;
+  radioGroupName : string;
 }
 
-export const RadioButtonChoice = ({ options, heading, setChosenOption, whatToAdd } : RadioButtonChoiceProps) => {
+export const RadioButtonChoice = ({
+                                    options,
+                                    heading,
+                                    setChosenOption,
+                                    whatToAdd,
+                                    radioGroupName
+                                  } : RadioButtonChoiceProps) => {
   return (
       <>
         {
@@ -27,18 +34,20 @@ export const RadioButtonChoice = ({ options, heading, setChosenOption, whatToAdd
               : <FormControl>
                 <FormLabel id="demo-row-radio-buttons-group-label">{heading}</FormLabel>
                 <RadioGroup
+                    sx={{ margin: "1rem 0" }}
                     row
                     aria-labelledby="demo-row-radio-buttons-group-label"
                     name="row-radio-buttons-group"
                 >
                   {
                     options.map(option => (
-                        <FormControlLabel
-                            onChange={() => setChosenOption(option.id)}
-                            key={option.value}
-                            value={option.value}
-                            control={<Radio/>}
-                            label={option.label}/>
+                        <label key={option.value + option.id}>
+                          <input type="radio"
+                                 name={whatToAdd}
+                                 onChange={() => setChosenOption(option.id)}
+                                 value={option.value}/>
+                          {option.label}
+                        </label>
                     ))
                   }
                 </RadioGroup>

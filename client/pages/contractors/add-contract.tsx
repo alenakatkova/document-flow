@@ -43,6 +43,7 @@ const AddClientContract : NextPage = () => {
                       heading="Выберите подрядчика"
                       setChosenOption={setChosenContractor}
                       whatToAdd="подрядчика"
+                      radioGroupName="contractor"
                   />}
                   {chosenContractor !== undefined && <AddContractForm counterpartyId={chosenContractor}/>}
                 </Box>

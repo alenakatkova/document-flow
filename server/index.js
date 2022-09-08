@@ -20,6 +20,7 @@ const counterpartyRouter = require("./routes/counterparty");
 const contactRouter = require("./routes/contact");
 const agreementRouter = require("./routes/agreement");
 const contractRouter = require("./routes/contract");
+const invoiceRouter = require("./routes/invoice");
 
 const port = process.env.PORT || 8080;
 const app = express();
@@ -55,6 +56,7 @@ app.use("/api/counterparties", counterpartyRouter);
 app.use("/api/contacts", contactRouter);
 app.use("/api/agreements", agreementRouter);
 app.use("/api/contracts", contractRouter);
+app.use("/api/invoices", invoiceRouter);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);

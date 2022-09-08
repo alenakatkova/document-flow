@@ -5,44 +5,48 @@ import Button from "@mui/material/Button";
 import React from "react";
 import { DateInput } from "./DateInput";
 import { generateDateFromYYYYMMDD } from "../utils/functions";
-import { createAgreement } from "../api/agreement";
+import { createInvoice } from "../api/invoice";
+import { Invoice } from "../interfaces/invoice";
 
 type NumberFieldValue = number|"";
 
 interface Inputs {
-  signYear : NumberFieldValue|undefined;
-  signMonth : NumberFieldValue|undefined;
-  signDay : NumberFieldValue|undefined;
+  dueYear : NumberFieldValue|undefined;
+  dueMonth : NumberFieldValue|undefined;
+  dueDay : NumberFieldValue|undefined;
   number : string;
   linkToFile : string|undefined;
+  status : string|undefined;
 }
 
-interface AddAgreementFormProps {
-  contractId : number;
+interface AddInvoiceFormProps {
+  agreementId : number;
 }
 
-export const AddAgreementForm = ({ contractId } : AddAgreementFormProps) => {
+export const AddInvoiceForm = ({ agreementId } : AddInvoiceFormProps) => {
   const { handleSubmit, reset, formState: { isSubmitSuccessful }, control, watch, register } = useForm<Inputs>({
     defaultValues: {
-      signYear: "",
-      signMonth: "",
-      signDay: "",
+      dueYear: "",
+      dueMonth: "",
+      dueDay: "",
       number: "",
       linkToFile: "",
+      status: ""
     }
   });
 
   const onSubmit : SubmitHandler<Inputs> = data => {
-    const signDate = generateDateFromYYYYMMDD(data.signYear, data.signMonth, data.signDay);
-
-    const formData = {
+    const due = generateDateFromYYYYMMDD(data.dueYear, data.dueMonth, data.dueDay);
+    const formData : Invoice = {
       number: data.number,
       linkToFile: data.linkToFile,
-      contractId: contractId,
-      signDate
-    }
+      status: data.status,
+      agreementId: agreementId,
+      due
+    };
 
-    createAgreement(formData);
+    createInvoice(formData);
+    reset();
   };
 
   return (
@@ -69,7 +73,22 @@ export const AddAgreementForm = ({ contractId } : AddAgreementFormProps) => {
                 <TextField
                     {...field}
                     inputRef={ref}
-                    label={"Номер допсоглашения"}
+                    label={"Номер счета"}
+                    variant="outlined"
+                    required
+                />
+            )}
+        />
+
+        <Controller
+            control={control}
+            name="status"
+            rules={{ required: true }}
+            render={({ field: { ref, ...field } }) => (
+                <TextField
+                    {...field}
+                    inputRef={ref}
+                    label={"Статус"}
                     variant="outlined"
                     required
                 />
@@ -83,7 +102,7 @@ export const AddAgreementForm = ({ contractId } : AddAgreementFormProps) => {
                 <TextField
                     {...field}
                     inputRef={ref}
-                    label={"Ссылка на текст допсоглашения в облачном хранилище"}
+                    label={"Ссылка на файл счета в облачном хранилище"}
                     variant="outlined"
                 />
             )}
@@ -96,9 +115,9 @@ export const AddAgreementForm = ({ contractId } : AddAgreementFormProps) => {
           justifyContent: "space-between"
         }}>
           <DateInput
-              dayInputName={"signDay"}
-              monthInputName={"signMonth"}
-              yearInputName={"signYear"}
+              dayInputName={"dueDay"}
+              monthInputName={"dueMonth"}
+              yearInputName={"dueYear"}
               control={control}
               heading={"Дата подписания"}
           />

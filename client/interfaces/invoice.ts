@@ -1,13 +1,13 @@
 export interface Invoice {
   number : string;
   due? : Date;
-  status? : "string";
+  status? : string;
   linkToFile? : string;
+  agreementId? : number;
 }
 
 export interface InvoiceFromDB extends Invoice {
   id : number;
-  agreementId? : number;
   createdAt? : Date;
   updatedAt? : Date;
 }

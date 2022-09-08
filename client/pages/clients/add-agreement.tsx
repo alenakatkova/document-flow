@@ -68,6 +68,7 @@ const AddClientAgreement : NextPage = () => {
                         heading="Выберите клиента"
                         setChosenOption={onClientChoiceChange}
                         whatToAdd="клиента"
+                        radioGroupName="client"
                     />
                   </Box>
 
@@ -78,6 +79,7 @@ const AddClientAgreement : NextPage = () => {
                             heading="Выберите договор"
                             setChosenOption={setChosenContract}
                             whatToAdd="договор"
+                            radioGroupName="contract"
                         />
                       </Box>
                   }
