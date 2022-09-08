@@ -12,6 +12,7 @@ import { Typography } from "@mui/material";
 import RequireAuth from "../../components/RequireAuth";
 import { RadioButtonChoice, Option } from "../../components/RadioButtonChoice";
 import { ContractFromDB } from "../../interfaces/contract";
+import { AddAgreementForm } from "../../components/AddAgreementForm";
 
 
 const AddClientAgreement : NextPage = () => {
@@ -61,12 +62,6 @@ const AddClientAgreement : NextPage = () => {
             <Grid container spacing={CARD_SPACING}>
               <Grid xs={12}>
                 <Box sx={CARD}>
-                  {isClientsLoading && clients.length !== 0
-                      ?
-                      <Typography>Ни одного клиента не найдено. Чтобы добавить договор, добавьте сначала
-                        клиента</Typography>
-                      : <pre>{JSON.stringify(clients, null, 2)}</pre>}
-
                   <Box>
                     <RadioButtonChoice
                         options={clientsDataForRadioBtns}
@@ -76,7 +71,7 @@ const AddClientAgreement : NextPage = () => {
                     />
                   </Box>
 
-                  {chosenClient &&
+                  {chosenClient !== undefined &&
                       <Box>
                         <RadioButtonChoice
                             options={mapContractsDataForRadioBtns(getContractsArrayOfChosenClient(clients, chosenClient))}
@@ -87,7 +82,7 @@ const AddClientAgreement : NextPage = () => {
                       </Box>
                   }
 
-                  {chosenContract}
+                  {chosenContract !== undefined && <AddAgreementForm contractId={chosenContract}/>}
                 </Box>
               </Grid>
             </Grid>

@@ -4,7 +4,7 @@ const {
   Agreement,
   InternalDepartment,
   InternalContacts,
-  Invoice
+  Invoice, Contract
 } = require("../models");
 
 exports.delete = (req, res) => {
@@ -58,5 +58,22 @@ exports.retrieveAllDataForAgreement = (req, res) => {
         res.status(500).send({
           message: error.message || `Some error occurred while retrieving clients of agreement with id ${req.body.teamId}`
         });
+      });
+};
+
+exports.create = (req, res) => {
+  console.log(req.body)
+  Agreement
+      .create(req.body)
+      .then((agreement) => {
+        res.status(201).json({
+          status: "New Agreement created",
+          agreement
+        })
+      })
+      .catch(error => {
+        res.status(400).send({
+          message: error.message || "Fail to create new Agreement"
+        })
       });
 };

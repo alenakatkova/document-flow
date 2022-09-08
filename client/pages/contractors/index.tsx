@@ -61,7 +61,7 @@ const Contractors : NextPage = () => {
                                               </Link>
                                               Дополнительное соглашение № {agreement.number}
                                               Счет № {agreement.Invoice && agreement.Invoice.number}
-                                              Статус: {agreement?.AgreementTransactions && JSON.stringify(agreement?.AgreementTransactions[0].DocumentStatus?.stage)}
+                                              Статус: {agreement?.AgreementTransactions && JSON.stringify(agreement?.AgreementTransactions[0]?.DocumentStatus?.stage)}
                                             </Box>
                                         ))}
                                       </div>
