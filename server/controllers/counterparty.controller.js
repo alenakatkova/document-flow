@@ -189,26 +189,22 @@ exports.createContract = (req, res) => {
   //     });
 };
 
-// exports.create = (req, res) => {
-//   Team
-//       .create(req.body)
-//       .then((team) => {
-//         req.session.teamId = team.id;
-//         console.log(req.session)
-//         console.log(team.id)
-//         console.log(req.session.id)
-//
-//         res.status(201).json({
-//           status: "New team created",
-//           team
-//         })
-//       })
-//       .catch(error => {
-//         res.status(400).send({
-//           message: error.message || "Fail to create new team"
-//         })
-//       });
-// };
+exports.create = (req, res) => {
+  console.log(req.body)
+  Counterparty
+      .create(req.body)
+      .then((counterparty) => {
+        res.status(201).json({
+          status: "New Counterparty created",
+          counterparty
+        })
+      })
+      .catch(error => {
+        res.status(400).send({
+          message: error.message || "Fail to create new Counterparty"
+        })
+      });
+};
 //
 // exports.delete = (req, res) => {
 //   Team

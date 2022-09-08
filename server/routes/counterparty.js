@@ -2,6 +2,7 @@ const counterpartyController = require("../controllers/counterparty.controller.j
 const contactController = require("../controllers/contact.controller.js");
 const router = require("express").Router();
 
+router.post("/add-counterparty", counterpartyController.create);
 router.post("/", counterpartyController.findAllByTeamId);
 router.post("/names", counterpartyController.findAllNamesByTeamId);
 router.post("/:id/add-contract", counterpartyController.createContract);

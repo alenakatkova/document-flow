@@ -7,13 +7,13 @@ export interface Counterparty {
   isPriority? : boolean;
   officeAddress? : string;
   phone? : string;
+  type? : string;
 }
 
 export interface CounterpartyFromDB extends Counterparty {
   id : number;
   Contracts? : ContractFromDB[];
   Contacts? : ContactFromDB[];
-  type? : string;
   teamId? : number;
   createdAt? : Date;
   updatedAt? : Date;
