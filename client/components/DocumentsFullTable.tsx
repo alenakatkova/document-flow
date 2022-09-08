@@ -22,6 +22,19 @@ interface DocumentsFullTableProps {
   contracts : ContractFromDB[]|undefined;
 }
 
+const formatPeriodOfValidity = (startDate : Date|undefined, endDate : Date|undefined) => {
+  let status;
+  if (endDate) {
+    const isActive = isBefore(new Date(), new Date(endDate))
+    status = <div>Ceйчас {isActive ? " действует" : " не действует"}</div>
+  }
+  return <div>
+    <div>{startDate && ("С " + format(new Date(startDate), 'dd/MM/yyyy'))}</div>
+    <div>{endDate && ("До " + format(new Date(endDate), 'dd/MM/yyyy'))}</div>
+    {status}
+  </div>;
+}
+
 const DocumentsFullTable = ({ isLoading, contracts } : DocumentsFullTableProps) => {
   return (
       <Box sx={CARD}>
@@ -47,7 +60,10 @@ const DocumentsFullTable = ({ isLoading, contracts } : DocumentsFullTableProps) 
                           <>
                             <TableRow
                                 key={"contract" + contract?.number}
-                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                sx={{
+                                  backgroundColor: "neutral.dark",
+                                  color: "secondary.contrastText"
+                                }}
                             >
                               <TableCell component="th" scope="row">
                                 {contract?.number}
@@ -57,25 +73,17 @@ const DocumentsFullTable = ({ isLoading, contracts } : DocumentsFullTableProps) 
                               </TableCell>
                               <TableCell align="center">
                                 {contract?.ContractTransactions
-                                    && contract?.ContractTransactions[0].DocumentStatus?.stage}
+                                    && contract?.ContractTransactions[0]?.DocumentStatus?.stage}
                               </TableCell>
                               <TableCell align="center">
                                 {
-                                  contract?.ContractTransactions && contract?.ContractTransactions.length > 0
+                                  contract?.ContractTransactions && contract?.ContractTransactions?.length > 0
                                       ? formatLastTransactionDate(contract?.ContractTransactions)
                                       : ""
                                 }
                               </TableCell>
                               <TableCell align="center">
-                                {contract?.startDate && format(new Date(contract?.startDate), 'dd/MM/yyyy')}
-                                —
-                                {contract?.endDate && format(new Date(contract?.endDate), 'dd/MM/yyyy')}
-                                ,
-                                {
-                                    contract?.endDate
-                                    && isBefore(new Date(), new Date(contract?.endDate))
-                                    && <Typography color="warning.main"> действует</Typography>
-                                }
+                                {formatPeriodOfValidity(contract?.startDate, contract?.endDate)}
                               </TableCell>
                               <TableCell align="center">
                                 {<HtmlLink href={contract?.linkToFileOnDisk}>Ссылка</HtmlLink>}

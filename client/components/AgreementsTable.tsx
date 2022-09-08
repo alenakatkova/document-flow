@@ -50,8 +50,7 @@ const AgreementsTable = ({ isLoading, agreements } : AgreementsTableProps) => {
         {isLoading || (agreements === undefined) || (agreements.length === 0)
             ? ""
             : (
-                <TableRow
-                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                <TableRow>
                   <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={7}>
                     <Box sx={{ margin: 1 }}>
                       <Typography gutterBottom component="div"
@@ -77,7 +76,6 @@ const AgreementsTable = ({ isLoading, agreements } : AgreementsTableProps) => {
                             {agreements.map((agreement) => (
                                     <TableRow
                                         key={"agreement" + agreement?.number}
-                                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                     >
                                       <TableCell component="th" scope="row">
                                         {agreement?.number}
@@ -87,7 +85,7 @@ const AgreementsTable = ({ isLoading, agreements } : AgreementsTableProps) => {
                                       </TableCell>
                                       <TableCell align="center">
                                         {agreement?.AgreementTransactions
-                                            && agreement?.AgreementTransactions[0].DocumentStatus?.stage}
+                                            && agreement?.AgreementTransactions[0]?.DocumentStatus?.stage}
                                       </TableCell>
                                       <TableCell align="center">
                                         {agreement?.AgreementTransactions &&
