@@ -38,8 +38,9 @@ const Agreement : NextPage = () => {
 
   return (
       <RequireAuth>
-        <Layout title={"Дополнительное соглашение №" + agreement?.number + " к договору № "}
-                heading={"Дополнительное соглашение №" + agreement?.number + " к договору № "}>
+        <Layout
+            title={"Дополнительное соглашение №" + agreement?.number + " к договору №" + agreement?.Contract?.number}
+            heading={"Дополнительное соглашение №" + agreement?.number + " к договору №" + agreement?.Contract?.number}>
           <Box sx={{ flexGrow: 1, marginTop: "1rem" }}>
             <Grid container spacing={CARD_SPACING}>
               <Grid xs={9}>
@@ -89,7 +90,7 @@ const Agreement : NextPage = () => {
                 <Box sx={CARD}>
                   <Box>
                     <Typography variant="h6" sx={{ marginBottom: "1rem" }}>
-                      История изменений статуса договора
+                      История изменений статуса дополнительного соглашения
                     </Typography>
                     {agreement?.AgreementTransactions && <TableContainer>
                       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -115,27 +116,16 @@ const Agreement : NextPage = () => {
                   </Box>
                 </Box>
               </Grid>
-              {/*<Grid xs={3}>*/}
-              {/*  <Box sx={CARD}>*/}
-              {/*    <Typography variant="h6" sx={{ marginBottom: "0.5rem" }}>*/}
-              {/*      Дополнительные соглашения*/}
-              {/*    </Typography>*/}
-              {/*    {*/}
-              {/*      contract?.Agreements && contract?.Agreements?.length > 0*/}
-              {/*          ? <Box>*/}
-              {/*            {contract?.Agreements?.map(agreement => (*/}
-              {/*                <Box key={agreement.id + agreement.number} sx={{ marginBottom: "0.2rem" }}>*/}
-              {/*                  <Link href={`/agreements/${agreement.id}`}>*/}
-              {/*                    <HtmlLink sx={{ cursor: "pointer" }}>ДС №{agreement.number}</HtmlLink>*/}
-              {/*                  </Link>*/}
-              {/*                </Box>*/}
-              {/*            ))}*/}
-              {/*          </Box>*/}
-              {/*          : "Дополнительных соглашений нет"*/}
-              {/*    }*/}
-
-              {/*  </Box>*/}
-              {/*</Grid>*/}
+              <Grid xs={3}>
+                <Box sx={CARD}>
+                  <Typography variant="h6" sx={{ marginBottom: "0.5rem" }}>
+                    Вторая сторона:
+                  </Typography>
+                  <Link href={`/${agreement?.Contract?.Counterparty?.type}s/${agreement?.Contract?.Counterparty?.id}`}>
+                    <HtmlLink sx={{ cursor: "pointer" }}>{agreement?.Contract?.Counterparty?.name}</HtmlLink>
+                  </Link>
+                </Box>
+              </Grid>
 
               <Grid xs={9}>
                 <Box sx={CARD}>

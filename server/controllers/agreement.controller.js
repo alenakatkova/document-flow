@@ -3,8 +3,9 @@ const {
   DocumentStatus,
   Agreement,
   InternalDepartment,
-  InternalContacts,
-  Invoice, Contract
+  Invoice,
+  Contract,
+  Counterparty
 } = require("../models");
 
 exports.delete = (req, res) => {
@@ -33,6 +34,14 @@ exports.retrieveAllDataForAgreement = (req, res) => {
           id: req.params.id
         },
         include: [
+          {
+            model: Contract,
+            include: [
+              {
+                model: Counterparty
+              }
+            ]
+          },
           {
             model: AgreementTransaction,
             include: [
@@ -74,6 +83,25 @@ exports.create = (req, res) => {
       .catch(error => {
         res.status(400).send({
           message: error.message || "Fail to create new Agreement"
+        })
+      });
+};
+
+exports.update = (req, res) => {
+  Agreement
+      .update(req.body, {
+        where: {
+          id: req.params.id
+        }
+      })
+      .then((user) => {
+        res.status(201).json({
+          status: "Agreement data successfully edited"
+        })
+      })
+      .catch(error => {
+        res.status(400).send({
+          message: error.message || "Fail to edit existing Agreement"
         })
       });
 };

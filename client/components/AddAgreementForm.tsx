@@ -5,7 +5,9 @@ import Button from "@mui/material/Button";
 import React from "react";
 import { DateInput } from "./DateInput";
 import { generateDateFromYYYYMMDD } from "../utils/functions";
-import { createAgreement } from "../api/agreement";
+import { createAgreement, updateAgreement } from "../api/agreement";
+import { ContractFromDB } from "../interfaces/contract";
+import { AgreementFromDB } from "../interfaces/agreement";
 
 type NumberFieldValue = number|"";
 
@@ -19,9 +21,12 @@ interface Inputs {
 
 interface AddAgreementFormProps {
   contractId : number;
+  isEditMode? : boolean;
+  agreement? : AgreementFromDB;
+  finishEditing? : () => void;
 }
 
-export const AddAgreementForm = ({ contractId } : AddAgreementFormProps) => {
+export const AddAgreementForm = ({ contractId, isEditMode, agreement, finishEditing } : AddAgreementFormProps) => {
   const { handleSubmit, reset, formState: { isSubmitSuccessful }, control, watch, register } = useForm<Inputs>({
     defaultValues: {
       signYear: "",
@@ -39,10 +44,12 @@ export const AddAgreementForm = ({ contractId } : AddAgreementFormProps) => {
       number: data.number,
       linkToFile: data.linkToFile,
       contractId: contractId,
-      signDate
+      signDate: signDate || null
     }
 
-    createAgreement(formData);
+    if (isEditMode && agreement) updateAgreement(formData, agreement.id)
+    else createAgreement(formData);
+    finishEditing && finishEditing();
     reset();
   };
 
@@ -111,7 +118,7 @@ export const AddAgreementForm = ({ contractId } : AddAgreementFormProps) => {
                   margin: "0 auto"
                 }}
         >
-          Добавить
+          {isEditMode ? "Сохранить" : "Добавить"}
         </Button>
       </Box>
   )

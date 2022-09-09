@@ -24,6 +24,7 @@ const invoiceRouter = require("./routes/invoice");
 const departmentRouter = require("./routes/department");
 const documentStatusRouter = require("./routes/documentStatus");
 const contractTransactionRouter = require("./routes/contractTransaction");
+const agreementTransactionRouter = require("./routes/agreementTransaction");
 
 const port = process.env.PORT || 8080;
 const app = express();
@@ -63,6 +64,7 @@ app.use("/api/invoices", invoiceRouter);
 app.use("/api/departments", departmentRouter);
 app.use("/api/document-statuses", documentStatusRouter);
 app.use("/api/contract-transactions", contractTransactionRouter);
+app.use("/api/agreement-transactions", agreementTransactionRouter);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
