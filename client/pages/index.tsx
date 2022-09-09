@@ -5,22 +5,31 @@ import styles from "../styles/Home.module.css";
 import Layout from "../components/layout";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
+import Grid from "@mui/material/Unstable_Grid2";
+import { CARD, CARD_SPACING } from "../styles/constants";
+import Box from "@mui/material/Box";
+import { Typography } from "@mui/material";
 
 const Home : NextPage = () => {
   const { t } = useTranslation("dashboard");
   return (
-      <Layout title={t("title.nonAuth")} heading={t("heading.nonAuth")}>
-        <div className={styles.container}>
-          <Head>
-            <meta name="description"/>
-          </Head>
+      <Layout title={"Главная"} heading={"Система для учета докумендов проектных команд"}>
 
-          <main className={styles.main}>
-            <h1 className={styles.title}>
-              HOME PAGE
-            </h1>
-          </main>
-        </div>
+        <Box sx={{ flexGrow: 1, marginTop: "1rem" }}>
+          <Grid container spacing={CARD_SPACING}>
+            <Grid xs={12}>
+              <Box sx={CARD}>
+                <Typography sx={{ marginBottom: "1rem" }}>В данной системе ведется учет договоров и дополнительных
+                  соглашений, над которыми работают проектные команды.</Typography>
+                <Typography sx={{ marginBottom: "1rem" }}>Вся информация вносится в систему ассистенами
+                  проектных команд либо системным администратором.</Typography>
+                <Typography>По всеми вопросам, связанным с работой системы, обращайтесь к системному
+                  администратору.</Typography>
+              </Box>
+            </Grid>
+          </Grid>
+        </Box>
+
       </Layout>
   )
 }
