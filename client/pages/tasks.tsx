@@ -10,70 +10,9 @@ import { useAuth } from "../contexts/authProvider";
 import RequireAuth from "../components/RequireAuth";
 import { CounterpartyFromDB } from "../interfaces/counterparty";
 import { DocumentStatusFromDB } from "../interfaces/documentStatus";
-import { formDocumentsList, Doc } from "../utils/formDocumentsList";
+import { formDocumentsList } from "../utils/formDocumentsList";
 import { Typography } from "@mui/material";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import TableCell from "@mui/material/TableCell";
-import TableBody from "@mui/material/TableBody";
-import format from "date-fns/format";
-import Table from "@mui/material/Table";
-import TableContainer from "@mui/material/TableContainer";
-import HtmlLink from "@mui/material/Link";
-import Link from "next/link";
-
-const TYPES = {
-  "contract": "Договор",
-  "agreement": "ДС",
-  "invoice": "Счет"
-};
-
-interface TasksTableProps {
-  documents : Doc[];
-}
-
-const TasksTable = ({ documents } : TasksTableProps) => {
-  return (
-      <TableContainer>
-        <Table size="small" aria-label="a dense table">
-          <TableHead>
-            <TableRow>
-              <TableCell>Документ</TableCell>
-              <TableCell>Статус</TableCell>
-              <TableCell>Родительский документ</TableCell>
-              <TableCell>Контрагент</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {documents.map(task => (
-                <TableRow
-                    key={task.type + task.number}
-                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                  <TableCell>
-                    {task.type !== "invoice"
-                        ? <Link href={task.link}>
-                          <HtmlLink sx={{ cursor: "pointer" }}>{TYPES[task.type]} №{task.number}</HtmlLink>
-                        </Link>
-                        : `${TYPES[task.type]} №${task.number}`}
-                  </TableCell>
-                  <TableCell>{task.status}</TableCell>
-                  <TableCell>
-                    {task.parentDocumentLink && <Link href={task.parentDocumentLink}>
-                      <HtmlLink sx={{ cursor: "pointer" }}>{task.parentDocumentName}</HtmlLink>
-                    </Link>}
-                  </TableCell>
-                  <TableCell>
-                    {task.counterpartyLink && <Link href={task.counterpartyLink}>
-                      <HtmlLink sx={{ cursor: "pointer" }}>{task.counterpartyName}</HtmlLink>
-                    </Link>}
-                  </TableCell>
-                </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-  )
-}
+import { TasksTable } from "../components/tasksTable";
 
 const Tasks : NextPage = () => {
   let { team } = useAuth();
