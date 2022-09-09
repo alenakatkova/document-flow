@@ -27,10 +27,9 @@ export const performDeleteRequest = async (url : string, id : number) => {
   }
 };
 
-export const performUpdateRequest = async <T>(url : string, id : number, data : T) => {
+export const performUpdateRequest = async <T>(url : string, data : T) => {
   try {
-    return await instance.post(url + id, {
-      id: id,
+    return await instance.post(url, {
       newData: data
     });
   } catch (error) {

@@ -86,3 +86,22 @@ exports.create = (req, res) => {
         })
       });
 };
+
+exports.update = (req, res) => {
+  Contract
+      .update(req.body, {
+        where: {
+          id: req.params.id
+        }
+      })
+      .then((user) => {
+        res.status(201).json({
+          status: "User data successfully edited"
+        })
+      })
+      .catch(error => {
+        res.status(400).send({
+          message: error.message || "Fail to edit existing user"
+        })
+      });
+};

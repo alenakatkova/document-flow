@@ -4,10 +4,10 @@ import { CounterpartyFromDB } from "./counterparty";
 
 export interface Contract {
   number : string;
-  startDate? : Date;
-  endDate? : Date;
+  startDate? : Date|null;
+  endDate? : Date|null;
   linkToFileOnDisk? : string;
-  signDate? : Date;
+  signDate? : Date|null;
 }
 
 export interface ContractFromDB extends Contract {

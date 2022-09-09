@@ -5,7 +5,7 @@ import Button from "@mui/material/Button";
 import React from "react";
 import { DateInput } from "./DateInput";
 import { generateDateFromYYYYMMDD } from "../utils/functions";
-import { createContract } from "../api/contract";
+import { createContract, updateContract } from "../api/contract";
 import { ContractFromDB } from "../interfaces/contract";
 
 type NumberFieldValue = number|"";
@@ -57,25 +57,19 @@ export const AddContractForm = ({
     const startDate = generateDateFromYYYYMMDD(data.startYear, data.startMonth, data.startDay);
     const endDate = generateDateFromYYYYMMDD(data.endYear, data.endMonth, data.endDay);
     const signDate = generateDateFromYYYYMMDD(data.signYear, data.signMonth, data.signDay);
-    console.log({
-      number: data.number,
-      linkToFileOnDisk: data.linkToFileOnDisk,
-      counterpartyId: counterpartyId,
-      startDate,
-      endDate,
-      signDate
-    });
+
 
     const formData = {
       number: data.number,
       linkToFileOnDisk: data.linkToFileOnDisk,
       counterpartyId: counterpartyId,
-      startDate,
-      endDate,
-      signDate
-    }
+      startDate: startDate || null,
+      endDate: endDate || null,
+      signDate: signDate || null
+    };
 
-    createContract(formData);
+    if (isEditMode && contract) updateContract(formData, contract.id)
+    else createContract(formData);
     finishEditing && finishEditing();
     reset();
   };
@@ -173,7 +167,7 @@ export const AddContractForm = ({
                   margin: "0 auto"
                 }}
         >
-          Добавить
+          {isEditMode ? "Сохранить" : "Добавить"}
         </Button>
       </Box>
   )

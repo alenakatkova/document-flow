@@ -47,7 +47,7 @@ const Contract : NextPage = () => {
 
   const [isBeingEdited, setIsBeingEdited] = React.useState(false);
 
-  const { data: contract, isLoading } = useFetch<ContractFromDB>(`contracts/${router.query.id}`,
+  const { data: contract, isLoading, fetchData } = useFetch<ContractFromDB>(`contracts/${router.query.id}`,
       {
         id: 0,
         number: ""
@@ -89,7 +89,8 @@ const Contract : NextPage = () => {
                         <AddContractForm counterpartyId={contract?.counterpartyId}
                                          contract={contract}
                                          finishEditing={() => setIsBeingEdited(false)}
-                                         isEditMode={true}/>}
+                                         isEditMode={true}
+                        />}
                   </Box>
                 </Box>
               </Grid>
