@@ -23,7 +23,7 @@ const sortById = (a : DocumentTransactionFromDB, b : DocumentTransactionFromDB) 
   return 0;
 }
 
-const findLastStatusChange = (transactions : DocumentTransactionFromDB[]) => {
+export const findLastStatusChange = (transactions : DocumentTransactionFromDB[]) => {
   const sorted = transactions.sort(sortById);
   return sorted[0];
 }
