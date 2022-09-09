@@ -16,7 +16,7 @@ exports.findAllByTeamId = (req, res) => {
           teamId: req.body.teamId,
           type: req.body.type
         },
-        attributes: ["id", "name", "isPriority", "phone"],
+        attributes: ["id", "name", "isPriority", "phone", "bankDetails"],
         include: [
           {
             model: Contact,

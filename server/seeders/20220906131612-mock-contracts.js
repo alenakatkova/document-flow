@@ -22,6 +22,16 @@ module.exports = {
         counterpartyId: 5,
         createdAt: new Date(),
         updatedAt: new Date()
+      },
+      {
+        number: "12",
+        startDate: new Date(2022, 10, 30),
+        endDate: new Date(2024, 11, 31),
+        linkToFileOnDisk: "https://drive.google.com/drive/u/0/my-drive",
+        signDate: undefined,
+        counterpartyId: 4,
+        createdAt: new Date(),
+        updatedAt: new Date()
       }
     ]);
   },

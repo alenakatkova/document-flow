@@ -5,7 +5,7 @@ module.exports = {
     return queryInterface.bulkInsert("Teams", [
       {
         username: "nazarova",
-        managerName: "Назаровва И.А.",
+        managerName: "Назарова И.А.",
         password: "password",
         assistantName: "Алла Смуглова",
         assistantEmail: "smuglovaa@example.com",

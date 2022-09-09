@@ -23,6 +23,13 @@ module.exports = {
         contractId: 2,
         createdAt: new Date(),
         updatedAt: new Date()
+      },
+      {
+        number: "1",
+        signDate: undefined,
+        contractId: 3,
+        createdAt: new Date(),
+        updatedAt: new Date()
       }
     ]);
   },
