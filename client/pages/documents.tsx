@@ -21,7 +21,6 @@ import HtmlLink from "@mui/material/Link";
 import TableContainer from "@mui/material/TableContainer";
 import { TYPES } from "../utils/constants"
 import { Doc } from "../utils/formDocumentsList"
-import { RadioButtonChoice } from "../components/RadioButtonChoice";
 
 interface AllDocumentsFormProps {
   documents : Doc[];
@@ -37,7 +36,7 @@ const AllDocumentsForm = ({ documents } : AllDocumentsFormProps) => {
               <TableCell>Документ</TableCell>
               <TableCell>Статус</TableCell>
               <TableCell>Родительский документ</TableCell>
-              <TableCell>Контрагент</TableCell>
+              <TableCell>Контрагенты</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -72,6 +71,29 @@ const AllDocumentsForm = ({ documents } : AllDocumentsFormProps) => {
   )
 }
 
+const docTypeOptions = [
+  {
+    label: "Договор",
+    value: "contract",
+    id: 0
+  },
+  {
+    label: "Счет",
+    value: "invoice",
+    id: 1
+  },
+  {
+    label: "Дополнительное соглашение",
+    value: "agreement",
+    id: 2
+  },
+  {
+    label: "Все",
+    value: "all",
+    id: 3
+  }
+];
+
 
 const Documents : NextPage = () => {
   let { team } = useAuth();
@@ -92,44 +114,18 @@ const Documents : NextPage = () => {
     setDocsToRender(docs);
   }, [counterparties, documentStatuses])
 
+  const [isPriorityChecked, setIsPriorityChecked] = useState(false);
+  const [searchByCounterpartyInput, setSearchByCounterpartyInput] = useState("");
 
-  const docTypeOptions = [
-    {
-      label: "Договор",
-      value: "contract",
-      id: 0
-    },
-    {
-      label: "Счет",
-      value: "invoice",
-      id: 1
-    },
-    {
-      label: "Дополнительное соглашение",
-      value: "agreement",
-      id: 2
-    },
-    {
-      label: "Все",
-      value: "all",
-      id: 3
-    }
-  ];
-
-  const [docType, setDocType] = useState(3)
-  const [isPriorityChecked, setIsPriorityChecked] = useState(false)
-
-  useEffect(() => {
-    setIsPriorityChecked(false)
-    if (docType === 3) setDocsToRender(initialDocs)
-    else {
-      let docs = initialDocs.filter(doc => doc.type === docTypeOptions[docType].value)
-      setDocsToRender(docs)
-    }
-  }, [docType])
-
+  const onSearchByCounterpartyInput = (e : React.ChangeEvent<HTMLInputElement>) => {
+    setIsPriorityChecked(false);
+    setSearchByCounterpartyInput(e.target.value)
+    let docs = initialDocs.filter(doc => doc.counterpartyName.toLowerCase().includes(e.target.value))
+    setDocsToRender(docs)
+  }
 
   const onPriorityToggle = (e : React.ChangeEvent<HTMLInputElement>) => {
+    setSearchByCounterpartyInput("");
     setIsPriorityChecked(e.target.checked)
     let docs = initialDocs
     if (e.target.checked) {
@@ -137,7 +133,6 @@ const Documents : NextPage = () => {
         return doc.isPriority === e.target.checked
       })
     }
-
     setDocsToRender(docs)
   }
 
@@ -157,14 +152,14 @@ const Documents : NextPage = () => {
                       /> Приоритетные документы
                     </label>
                   </Box>
-                  <Box>
-                    <RadioButtonChoice
-                        heading={"Выберите тип документа"}
-                        options={docTypeOptions}
-                        whatToAdd={"тип документа"}
-                        radioGroupName={"docType"}
-                        setChosenOption={setDocType}
-                    />
+                  <Box sx={{ marginBottom: "1rem" }}>
+                    <label>
+                      <input
+                          type="text"
+                          value={searchByCounterpartyInput}
+                          onChange={(e) => onSearchByCounterpartyInput(e)}
+                      /> Поиск по типу документа или контрагенту
+                    </label>
                   </Box>
 
                   <AllDocumentsForm documents={docsToRender}/>
