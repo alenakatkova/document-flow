@@ -13,30 +13,63 @@ import { useRouter } from "next/router";
 import RequireAuth from "../components/RequireAuth";
 import { CounterpartyFromDB } from "../interfaces/counterparty";
 import Link from "next/link";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
+import List from '@mui/material/List';
+import { InternalDepartment, InternalDepartmentFromDB } from "../interfaces/internalDepartment";
+import format from "date-fns/format";
 
-const Contractors : NextPage = () => {
+const Departments : NextPage = () => {
   const { t } = useTranslation("clients");
   let { team } = useAuth();
   const router = useRouter();
 
-  const { data: departments } = useFetch<CounterpartyFromDB[]>("/departments", []);
+  const { data: departments } = useFetch<InternalDepartmentFromDB[]>("/departments", []);
 
   return (
       <RequireAuth>
-        <Layout title={"Подрядчики"} heading={"Подрядчики"}>
+        <Layout title={"Контакты в департаментах"} heading={"Контакты в департаментах"}>
           <Box sx={{ flexGrow: 1, marginTop: "1rem" }}>
             <Grid container spacing={CARD_SPACING}>
               <Grid xs={7}>
                 <Box sx={CARD}>
-                  <pre>
-        {JSON.stringify(departments, null, 2)}
-      </pre>
+                  <List>
+                    {departments.map(department => (
+                        <ListItem key={department.name}
+                                  sx={{
+                                    display: "flex", flexDirection: "row",
+                                    ":not(:last-child)": {
+                                      borderBottom: "1px solid lightgray"
+                                    }
+                                  }}>
+                          <Box sx={{ width: "35%" }}>
+                            <Typography variant="h6">{department.name}</Typography>
+                          </Box>
+                          <Box sx={{ width: "65%" }}>
+                            <List>
+                              {department?.InternalContacts?.map(contact => (
+                                  <ListItem
+                                      key={contact.name}
+                                      sx={{
+                                        display: "flex",
+                                        flexDirection: "column"
+                                      }}>
+                                    <Typography>{contact.name}</Typography>
+                                    <Typography>Внутренний номер: {contact.internalPhoneCode}</Typography>
+                                    <Typography>{contact.email}</Typography>
+                                    <Typography>{contact.birthday && format(new Date(contact.birthday), 'dd/MM/yyyy')}</Typography>
+                                  </ListItem>
+                              ))}
+                            </List>
+                          </Box>
+                        </ListItem>
+                    ))}
+                  </List>
                 </Box>
               </Grid>
               <Grid xs={5}>
                 <Box sx={CARD}>
-                  <Typography variant="h6">{t("contacts.heading")}</Typography>
-
+                  Обращаться по вопросам согласования документов
                 </Box>
               </Grid>
             </Grid>
@@ -54,4 +87,4 @@ export async function getStaticProps({ locale } : { locale : string }) {
   };
 }
 
-export default Contractors;
+export default Departments;

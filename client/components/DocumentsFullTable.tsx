@@ -83,7 +83,7 @@ const DocumentsFullTable = ({ isLoading, contracts } : DocumentsFullTableProps) 
                                 }
                               </TableCell>
                               <TableCell align="center">
-                                {formatPeriodOfValidity(contract?.startDate, contract?.endDate)}
+                                {contract?.startDate && contract?.endDate && formatPeriodOfValidity(contract?.startDate, contract?.endDate)}
                               </TableCell>
                               <TableCell align="center">
                                 {<HtmlLink href={contract?.linkToFileOnDisk}>Ссылка</HtmlLink>}

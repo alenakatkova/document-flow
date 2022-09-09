@@ -96,9 +96,9 @@ const AgreementsTable = ({ isLoading, agreements } : AgreementsTableProps) => {
                                       </TableCell>
                                       <TableCell align="center">
                                         {
-                                          agreement?.linkToFileOnDisk
+                                          agreement?.linkToFile
                                               ? <HtmlLink
-                                                  href={agreement?.linkToFileOnDisk}>Перейти</HtmlLink>
+                                                  href={agreement?.linkToFile}>Перейти</HtmlLink>
                                               : <Typography color="warning.main">
                                                 Необходимо добавить ссылку
                                               </Typography>
