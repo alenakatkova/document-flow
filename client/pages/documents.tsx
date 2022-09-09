@@ -48,9 +48,10 @@ const AllDocumentsForm = ({ documents } : AllDocumentsFormProps) => {
                   <TableCell>
                     {doc.type !== "invoice"
                         ? <Link href={doc.link}>
-                          <HtmlLink sx={{ cursor: "pointer" }}>{TYPES[doc.type]} №{doc.number}</HtmlLink>
+                          <HtmlLink
+                              sx={{ cursor: "pointer" }}>{TYPES[doc.type]} {doc.number === "Нет номера" ? "" : "№" + doc.number}</HtmlLink>
                         </Link>
-                        : `${TYPES[doc.type]} №${doc.number}`}
+                        : <div>{TYPES[doc.type]} {doc.number === "Нет номера" ? "" : "№" + doc.number}</div>}
                   </TableCell>
                   <TableCell>{doc.status}</TableCell>
                   <TableCell>

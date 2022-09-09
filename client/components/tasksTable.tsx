@@ -34,9 +34,10 @@ export const TasksTable = ({ documents } : TasksTableProps) => {
                   <TableCell>
                     {task.type !== "invoice"
                         ? <Link href={task.link}>
-                          <HtmlLink sx={{ cursor: "pointer" }}>{TYPES[task.type]} №{task.number}</HtmlLink>
+                          <HtmlLink
+                              sx={{ cursor: "pointer" }}>{TYPES[task.type]} {task.number === "Нет номера" ? "" : "№" + task.number}</HtmlLink>
                         </Link>
-                        : `${TYPES[task.type]} №${task.number}`}
+                        : <div>{TYPES[task.type]} {task.number === "Нет номера" ? "" : "№" + task.number}</div>}
                   </TableCell>
                   <TableCell>{task.status}</TableCell>
                   <TableCell>
