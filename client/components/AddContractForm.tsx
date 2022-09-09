@@ -6,6 +6,7 @@ import React from "react";
 import { DateInput } from "./DateInput";
 import { generateDateFromYYYYMMDD } from "../utils/functions";
 import { createContract } from "../api/contract";
+import { ContractFromDB } from "../interfaces/contract";
 
 type NumberFieldValue = number|"";
 
@@ -25,9 +26,17 @@ interface Inputs {
 
 interface AddContractFormProps {
   counterpartyId : number;
+  isEditMode? : boolean;
+  contract? : ContractFromDB;
+  finishEditing? : () => void;
 }
 
-export const AddContractForm = ({ counterpartyId } : AddContractFormProps) => {
+export const AddContractForm = ({
+                                  counterpartyId,
+                                  contract,
+                                  finishEditing,
+                                  isEditMode
+                                } : AddContractFormProps) => {
   const { handleSubmit, reset, formState: { isSubmitSuccessful }, control, watch, register } = useForm<Inputs>({
     defaultValues: {
       signYear: "",
@@ -66,7 +75,8 @@ export const AddContractForm = ({ counterpartyId } : AddContractFormProps) => {
       signDate
     }
 
-    createContract(formData)
+    createContract(formData);
+    finishEditing && finishEditing();
     reset();
   };
 

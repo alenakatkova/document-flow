@@ -26,7 +26,7 @@ const formatPeriodOfValidity = (startDate : Date|undefined, endDate : Date|undef
   let status;
   if (endDate) {
     const isActive = isBefore(new Date(), new Date(endDate))
-    status = <div>Ceйчас {isActive ? " действует" : " не действует"}</div>
+    status = <div>Сейчас {isActive ? " действует" : " не действует"}</div>
   }
   return <div>
     <div>{startDate && ("С " + format(new Date(startDate), 'dd/MM/yyyy'))}</div>

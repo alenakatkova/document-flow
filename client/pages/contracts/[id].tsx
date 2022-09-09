@@ -19,6 +19,8 @@ import { Typography } from "@mui/material";
 import { findLastStatusChange } from "../../utils/functions";
 import HtmlLink from '@mui/material/Link';
 import Link from "next/link";
+import Button from "@mui/material/Button";
+import { AddContractForm } from "../../components/AddContractForm";
 
 interface AddStatusFormProps {
   id : number;
@@ -35,6 +37,8 @@ const AddStatusForm = ({ id, documentType } : AddStatusFormProps) => {
 
 const Contract : NextPage = () => {
   const router = useRouter();
+
+  const [isBeingEdited, setIsBeingEdited] = React.useState(false);
 
   const { data: contract, isLoading } = useFetch<ContractFromDB>(`contracts/${router.query.id}`,
       {
@@ -64,6 +68,21 @@ const Contract : NextPage = () => {
                         && <Box sx={{ marginBottom: "1rem" }}>
                           Дата подписания: {format(new Date(contract?.signDate), 'dd/MM/yyyy')}
                         </Box>}
+                    {contract?.linkToFileOnDisk
+                        && <Box sx={{ marginBottom: "1rem" }}>
+                          <HtmlLink href={contract?.linkToFileOnDisk}>Ссылка на документ на Google Disk</HtmlLink>
+                        </Box>}
+
+                    {!isBeingEdited
+                        && <Box>
+                          <Button onClick={() => setIsBeingEdited(true)} variant="contained">Редактировать</Button>
+                        </Box>
+                    }
+                    {isBeingEdited && contract?.counterpartyId &&
+                        <AddContractForm counterpartyId={contract?.counterpartyId}
+                                         contract={contract}
+                                         finishEditing={() => setIsBeingEdited(false)}
+                                         isEditMode={true}/>}
                   </Box>
                 </Box>
               </Grid>
