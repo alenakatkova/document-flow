@@ -19,7 +19,7 @@ exports.findAllByTeamId = (req, res) => {
         include: [
           {
             model: Contact,
-            attributes: ["name", "phone", "email", "job"]
+            attributes: ["id", "name", "phone", "email", "job"]
           },
           {
             model: Contract,

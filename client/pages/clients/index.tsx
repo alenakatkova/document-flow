@@ -14,6 +14,11 @@ import RequireAuth from "../../components/RequireAuth";
 import { CounterpartyFromDB } from "../../interfaces/counterparty";
 import Link from "next/link";
 import HtmlLink from "@mui/material/Link";
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
 
 const Clients : NextPage = () => {
   const { t } = useTranslation("clients");
@@ -31,10 +36,10 @@ const Clients : NextPage = () => {
           <Box sx={{ flexGrow: 1, marginTop: "1rem" }}>
             {clients.map(client => (
                 <Grid key={client.name} container spacing={CARD_SPACING}>
-                  <Grid xs={7}>
+                  <Grid xs={8}>
                     <Box sx={CARD}>
                       <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
-                        <Box>{client.name}</Box>
+                        <Typography variant="h5">{client.name}</Typography>
                         <Box>
                           <Link href={`/clients/${client.id}`}>
                             <HtmlLink>Открыть в отдельном окне</HtmlLink>
@@ -43,42 +48,60 @@ const Clients : NextPage = () => {
                       </Box>
                       <Box sx={{ marginTop: "1rem" }}>Телефон: {client.phone}</Box>
                       <Box sx={{ marginTop: "1rem" }}>
-                        {client?.Contracts && client?.Contracts.le && ngth > 0
-                            && <Typography variant="h6" sx={{ marginBottom: "0.5rem" }}>
-                              Документы
-                            </Typography>
-                        }
-                        <ul>
-                          {client?.Contracts?.map(contract => (
-                              <li sx={{ border: "1px solid red", marginBottom: "1rem" }}
-                                  key={contract.number}>
-                                <Link href={`/contracts/${contract.id}`}>
-                                  <a>ССЫЛКА</a>
-                                </Link>
-                                Договор № {contract.number}
-                                Статус: {contract?.ContractTransactions && JSON.stringify(contract?.ContractTransactions[0]?.DocumentStatus?.stage)}
-                                <ol>
-                                  {contract?.Agreements?.map(agreement => (
-                                      <li sx={{ border: "1px solid green", marginBottom: "1rem" }}
-                                          key={agreement.number}>
-                                        <Link href={`/agreements/${agreement.id}`}>
-                                          <a>ССЫЛКА</a>
+                        <Typography variant="h6" sx={{ marginBottom: "0.5rem" }}>
+                          Документы
+                        </Typography>
+                        <Box>
+                          {client?.Contracts && client?.Contracts.length > 0
+                              ? <List>
+                                {client?.Contracts?.map(contract => (
+                                    <ListItem key={"contract" + contract.number}
+                                              sx={{ border: "1px solid lightgray", marginTop: "-1px" }}>
+                                      <ListItemText sx={{ whiteSpace: "nowrap" }}>
+                                        <Link href={`/contracts/${contract.id}`}>
+                                          <HtmlLink sx={{ cursor: "pointer" }}>Договор № {contract.number}</HtmlLink>
                                         </Link>
-                                        Дополнительное соглашение № {agreement.number}
-                                        Счет № {agreement.Invoice && agreement.Invoice.number}
-                                        Статус: {agreement?.AgreementTransactions && JSON.stringify(agreement?.AgreementTransactions[0]?.DocumentStatus?.stage)}
-                                      </li>
-                                  ))}
-                                </ol>
-                              </li>
-                          ))}
-                        </ul>
+                                      </ListItemText>
+                                      <List>
+                                        {contract?.Agreements?.map(agreement => (
+                                            <ListItem key={agreement.number}>
+                                              <Link href={`/agreements/${agreement.id}`}>
+                                                <HtmlLink sx={{ cursor: "pointer", marginRight: "1rem" }}>
+                                                  Дополнительное соглашение № {agreement.number}
+                                                </HtmlLink>
+                                              </Link>
+                                              <Box>Счет № {agreement.Invoice && agreement.Invoice.number}</Box>
+                                            </ListItem>
+                                        ))}
+                                      </List>
+                                    </ListItem>
+                                ))}
+                              </List>
+                              : "Не добавлено ни одного документа"
+                          }
+                        </Box>
                       </Box>
                     </Box>
                   </Grid>
-                  <Grid xs={5}>
+                  <Grid xs={4}>
                     <Box sx={CARD}>
-                      <div>{JSON.stringify(client.Contacts)}</div>
+                      <Typography variant="h6">
+                        Контакты
+                      </Typography>
+                      {client?.Contacts && client?.Contacts.length > 0
+                          ? <List>
+                            {client?.Contacts.map(contact => (
+                                <ListItem key={"contact" + contact.id}>
+                                  <Box>
+                                    <Box>{contact?.name}</Box>
+                                    <Box>{contact?.job}</Box>
+                                    <Box>{contact?.phone}</Box>
+                                    <Box>{contact?.email}</Box>
+                                  </Box>
+                                </ListItem>))}
+                          </List>
+                          : "Контакты не добавлены"
+                      }
                     </Box>
                   </Grid>
                 </Grid>
