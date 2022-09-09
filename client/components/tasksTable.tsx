@@ -8,12 +8,7 @@ import Link from "next/link";
 import HtmlLink from "@mui/material/Link";
 import React from "react";
 import { Doc } from "../utils/formDocumentsList";
-
-const TYPES = {
-  "contract": "Договор",
-  "agreement": "ДС",
-  "invoice": "Счет"
-};
+import { TYPES } from "../utils/constants";
 
 interface TasksTableProps {
   documents : Doc[];
