@@ -5,7 +5,7 @@ import Layout from "../../components/layout";
 import useFetch from "../../api/useFetch";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Unstable_Grid2";
-import { CARD_SPACING, CARD } from "../../styles/constants";
+import { CARD, CARD_SPACING } from "../../styles/constants";
 import { ContractFromDB } from "../../interfaces/contract";
 import RequireAuth from "../../components/RequireAuth";
 import format from "date-fns/format";
@@ -21,31 +21,7 @@ import HtmlLink from '@mui/material/Link';
 import Link from "next/link";
 import Button from "@mui/material/Button";
 import { AddContractForm } from "../../components/AddContractForm";
-import TextField from "@mui/material/TextField";
-import { CounterpartyFromDB } from "../../interfaces/counterparty";
-
-
-// stage
-//     [VisAssistantResponsibility
-// 123 internalDepartmentld
-// TODO FETCH INTERNAL DEPS
-
-interface AddStatusFormProps {
-  id : number;
-  documentType : "contract"|"agreement";
-}
-
-const AddStatusForm = ({ id, documentType } : AddStatusFormProps) => {
-  const {
-    data: departments,
-    isLoading
-  } = useFetch<CounterpartyFromDB[]>("/departments", []);
-  return (
-      <pre>
-        {JSON.stringify(departments, null, 2)}
-      </pre>
-  )
-};
+import { AddStatusForm } from "../../components/addStatusForm";
 
 const Contract : NextPage = () => {
   const router = useRouter();
@@ -170,7 +146,7 @@ const Contract : NextPage = () => {
 
               <Grid xs={9}>
                 <Box sx={CARD}>
-                  <AddStatusForm id={contract.id} documentType="cotract"/>
+                  <AddStatusForm documentId={contract.id} documentType="contract"/>
                 </Box>
               </Grid>
             </Grid>

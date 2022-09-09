@@ -14,7 +14,7 @@ exports.findAll = (req, res) => {
       })
       .catch(error => {
         res.status(500).send({
-          message: error.message || "Some error occurred while retrieving teams"
+          message: error.message || "Some error occurred while retrieving departments"
         });
       });
 };

@@ -34,7 +34,11 @@ export const RadioButtonChoice = ({
               : <FormControl>
                 <FormLabel id="demo-row-radio-buttons-group-label">{heading}</FormLabel>
                 <RadioGroup
-                    sx={{ margin: "1rem 0" }}
+                    sx={{
+                      margin: "1rem 0",
+                      display: "flex",
+                      flexDirection: "column"
+                    }}
                     row
                     aria-labelledby="demo-row-radio-buttons-group-label"
                     name="row-radio-buttons-group"
@@ -43,7 +47,7 @@ export const RadioButtonChoice = ({
                     options.map(option => (
                         <label key={option.value + option.id}>
                           <input type="radio"
-                                 name={whatToAdd}
+                                 name={radioGroupName}
                                  onChange={() => setChosenOption(option.id)}
                                  value={option.value}/>
                           {option.label}
