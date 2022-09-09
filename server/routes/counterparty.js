@@ -8,6 +8,7 @@ router.post("/names", counterpartyController.findAllNamesByTeamId);
 router.post("/:id/add-contract", counterpartyController.createContract);
 router.post("/:id/add-contact", contactController.createContact);
 router.get("/:id", counterpartyController.retrieveAllDataForCounterparty);
+router.post("/get-statuses", counterpartyController.findStatusesForAllDocuments);
 
 //router.delete("/:id", contactController.delete);
 

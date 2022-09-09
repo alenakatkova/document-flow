@@ -1,8 +1,14 @@
-const { DocumentStatus } = require("../models");
+const { DocumentStatus, InternalDepartment } = require("../models");
 
 exports.findAll = (req, res) => {
   DocumentStatus
-      .findAll()
+      .findAll({
+        include: [
+          {
+            model: InternalDepartment
+          }
+        ]
+      })
       .then(data => {
         res.send(data)
       })

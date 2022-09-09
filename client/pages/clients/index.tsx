@@ -32,7 +32,7 @@ const Clients : NextPage = () => {
 
   return (
       <RequireAuth>
-        <Layout title={t("title")} heading={t("heading")}>
+        <Layout title={"Клиенты"} heading={"Клиенты"}>
           <Box sx={{ flexGrow: 1, marginTop: "1rem" }}>
             {clients.map(client => (
                 <Grid key={client.name} container spacing={CARD_SPACING}>

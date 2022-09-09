@@ -76,7 +76,7 @@ export default function SideMenu() {
                   <ListItemText>Все документы</ListItemText>
                 </MenuItem>
               </NextLink>
-              <NextLink href="/dashboard">
+              <NextLink href="/tasks">
                 <MenuItem>
                   <ListItemText>Задачи</ListItemText>
                 </MenuItem>

@@ -6,6 +6,7 @@ const { AgreementTransaction } = require("../models");
 const { Contact } = require("../models");
 const { ContractTransaction } = require("../models");
 const { DocumentStatus } = require("../models");
+const { InternalDepartment } = require("../models");
 
 exports.findAllByTeamId = (req, res) => {
   console.log(req.body)
@@ -205,6 +206,64 @@ exports.create = (req, res) => {
         })
       });
 };
+
+exports.findStatusesForAllDocuments = (req, res) => {
+  console.log(req.body)
+  Counterparty
+      .findAll({
+        where: {
+          teamId: req.body.teamId
+        },
+        attributes: ["name", "isPriority", "type", "id"],
+        include: [
+          {
+            model: Contract,
+            attributes: ["id", "number"],
+            include: [
+              {
+                model: ContractTransaction,
+                attributes: ["id", "createdAt"],
+                include: [
+                  {
+                    model: DocumentStatus,
+                    attributes: ["id"]
+                  }
+                ]
+              },
+              {
+                model: Agreement,
+                attributes: ["id", "number"],
+                include: [
+                  {
+                    model: Invoice,
+                    attributes: ["id", "number", "status"],
+                  },
+                  {
+                    model: AgreementTransaction,
+                    attributes: ["id", "createdAt"],
+                    include: [
+                      {
+                        model: DocumentStatus,
+                        attributes: ["id"]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      })
+      .then(data => {
+        res.send(data)
+      })
+      .catch(error => {
+        res.status(500).send({
+          message: error.message || `Some error occurred while retrieving clients of team with id ${req.body.teamId}`
+        });
+      });
+};
+
 //
 // exports.delete = (req, res) => {
 //   Team
