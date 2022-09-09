@@ -22,6 +22,7 @@ import Link from "next/link";
 import Button from "@mui/material/Button";
 import { AddContractForm } from "../../components/AddContractForm";
 import TextField from "@mui/material/TextField";
+import { CounterpartyFromDB } from "../../interfaces/counterparty";
 
 
 // stage
@@ -31,14 +32,18 @@ import TextField from "@mui/material/TextField";
 
 interface AddStatusFormProps {
   id : number;
-  documentType : "cotract"|"agreement";
+  documentType : "contract"|"agreement";
 }
 
 const AddStatusForm = ({ id, documentType } : AddStatusFormProps) => {
+  const {
+    data: departments,
+    isLoading
+  } = useFetch<CounterpartyFromDB[]>("/departments", []);
   return (
-      <>
-        f
-      </>
+      <pre>
+        {JSON.stringify(departments, null, 2)}
+      </pre>
   )
 };
 

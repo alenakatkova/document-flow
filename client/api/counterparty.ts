@@ -8,8 +8,4 @@ export const createContact = async (contactData : Contact, counterpartyId : numb
 
 export const createCounterparty = async (counterpartyData : Counterparty, teamId : number) => {
   return await performPostRequest(`/counterparties/add-counterparty`, { teamId: teamId, ...counterpartyData })
-}
-
-// export const createContract = async (clientContractData : Contract, clientId : number) => {
-//   return await performPostRequest(`/clients/${clientId}/add-contract`, clientContractData)
-// };
+};
