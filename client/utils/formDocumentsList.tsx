@@ -14,6 +14,7 @@ export interface Doc {
   number : string;
   parentDocumentLink : string|null;
   parentDocumentName : string|null;
+  rusType : string;
 }
 
 const getStatusText = (
@@ -66,6 +67,7 @@ export const formDocumentsList = (counterparties : CounterpartyFromDB[], documen
         counterpartyName: curr.name,
         counterpartyLink: `/${curr.type}s/` + curr.id,
         type: "contract",
+        rusType: "договор, контракт",
         status: statusText,
         isAssistantsResponsibility: isAssistantResponsible,
         number: contract.number,
@@ -82,6 +84,7 @@ export const formDocumentsList = (counterparties : CounterpartyFromDB[], documen
           counterpartyName: curr.name,
           counterpartyLink: `/${curr.type}s/` + curr.id,
           type: "agreement",
+          rusType: "дополнительное соглашение, дс",
           status: statusText,
           isAssistantsResponsibility: isAssistantResponsible,
           number: agreement.number,
@@ -96,6 +99,7 @@ export const formDocumentsList = (counterparties : CounterpartyFromDB[], documen
             counterpartyName: curr.name,
             counterpartyLink: `/${curr.type}s/` + curr.id,
             type: "invoice",
+            rusType: "счет",
             status: "Счет не занесен в систему",
             isAssistantsResponsibility: true,
             number: "Нет номера",
@@ -107,6 +111,7 @@ export const formDocumentsList = (counterparties : CounterpartyFromDB[], documen
             link: "",
             isPriority: Boolean(curr.isPriority),
             counterpartyName: curr.name,
+            rusType: "счет",
             counterpartyLink: `/${curr.type}s/` + curr.id,
             type: "invoice",
             status: "Счет не выставлен",
@@ -124,6 +129,7 @@ export const formDocumentsList = (counterparties : CounterpartyFromDB[], documen
             counterpartyName: curr.name,
             counterpartyLink: `/${curr.type}s/` + curr.id,
             type: "invoice",
+            rusType: "счет",
             status: status || "Счет не выставлен",
             isAssistantsResponsibility: status === "Оплачен" ? false : true,
             number: agreement.number,

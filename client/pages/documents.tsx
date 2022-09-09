@@ -104,7 +104,6 @@ const Documents : NextPage = () => {
 
   const { data: documentStatuses } = useFetch<DocumentStatusFromDB[]>("/document-statuses", []);
 
-  // let docs = formDocumentsList(counterparties, documentStatuses);
   const [initialDocs, setInitialDocs] = useState<Doc[]>([])
   const [docsToRender, setDocsToRender] = useState<Doc[]>([])
 
@@ -115,17 +114,26 @@ const Documents : NextPage = () => {
   }, [counterparties, documentStatuses])
 
   const [isPriorityChecked, setIsPriorityChecked] = useState(false);
-  const [searchByCounterpartyInput, setSearchByCounterpartyInput] = useState("");
+  const [searchInput, setSearchInput] = useState("");
 
-  const onSearchByCounterpartyInput = (e : React.ChangeEvent<HTMLInputElement>) => {
+  const onSearchInput = (e : React.ChangeEvent<HTMLInputElement>) => {
     setIsPriorityChecked(false);
-    setSearchByCounterpartyInput(e.target.value)
-    let docs = initialDocs.filter(doc => doc.counterpartyName.toLowerCase().includes(e.target.value))
-    setDocsToRender(docs)
+    setSearchInput(e.target.value)
+    let docs = initialDocs
+        .filter(doc => {
+          if (
+              doc.counterpartyName.toLowerCase().includes(e.target.value.toLowerCase())
+              || doc.rusType.toLowerCase().includes(e.target.value.toLowerCase())
+              || doc.status.toLowerCase().includes(e.target.value.toLowerCase())
+          ) {
+            return true
+          }
+        })
+    setDocsToRender(docs);
   }
 
   const onPriorityToggle = (e : React.ChangeEvent<HTMLInputElement>) => {
-    setSearchByCounterpartyInput("");
+    setSearchInput("");
     setIsPriorityChecked(e.target.checked)
     let docs = initialDocs
     if (e.target.checked) {
@@ -156,9 +164,9 @@ const Documents : NextPage = () => {
                     <label>
                       <input
                           type="text"
-                          value={searchByCounterpartyInput}
-                          onChange={(e) => onSearchByCounterpartyInput(e)}
-                      /> Поиск по типу документа или контрагенту
+                          value={searchInput}
+                          onChange={(e) => onSearchInput(e)}
+                      /> Поиск по типу документа, статусу или контрагенту
                     </label>
                   </Box>
 
