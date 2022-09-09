@@ -11,9 +11,8 @@ import RequireAuth from "../components/RequireAuth";
 import { CounterpartyFromDB } from "../interfaces/counterparty";
 import { DocumentStatusFromDB } from "../interfaces/documentStatus";
 import { formDocumentsList } from "../utils/formDocumentsList";
-import { Typography } from "@mui/material";
 
-const Tasks : NextPage = () => {
+const Documents : NextPage = () => {
   let { team } = useAuth();
 
   const {
@@ -31,25 +30,22 @@ const Tasks : NextPage = () => {
             <Grid container spacing={CARD_SPACING}>
               <Grid xs={6}>
                 <Box sx={CARD}>
-                  <Typography variant="h6">Срочные задачи по приоритетным контрагентам:</Typography>
                   <pre>
-                  {JSON.stringify(docs.filter(doc => doc.isPriority && doc.isAssistantsResponsibility && doc.status !== "Отменен" && doc.status !== "Подписан" && doc.status !== "Оплачен"), null, 2)}
-                </pre>
-                </Box>
-              </Grid>
-              <Grid xs={6}>
-                <Box sx={CARD}>
-                  <Typography variant="h6">Другие приоритетные документы, действия по которым не
-                    требуются:</Typography>
-                  <pre>
-                  {JSON.stringify(docs.filter(doc => doc.isPriority && !doc.isAssistantsResponsibility && doc.status !== "Отменен" && doc.status !== "Подписан" && doc.status !== "Оплачен"), null, 2)}
+                  {JSON.stringify(docs.filter(doc => doc.isPriority && doc.isAssistantsResponsibility), null, 2)}
                 </pre>
                 </Box>
               </Grid>
               <Grid xs={6}>
                 <Box sx={CARD}>
                   <pre>
-                  {JSON.stringify(docs.filter(doc => !doc.isPriority && doc.isAssistantsResponsibility && doc.status !== "Отменен" && doc.status !== "Подписан" && doc.status !== "Оплачен"), null, 2)}
+                  {JSON.stringify(docs.filter(doc => doc.isPriority && !doc.isAssistantsResponsibility), null, 2)}
+                </pre>
+                </Box>
+              </Grid>
+              <Grid xs={6}>
+                <Box sx={CARD}>
+                  <pre>
+                  {JSON.stringify(docs.filter(doc => !doc.isPriority && doc.isAssistantsResponsibility), null, 2)}
                 </pre>
                 </Box>
               </Grid>
@@ -76,4 +72,4 @@ export async function getStaticProps({ locale } : { locale : string }) {
   };
 }
 
-export default Tasks;
+export default Documents;
