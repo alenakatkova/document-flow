@@ -1,16 +1,16 @@
-import { DocumentTransactionFromDB } from "./documentTransaction";
+import { AgreementTransactionFromDB } from "./documentTransaction";
 import { InvoiceFromDB } from "./invoice";
 
 export interface Agreement {
   number : string;
-  linkToFileOnDisk? : string;
+  linkToFile? : string;
   signDate? : Date;
 }
 
 export interface AgreementFromDB extends Agreement {
   id : number;
   Invoice? : InvoiceFromDB;
-  AgreementTransactions? : DocumentTransactionFromDB[];
+  AgreementTransactions? : AgreementTransactionFromDB[];
   contractId? : number;
   createdAt? : Date;
   updatedAt? : Date;

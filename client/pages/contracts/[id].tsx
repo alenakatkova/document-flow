@@ -133,7 +133,7 @@ const Contract : NextPage = () => {
                           {contract?.Agreements?.map(agreement => (
                               <Box key={agreement.id + agreement.number} sx={{ marginBottom: "0.2rem" }}>
                                 <Link href={`/agreements/${agreement.id}`}>
-                                  <HtmlLink>ДС №{agreement.number}</HtmlLink>
+                                  <HtmlLink sx={{ cursor: "pointer" }}>ДС №{agreement.number}</HtmlLink>
                                 </Link>
                               </Box>
                           ))}
@@ -146,6 +146,9 @@ const Contract : NextPage = () => {
 
               <Grid xs={9}>
                 <Box sx={CARD}>
+                  <Typography variant="h6" sx={{ marginBottom: "0.5rem" }} id="change-status">
+                    Форма для изменения статуса договора
+                  </Typography>
                   <AddStatusForm documentId={contract.id} documentType="contract"/>
                 </Box>
               </Grid>
