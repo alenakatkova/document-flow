@@ -6,7 +6,7 @@ module.exports = {
       {
         number: "1",
         due: new Date(2022, 1, 5),
-        status: "payed",
+        status: "Оплачен",
         agreementId: 1,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -14,8 +14,16 @@ module.exports = {
       {
         number: "1",
         due: new Date(2022, 11, 30),
-        status: "no invoice",
+        status: "Не выставлен",
         agreementId: 2,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        number: "1",
+        due: new Date(2021, 11, 30),
+        status: "Требуется оплата",
+        agreementId: 3,
         createdAt: new Date(),
         updatedAt: new Date()
       }

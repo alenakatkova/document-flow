@@ -16,7 +16,7 @@ interface Inputs {
   dueDay : NumberFieldValue|undefined;
   number : string;
   linkToFile : string|undefined;
-  status : string|undefined;
+  status : "Оплачен"|"Не ввыставлен"|"Требуется оплата"|"";
 }
 
 interface AddInvoiceFormProps {
@@ -90,6 +90,7 @@ export const AddInvoiceForm = ({ agreementId } : AddInvoiceFormProps) => {
                     inputRef={ref}
                     label={"Статус"}
                     variant="outlined"
+                    placeholder={"Оплачен / Не ввыставлен / Требуется оплата"}
                     required
                 />
             )}
