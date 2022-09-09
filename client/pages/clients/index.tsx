@@ -42,11 +42,13 @@ const Clients : NextPage = () => {
                         <Typography variant="h5">{client.name}</Typography>
                         <Box>
                           <Link href={`/clients/${client.id}`}>
-                            <HtmlLink>Открыть в отдельном окне</HtmlLink>
+                            <HtmlLink sx={{ cursor: "pointer" }}>Открыть в отдельном окне</HtmlLink>
                           </Link>
                         </Box>
                       </Box>
                       <Box sx={{ marginTop: "1rem" }}>Телефон: {client.phone}</Box>
+                      <Box sx={{ marginTop: "1rem" }}>Реквизиты: </Box>
+                      <Box sx={{ marginTop: "1rem", whiteSpace: "pre-wrap", }}>{client.bankDetails}</Box>
                       <Box sx={{ marginTop: "1rem" }}>
                         <Typography variant="h6" sx={{ marginBottom: "0.5rem" }}>
                           Документы
@@ -70,7 +72,7 @@ const Clients : NextPage = () => {
                                                   Дополнительное соглашение № {agreement.number}
                                                 </HtmlLink>
                                               </Link>
-                                              <Box>Счет № {agreement.Invoice && agreement.Invoice.number}</Box>
+                                              <Box>{agreement.Invoice && "Счет № " + agreement.Invoice.number}</Box>
                                             </ListItem>
                                         ))}
                                       </List>

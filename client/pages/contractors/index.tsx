@@ -13,6 +13,12 @@ import { useRouter } from "next/router";
 import RequireAuth from "../../components/RequireAuth";
 import { CounterpartyFromDB } from "../../interfaces/counterparty";
 import Link from "next/link";
+import HtmlLink from "@mui/material/Link";
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
 
 const Contractors : NextPage = () => {
   const { t } = useTranslation("clients");
@@ -20,7 +26,7 @@ const Contractors : NextPage = () => {
   const router = useRouter();
 
   const {
-    data: counterparties,
+    data: clients,
     isLoading
   } = useFetch<CounterpartyFromDB[]>("/counterparties", [], { teamId: team, type: "contractor" });
 
@@ -28,61 +34,80 @@ const Contractors : NextPage = () => {
       <RequireAuth>
         <Layout title={"Подрядчики"} heading={"Подрядчики"}>
           <Box sx={{ flexGrow: 1, marginTop: "1rem" }}>
-            <Grid container spacing={CARD_SPACING}>
-              <Grid xs={7}>
-                <Box sx={CARD}>
-                  <Typography variant="h6">{t("inWork.heading")}</Typography>
-                  <Box>{!isLoading && (
-                      <div>
-                        {counterparties.map(client => (
-                            <Box sx={{ border: "1px solid blue", marginBottom: "1rem" }}
-                                 key={client.name}>
-                              <Link href={`/clients/${client.id}`}>
-                                <a>ССЫЛКА</a>
-                              </Link>
-                              <div>{client.name}</div>
-                              <div>{client.phone}</div>
-                              <div>{JSON.stringify(client.Contacts)}</div>
-                              <div>
+            {clients.map(client => (
+                <Grid key={client.name} container spacing={CARD_SPACING}>
+                  <Grid xs={8}>
+                    <Box sx={CARD}>
+                      <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
+                        <Typography variant="h5">{client.name}</Typography>
+                        <Box>
+                          <Link href={`/clients/${client.id}`}>
+                            <HtmlLink sx={{ cursor: "pointer" }}>Открыть в отдельном окне</HtmlLink>
+                          </Link>
+                        </Box>
+                      </Box>
+                      <Box sx={{ marginTop: "1rem" }}>Телефон: {client.phone}</Box>
+                      <Box sx={{ marginTop: "1rem" }}>Реквизиты: </Box>
+                      <Box sx={{ marginTop: "1rem", whiteSpace: "pre-wrap", }}>{client.bankDetails}</Box>
+                      <Box sx={{ marginTop: "1rem" }}>
+                        <Typography variant="h6" sx={{ marginBottom: "0.5rem" }}>
+                          Документы
+                        </Typography>
+                        <Box>
+                          {client?.Contracts && client?.Contracts.length > 0
+                              ? <List>
                                 {client?.Contracts?.map(contract => (
-                                    <Box sx={{ border: "1px solid red", marginBottom: "1rem" }}
-                                         key={contract.number}>
-                                      <Link href={`/contracts/${contract.id}`}>
-                                        <a>ССЫЛКА</a>
-                                      </Link>
-                                      Договор № {contract.number}
-                                      Статус: {contract?.ContractTransactions && JSON.stringify(contract?.ContractTransactions[0]?.DocumentStatus?.stage)}
-                                      <div>
+                                    <ListItem key={"contract" + contract.number}
+                                              sx={{ border: "1px solid lightgray", marginTop: "-1px" }}>
+                                      <ListItemText sx={{ whiteSpace: "nowrap" }}>
+                                        <Link href={`/contracts/${contract.id}`}>
+                                          <HtmlLink sx={{ cursor: "pointer" }}>Договор № {contract.number}</HtmlLink>
+                                        </Link>
+                                      </ListItemText>
+                                      <List>
                                         {contract?.Agreements?.map(agreement => (
-                                            <Box sx={{ border: "1px solid green", marginBottom: "1rem" }}
-                                                 key={agreement.number}>
+                                            <ListItem key={agreement.number}>
                                               <Link href={`/agreements/${agreement.id}`}>
-                                                <a>ССЫЛКА</a>
+                                                <HtmlLink sx={{ cursor: "pointer", marginRight: "1rem" }}>
+                                                  Дополнительное соглашение № {agreement.number}
+                                                </HtmlLink>
                                               </Link>
-                                              Дополнительное соглашение № {agreement.number}
-                                              Счет № {agreement.Invoice && agreement.Invoice.number}
-                                              Статус: {agreement?.AgreementTransactions && JSON.stringify(agreement?.AgreementTransactions[0]?.DocumentStatus?.stage)}
-                                            </Box>
+                                              <Box>{agreement.Invoice && "Счет № " + agreement.Invoice.number}</Box>
+                                            </ListItem>
                                         ))}
-                                      </div>
-                                    </Box>
+                                      </List>
+                                    </ListItem>
                                 ))}
-                              </div>
-
-                            </Box>
-                        ))}
-                      </div>
-                  )}</Box>
-                </Box>
-              </Grid>
-              <Grid xs={5}>
-                <Box sx={CARD}>
-                  <Typography variant="h6">{t("contacts.heading")}</Typography>
-                  <Box>Список с телефонами, ФИО, имейлами, должностью. Скрытое конкретно здесь: дни рождения и
-                    предпочтения по подаркам, основной или дополнительный. Но основные подчеркиваются</Box>
-                </Box>
-              </Grid>
-            </Grid>
+                              </List>
+                              : "Не добавлено ни одного документа"
+                          }
+                        </Box>
+                      </Box>
+                    </Box>
+                  </Grid>
+                  <Grid xs={4}>
+                    <Box sx={CARD}>
+                      <Typography variant="h6">
+                        Контакты
+                      </Typography>
+                      {client?.Contacts && client?.Contacts.length > 0
+                          ? <List>
+                            {client?.Contacts.map(contact => (
+                                <ListItem key={"contact" + contact.id}>
+                                  <Box>
+                                    <Box>{contact?.name}</Box>
+                                    <Box>{contact?.job}</Box>
+                                    <Box>{contact?.phone}</Box>
+                                    <Box>{contact?.email}</Box>
+                                  </Box>
+                                </ListItem>))}
+                          </List>
+                          : "Контакты не добавлены"
+                      }
+                    </Box>
+                  </Grid>
+                </Grid>
+            ))}
           </Box>
         </Layout>
       </RequireAuth>

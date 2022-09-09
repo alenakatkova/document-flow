@@ -4,6 +4,7 @@ import FormLabel from "@mui/material/FormLabel";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Radio from "@mui/material/Radio";
+import Box from "@mui/material/Box";
 
 export interface Option {
   label : string;
@@ -45,13 +46,15 @@ export const RadioButtonChoice = ({
                 >
                   {
                     options.map(option => (
-                        <label key={option.value + option.id}>
-                          <input type="radio"
-                                 name={radioGroupName}
-                                 onChange={() => setChosenOption(option.id)}
-                                 value={option.value}/>
-                          {option.label}
-                        </label>
+                        <Box sx={{ marginBottom: "0.5rem" }} key={option.value + option.id}>
+                          <label>
+                            <input type="radio"
+                                   name={radioGroupName}
+                                   onChange={() => setChosenOption(option.id)}
+                                   value={option.value}/>
+                            {option.label}
+                          </label>
+                        </Box>
                     ))
                   }
                 </RadioGroup>
