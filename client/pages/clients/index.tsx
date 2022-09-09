@@ -13,6 +13,7 @@ import { useRouter } from "next/router";
 import RequireAuth from "../../components/RequireAuth";
 import { CounterpartyFromDB } from "../../interfaces/counterparty";
 import Link from "next/link";
+import HtmlLink from "@mui/material/Link";
 
 const Clients : NextPage = () => {
   const { t } = useTranslation("clients");
@@ -28,61 +29,60 @@ const Clients : NextPage = () => {
       <RequireAuth>
         <Layout title={t("title")} heading={t("heading")}>
           <Box sx={{ flexGrow: 1, marginTop: "1rem" }}>
-            <Grid container spacing={CARD_SPACING}>
-              <Grid xs={7}>
-                <Box sx={CARD}>
-                  <Typography variant="h6">{t("inWork.heading")}</Typography>
-                  <Box>{!isLoading && (
-                      <div>
-                        {clients.map(client => (
-                            <Box sx={{ border: "1px solid blue", marginBottom: "1rem" }}
-                                 key={client.name}>
-                              <Link href={`/clients/${client.id}`}>
-                                <a>ССЫЛКА</a>
-                              </Link>
-                              <div>{client.name}</div>
-                              <div>{client.phone}</div>
-                              <div>{JSON.stringify(client.Contacts)}</div>
-                              <div>
-                                {client?.Contracts?.map(contract => (
-                                    <Box sx={{ border: "1px solid red", marginBottom: "1rem" }}
-                                         key={contract.number}>
-                                      <Link href={`/contracts/${contract.id}`}>
-                                        <a>ССЫЛКА</a>
-                                      </Link>
-                                      Договор № {contract.number}
-                                      Статус: {contract?.ContractTransactions && JSON.stringify(contract?.ContractTransactions[0]?.DocumentStatus?.stage)}
-                                      <div>
-                                        {contract?.Agreements?.map(agreement => (
-                                            <Box sx={{ border: "1px solid green", marginBottom: "1rem" }}
-                                                 key={agreement.number}>
-                                              <Link href={`/agreements/${agreement.id}`}>
-                                                <a>ССЫЛКА</a>
-                                              </Link>
-                                              Дополнительное соглашение № {agreement.number}
-                                              Счет № {agreement.Invoice && agreement.Invoice.number}
-                                              Статус: {agreement?.AgreementTransactions && JSON.stringify(agreement?.AgreementTransactions[0]?.DocumentStatus?.stage)}
-                                            </Box>
-                                        ))}
-                                      </div>
-                                    </Box>
-                                ))}
-                              </div>
-
-                            </Box>
-                        ))}
-                      </div>
-                  )}</Box>
-                </Box>
-              </Grid>
-              <Grid xs={5}>
-                <Box sx={CARD}>
-                  <Typography variant="h6">{t("contacts.heading")}</Typography>
-                  <Box>Список с телефонами, ФИО, имейлами, должностью. Скрытое конкретно здесь: дни рождения и
-                    предпочтения по подаркам, основной или дополнительный. Но основные подчеркиваются</Box>
-                </Box>
-              </Grid>
-            </Grid>
+            {clients.map(client => (
+                <Grid key={client.name} container spacing={CARD_SPACING}>
+                  <Grid xs={7}>
+                    <Box sx={CARD}>
+                      <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
+                        <Box>{client.name}</Box>
+                        <Box>
+                          <Link href={`/clients/${client.id}`}>
+                            <HtmlLink>Открыть в отдельном окне</HtmlLink>
+                          </Link>
+                        </Box>
+                      </Box>
+                      <Box sx={{ marginTop: "1rem" }}>Телефон: {client.phone}</Box>
+                      <Box sx={{ marginTop: "1rem" }}>
+                        {client?.Contracts && client?.Contracts.le && ngth > 0
+                            && <Typography variant="h6" sx={{ marginBottom: "0.5rem" }}>
+                              Документы
+                            </Typography>
+                        }
+                        <ul>
+                          {client?.Contracts?.map(contract => (
+                              <li sx={{ border: "1px solid red", marginBottom: "1rem" }}
+                                  key={contract.number}>
+                                <Link href={`/contracts/${contract.id}`}>
+                                  <a>ССЫЛКА</a>
+                                </Link>
+                                Договор № {contract.number}
+                                Статус: {contract?.ContractTransactions && JSON.stringify(contract?.ContractTransactions[0]?.DocumentStatus?.stage)}
+                                <ol>
+                                  {contract?.Agreements?.map(agreement => (
+                                      <li sx={{ border: "1px solid green", marginBottom: "1rem" }}
+                                          key={agreement.number}>
+                                        <Link href={`/agreements/${agreement.id}`}>
+                                          <a>ССЫЛКА</a>
+                                        </Link>
+                                        Дополнительное соглашение № {agreement.number}
+                                        Счет № {agreement.Invoice && agreement.Invoice.number}
+                                        Статус: {agreement?.AgreementTransactions && JSON.stringify(agreement?.AgreementTransactions[0]?.DocumentStatus?.stage)}
+                                      </li>
+                                  ))}
+                                </ol>
+                              </li>
+                          ))}
+                        </ul>
+                      </Box>
+                    </Box>
+                  </Grid>
+                  <Grid xs={5}>
+                    <Box sx={CARD}>
+                      <div>{JSON.stringify(client.Contacts)}</div>
+                    </Box>
+                  </Grid>
+                </Grid>
+            ))}
           </Box>
         </Layout>
       </RequireAuth>

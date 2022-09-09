@@ -25,7 +25,8 @@ const subHeading = {
 
 const subMenuItem = {
   padding: "0.1rem",
-  paddingLeft: "1rem"
+  paddingLeft: "1rem",
+  whiteSpace: "break-spaces"
 }
 
 export default function SideMenu() {
@@ -70,7 +71,7 @@ export default function SideMenu() {
         {isAuthenticated
             ? <MenuList>
               <Typography sx={subHeading}>Панель управления</Typography>
-              <NextLink href="/">
+              <NextLink href="/documents">
                 <MenuItem>
                   <ListItemText>Все документы</ListItemText>
                 </MenuItem>
@@ -151,6 +152,21 @@ export default function SideMenu() {
                   <ListItemIcon><AddBoxIcon/></ListItemIcon>
                   <ListItemText>Добавить счет
                   </ListItemText>
+                </MenuItem>
+              </NextLink>
+
+              <Typography sx={subHeading}>Контакты внутри агентства</Typography>
+              <NextLink href="/teams">
+                <MenuItem sx={subMenuItem}>
+                  <ListItemIcon><SummarizeOutlinedIcon/></ListItemIcon>
+                  <ListItemText>Проектные команды
+                  </ListItemText>
+                </MenuItem>
+              </NextLink>
+              <NextLink href="/departments">
+                <MenuItem sx={subMenuItem}>
+                  <ListItemIcon><SummarizeOutlinedIcon/></ListItemIcon>
+                  <ListItemText>Департаменты</ListItemText>
                 </MenuItem>
               </NextLink>
 
