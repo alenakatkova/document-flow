@@ -44,7 +44,7 @@ const Agreement : NextPage = () => {
           <Box sx={{ flexGrow: 1, marginTop: "1rem" }}>
             <Grid container spacing={CARD_SPACING}>
               <Grid xs={9}>
-                <Box sx={CARD}>
+                <Box sx={{ ...CARD, display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
                   <Box sx={{ display: "flex", flexDirection: "column" }}>
                     {agreement?.signDate
                         && <Box sx={{ marginBottom: "1rem" }}>
@@ -66,6 +66,17 @@ const Agreement : NextPage = () => {
                                           finishEditing={() => setIsBeingEdited(false)}
                                           isEditMode={true}
                         />}
+                  </Box>
+
+
+                  <Box>
+                    <Typography variant="h6" sx={{ marginBottom: "0.5rem" }}>
+                      Вторая сторона:
+                    </Typography>
+                    <Link
+                        href={`/${agreement?.Contract?.Counterparty?.type}s/${agreement?.Contract?.Counterparty?.id}`}>
+                      <HtmlLink sx={{ cursor: "pointer" }}>{agreement?.Contract?.Counterparty?.name}</HtmlLink>
+                    </Link>
                   </Box>
                 </Box>
               </Grid>
