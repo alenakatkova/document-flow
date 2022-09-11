@@ -9,6 +9,20 @@ import { createInvoice, updateInvoice } from "../api/invoice";
 import { Invoice, InvoiceFromDB } from "../interfaces/invoice";
 import { AgreementFromDB } from "../interfaces/agreement";
 import { createAgreement, updateAgreement } from "../api/agreement";
+import { Option, RadioButtonChoice } from "./RadioButtonChoice";
+import { ContractFromDB } from "../interfaces/contract";
+
+const STATUSES = ["Оплачен", "Не выставлен", "Требуется оплата"];
+
+const mapStatusesForRadioBtns = () : Option[] => {
+  return STATUSES.map((status, index) => {
+    return {
+      value: status,
+      label: status,
+      id: index
+    }
+  });
+};
 
 type NumberFieldValue = number|"";
 
@@ -18,7 +32,7 @@ interface Inputs {
   dueDay : NumberFieldValue|undefined;
   number : string;
   linkToFile : string|undefined;
-  status : "Оплачен"|"Не выставлен"|"Требуется оплата"|"";
+  // status : "Оплачен"|"Не выставлен"|"Требуется оплата"|"";
 }
 
 interface AddInvoiceFormProps {
@@ -29,14 +43,14 @@ interface AddInvoiceFormProps {
 }
 
 export const AddInvoiceForm = ({ agreementId, isEditMode, invoice, finishEditing } : AddInvoiceFormProps) => {
+  const [chosenStatus, setChosenStatus] = React.useState<number|undefined>(undefined)
   const { handleSubmit, reset, formState: { isSubmitSuccessful }, control, watch, register } = useForm<Inputs>({
     defaultValues: {
       dueYear: "",
       dueMonth: "",
       dueDay: "",
       number: "",
-      linkToFile: "",
-      status: ""
+      linkToFile: ""
     }
   });
 
@@ -45,7 +59,7 @@ export const AddInvoiceForm = ({ agreementId, isEditMode, invoice, finishEditing
     const formData : Invoice = {
       number: data.number,
       linkToFile: data.linkToFile,
-      status: data.status,
+      status: chosenStatus ? STATUSES[chosenStatus] : undefined,
       agreementId: agreementId,
       due
     };
@@ -88,21 +102,26 @@ export const AddInvoiceForm = ({ agreementId, isEditMode, invoice, finishEditing
             )}
         />
 
-        <Controller
-            control={control}
-            name="status"
-            rules={{ required: true }}
-            render={({ field: { ref, ...field } }) => (
-                <TextField
-                    {...field}
-                    inputRef={ref}
-                    label={"Статус"}
-                    variant="outlined"
-                    placeholder={"Оплачен / Не ввыставлен / Требуется оплата"}
-                    required
-                />
-            )}
-        />
+        {/*<Controller*/}
+        {/*    control={control}*/}
+        {/*    name="status"*/}
+        {/*    rules={{ required: true }}*/}
+        {/*    render={({ field: { ref, ...field } }) => (*/}
+        {/*        <TextField*/}
+        {/*            {...field}*/}
+        {/*            inputRef={ref}*/}
+        {/*            label={"Статус"}*/}
+        {/*            variant="outlined"*/}
+        {/*            placeholder={"Оплачен / Не выставлен / Требуется оплата"}*/}
+        {/*            required*/}
+        {/*        />*/}
+        {/*    )}*/}
+        {/*/>*/}
+
+        <RadioButtonChoice options={mapStatusesForRadioBtns()} heading={"Выберите статус"}
+                           setChosenOption={setChosenStatus}
+                           whatToAdd={""}
+                           radioGroupName={"status"}/>
 
         <Controller
             control={control}
