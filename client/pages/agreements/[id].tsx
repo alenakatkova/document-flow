@@ -23,11 +23,13 @@ import { AddContractForm } from "../../components/AddContractForm";
 import { AddStatusForm } from "../../components/addStatusForm";
 import { AgreementFromDB } from "../../interfaces/agreement";
 import { AddAgreementForm } from "../../components/AddAgreementForm";
+import { AddInvoiceForm } from "../../components/AddInvoiceForm";
 
 const Agreement : NextPage = () => {
   const router = useRouter();
 
-  const [isBeingEdited, setIsBeingEdited] = React.useState(false);
+  const [isAgreementBeingEdited, setIsAgreementBeingEdited] = React.useState(false);
+  const [isInvoiceBeingEdited, setIsInvoiceBeingEdited] = React.useState(false);
 
   const { data: agreement, isLoading } = useFetch<AgreementFromDB>(`agreements/${router.query.id}`,
       {
@@ -55,21 +57,41 @@ const Agreement : NextPage = () => {
                           <HtmlLink href={agreement?.linkToFile}>Ссылка на документ на Google Disk</HtmlLink>
                         </Box>}
 
-                    {!isBeingEdited
+                    {!isAgreementBeingEdited
                         && <Box>
-                          <Button onClick={() => setIsBeingEdited(true)} variant="contained">Редактировать</Button>
+                          <Button onClick={() => setIsAgreementBeingEdited(true)} variant="contained">Редактировать
+                            ДС</Button>
                         </Box>
                     }
-                    {isBeingEdited && agreement?.contractId &&
+
+                    {isAgreementBeingEdited && agreement?.contractId &&
                         <AddAgreementForm contractId={agreement?.contractId}
                                           agreement={agreement}
-                                          finishEditing={() => setIsBeingEdited(false)}
+                                          finishEditing={() => setIsAgreementBeingEdited(false)}
                                           isEditMode={true}
-                        />}
+                        />
+                    }
+
+                    {agreement?.Invoice && !isInvoiceBeingEdited
+                        && <Box sx={{ marginTop: "1rem" }}>
+                          <Button onClick={() => setIsInvoiceBeingEdited(true)} variant="contained">Редактировать
+                            счет</Button>
+                        </Box>
+                    }
+
+                    {isInvoiceBeingEdited && agreement?.Invoice && agreement?.contractId &&
+                        <Box sx={{ marginTop: "1rem" }}>
+                          <AddInvoiceForm
+                              agreementId={agreement.id}
+                              invoice={agreement?.Invoice}
+                              finishEditing={() => setIsInvoiceBeingEdited(false)}
+                              isEditMode={true}
+                          />
+                        </Box>
+                    }
                   </Box>
 
-
-                  <Box>
+                  <Box sx={{ display: "flex", flexDirection: "column", alignItems: "flex-end" }}>
                     <Typography variant="h6" sx={{ marginBottom: "0.5rem" }}>
                       Вторая сторона:
                     </Typography>
@@ -130,11 +152,25 @@ const Agreement : NextPage = () => {
               <Grid xs={3}>
                 <Box sx={CARD}>
                   <Typography variant="h6" sx={{ marginBottom: "0.5rem" }}>
-                    Вторая сторона:
+                    Счет:
                   </Typography>
-                  <Link href={`/${agreement?.Contract?.Counterparty?.type}s/${agreement?.Contract?.Counterparty?.id}`}>
-                    <HtmlLink sx={{ cursor: "pointer" }}>{agreement?.Contract?.Counterparty?.name}</HtmlLink>
-                  </Link>
+                  {agreement.Invoice?.number && <Box>
+                    <Typography>Счет № {agreement.Invoice?.number}</Typography>
+                    {agreement?.Invoice?.linkToFile
+                        && <Typography>
+                          <HtmlLink href={agreement?.Invoice?.linkToFile}>
+                            Ссылка на документ на Google Disk
+                          </HtmlLink>
+                        </Typography>
+                    }
+                    <Typography>Статус: {agreement.Invoice?.status ? agreement.Invoice?.status : "Не добавлен"}</Typography>
+                    {agreement.Invoice?.due &&
+                        <Typography>
+                          Оплатить до: {format(new Date(agreement.Invoice?.due), 'dd/MM/yyyy')}
+                        </Typography>
+                    }
+                  </Box>}
+                  {!agreement.Invoice?.number && <Box>Счет не добавлен</Box>}
                 </Box>
               </Grid>
 

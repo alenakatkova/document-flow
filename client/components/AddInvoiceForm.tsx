@@ -5,8 +5,10 @@ import Button from "@mui/material/Button";
 import React from "react";
 import { DateInput } from "./DateInput";
 import { generateDateFromYYYYMMDD } from "../utils/functions";
-import { createInvoice } from "../api/invoice";
-import { Invoice } from "../interfaces/invoice";
+import { createInvoice, updateInvoice } from "../api/invoice";
+import { Invoice, InvoiceFromDB } from "../interfaces/invoice";
+import { AgreementFromDB } from "../interfaces/agreement";
+import { createAgreement, updateAgreement } from "../api/agreement";
 
 type NumberFieldValue = number|"";
 
@@ -16,14 +18,17 @@ interface Inputs {
   dueDay : NumberFieldValue|undefined;
   number : string;
   linkToFile : string|undefined;
-  status : "Оплачен"|"Не ввыставлен"|"Требуется оплата"|"";
+  status : "Оплачен"|"Не выставлен"|"Требуется оплата"|"";
 }
 
 interface AddInvoiceFormProps {
   agreementId : number;
+  isEditMode? : boolean;
+  invoice? : InvoiceFromDB;
+  finishEditing? : () => void;
 }
 
-export const AddInvoiceForm = ({ agreementId } : AddInvoiceFormProps) => {
+export const AddInvoiceForm = ({ agreementId, isEditMode, invoice, finishEditing } : AddInvoiceFormProps) => {
   const { handleSubmit, reset, formState: { isSubmitSuccessful }, control, watch, register } = useForm<Inputs>({
     defaultValues: {
       dueYear: "",
@@ -45,7 +50,10 @@ export const AddInvoiceForm = ({ agreementId } : AddInvoiceFormProps) => {
       due
     };
 
-    createInvoice(formData);
+    if (isEditMode && invoice) updateInvoice(formData, invoice.id)
+    else createInvoice(formData);
+    finishEditing && finishEditing();
+
     reset();
   };
 
@@ -120,7 +128,7 @@ export const AddInvoiceForm = ({ agreementId } : AddInvoiceFormProps) => {
               monthInputName={"dueMonth"}
               yearInputName={"dueYear"}
               control={control}
-              heading={"Дата подписания"}
+              heading={"Оплатить до"}
           />
         </Box>
 
