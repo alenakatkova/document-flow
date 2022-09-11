@@ -26,7 +26,7 @@ const Contractors : NextPage = () => {
   const router = useRouter();
 
   const {
-    data: clients,
+    data: contractors,
     isLoading
   } = useFetch<CounterpartyFromDB[]>("/counterparties", [], { teamId: team, type: "contractor" });
 
@@ -34,29 +34,29 @@ const Contractors : NextPage = () => {
       <RequireAuth>
         <Layout title={"Подрядчики"} heading={"Подрядчики"}>
           <Box sx={{ flexGrow: 1, marginTop: "1rem" }}>
-            {clients.map(client => (
-                <Grid key={client.name} container spacing={CARD_SPACING}>
+            {contractors.map(contractor => (
+                <Grid key={contractor.name} container spacing={CARD_SPACING}>
                   <Grid xs={8}>
                     <Box sx={CARD}>
                       <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
-                        <Typography variant="h5">{client.name}</Typography>
+                        <Typography variant="h5">{contractor.name}</Typography>
                         <Box>
-                          <Link href={`/clients/${client.id}`}>
+                          <Link href={`/contractors/${contractor.id}`}>
                             <HtmlLink sx={{ cursor: "pointer" }}>Открыть в отдельном окне</HtmlLink>
                           </Link>
                         </Box>
                       </Box>
-                      <Box sx={{ marginTop: "1rem" }}>Телефон: {client.phone}</Box>
+                      <Box sx={{ marginTop: "1rem" }}>Телефон: {contractor.phone}</Box>
                       <Box sx={{ marginTop: "1rem" }}>Реквизиты: </Box>
-                      <Box sx={{ marginTop: "1rem", whiteSpace: "pre-wrap", }}>{client.bankDetails}</Box>
+                      <Box sx={{ marginTop: "1rem", whiteSpace: "pre-wrap", }}>{contractor.bankDetails}</Box>
                       <Box sx={{ marginTop: "1rem" }}>
                         <Typography variant="h6" sx={{ marginBottom: "0.5rem" }}>
                           Документы
                         </Typography>
                         <Box>
-                          {client?.Contracts && client?.Contracts.length > 0
+                          {contractor?.Contracts && contractor?.Contracts.length > 0
                               ? <List>
-                                {client?.Contracts?.map(contract => (
+                                {contractor?.Contracts?.map(contract => (
                                     <ListItem key={"contract" + contract.number}
                                               sx={{ border: "1px solid lightgray", marginTop: "-1px" }}>
                                       <ListItemText sx={{ whiteSpace: "nowrap" }}>
@@ -90,9 +90,9 @@ const Contractors : NextPage = () => {
                       <Typography variant="h6">
                         Контакты
                       </Typography>
-                      {client?.Contacts && client?.Contacts.length > 0
+                      {contractor?.Contacts && contractor?.Contacts.length > 0
                           ? <List>
-                            {client?.Contacts.map(contact => (
+                            {contractor?.Contacts.map(contact => (
                                 <ListItem key={"contact" + contact.id}>
                                   <Box>
                                     <Box>{contact?.name}</Box>
