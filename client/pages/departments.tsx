@@ -57,7 +57,7 @@ const Departments : NextPage = () => {
                                     <Typography>{contact.name}</Typography>
                                     <Typography>Внутренний номер: {contact.internalPhoneCode}</Typography>
                                     <Typography>{contact.email}</Typography>
-                                    <Typography>{contact.birthday && format(new Date(contact.birthday), 'dd/MM/yyyy')}</Typography>
+                                    {/*<Typography>{contact.birthday && format(new Date(contact.birthday), 'dd/MM/yyyy')}</Typography>*/}
                                   </ListItem>
                               ))}
                             </List>

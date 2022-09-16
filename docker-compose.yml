@@ -11,6 +11,32 @@ services:
     depends_on:
       - server
 
+    #  client:
+    #    image: alenakatkova/doc-flow-frontend
+    #    container_name: frontend
+    #    ports:
+    #      - "3000:3000"
+    #    volumes:
+    #      - ./client:/client
+    #      - /client/node_modules
+    #    depends_on:
+    #      - server
+
+    #  server:
+    #    image: alenakatkova/doc-flow-backend
+    #    container_name: backend
+    #    ports:
+    #      - "8080:8080"
+    #    volumes:
+    #      - ./server:/server
+    #      - /server/node_modules
+    #    depends_on:
+    #      - postgres-db
+    #    environment:
+    #      - DB_HOST=postgres-db
+    #      - SESSION_SECRET=secret
+    #    command: yarn run dev
+
   server:
     build: ./server
     container_name: backend

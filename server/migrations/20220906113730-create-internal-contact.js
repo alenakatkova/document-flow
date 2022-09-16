@@ -17,9 +17,9 @@ module.exports = {
       email: {
         type: Sequelize.STRING
       },
-      birthday: {
-        type: Sequelize.STRING
-      },
+      // birthday: {
+      //   type: Sequelize.STRING
+      // },
       job: {
         type: Sequelize.STRING
       },
