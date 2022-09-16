@@ -20,7 +20,7 @@ import { InternalDepartment, InternalDepartmentFromDB } from "../interfaces/inte
 import format from "date-fns/format";
 
 const Departments : NextPage = () => {
-  const { t } = useTranslation("clients");
+  const { t } = useTranslation("internal-departments");
   let { team } = useAuth();
   const router = useRouter();
 
@@ -28,7 +28,7 @@ const Departments : NextPage = () => {
 
   return (
       <RequireAuth>
-        <Layout title={"Контакты в департаментах"} heading={"Контакты в департаментах"}>
+        <Layout title={t("title")} heading={t("heading")}>
           <Box sx={{ flexGrow: 1, marginTop: "1rem" }}>
             <Grid container spacing={CARD_SPACING}>
               <Grid xs={7}>
@@ -82,7 +82,7 @@ const Departments : NextPage = () => {
 export async function getStaticProps({ locale } : { locale : string }) {
   return {
     props: {
-      ...(await serverSideTranslations(locale, ["common", "clients"])),
+      ...(await serverSideTranslations(locale, ["common", "internal-departments"])),
     },
   };
 }

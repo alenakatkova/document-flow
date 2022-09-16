@@ -4,3 +4,7 @@ export const CARD = {
   backgroundColor: "neutral.light",
   padding: CARD_PADDING
 };
+export const PAGE_CONTAINER = {
+  flexGrow: 1,
+  marginTop: "1rem"
+};
