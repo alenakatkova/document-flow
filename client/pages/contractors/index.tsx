@@ -1,29 +1,16 @@
 import React from "react";
 import type { NextPage } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { useTranslation } from "next-i18next";
-import { Typography } from "@mui/material";
 import Box from "@mui/material/Box";
-import Grid from "@mui/material/Unstable_Grid2";
 import Layout from "../../components/layout";
-import { CARD_SPACING, CARD } from "../../styles/constants";
 import useFetch from "../../api/useFetch";
 import { useAuth } from "../../contexts/authProvider";
-import { useRouter } from "next/router";
 import RequireAuth from "../../components/RequireAuth";
 import { CounterpartyFromDB } from "../../interfaces/counterparty";
-import Link from "next/link";
-import HtmlLink from "@mui/material/Link";
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
+import { CounterpartyInfo } from "../../components/counterparties/CounterpartyInfo";
 
 const Contractors : NextPage = () => {
-  const { t } = useTranslation("clients");
   let { team } = useAuth();
-  const router = useRouter();
 
   const {
     data: contractors,
@@ -35,78 +22,7 @@ const Contractors : NextPage = () => {
         <Layout title={"Подрядчики"} heading={"Подрядчики"}>
           <Box sx={{ flexGrow: 1, marginTop: "1rem" }}>
             {contractors.map(contractor => (
-                <Grid key={contractor.name} container spacing={CARD_SPACING}>
-                  <Grid xs={8}>
-                    <Box sx={CARD}>
-                      <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
-                        <Typography variant="h5">{contractor.name}</Typography>
-                        <Box>
-                          <Link href={`/contractors/${contractor.id}`}>
-                            <HtmlLink sx={{ cursor: "pointer" }}>Открыть в отдельном окне</HtmlLink>
-                          </Link>
-                        </Box>
-                      </Box>
-                      <Box sx={{ marginTop: "1rem" }}>Телефон: {contractor.phone}</Box>
-                      <Box sx={{ marginTop: "1rem" }}>Реквизиты: </Box>
-                      <Box sx={{ marginTop: "1rem", whiteSpace: "pre-wrap", }}>{contractor.bankDetails}</Box>
-                      <Box sx={{ marginTop: "1rem" }}>
-                        <Typography variant="h6" sx={{ marginBottom: "0.5rem" }}>
-                          Документы
-                        </Typography>
-                        <Box>
-                          {contractor?.Contracts && contractor?.Contracts.length > 0
-                              ? <List>
-                                {contractor?.Contracts?.map(contract => (
-                                    <ListItem key={"contract" + contract.number}
-                                              sx={{ border: "1px solid lightgray", marginTop: "-1px" }}>
-                                      <ListItemText sx={{ whiteSpace: "nowrap" }}>
-                                        <Link href={`/contracts/${contract.id}`}>
-                                          <HtmlLink sx={{ cursor: "pointer" }}>Договор № {contract.number}</HtmlLink>
-                                        </Link>
-                                      </ListItemText>
-                                      <List>
-                                        {contract?.Agreements?.map(agreement => (
-                                            <ListItem key={agreement.number}>
-                                              <Link href={`/agreements/${agreement.id}`}>
-                                                <HtmlLink sx={{ cursor: "pointer", marginRight: "1rem" }}>
-                                                  Дополнительное соглашение № {agreement.number}
-                                                </HtmlLink>
-                                              </Link>
-                                              <Box>{agreement.Invoice && "Счет № " + agreement.Invoice.number}</Box>
-                                            </ListItem>
-                                        ))}
-                                      </List>
-                                    </ListItem>
-                                ))}
-                              </List>
-                              : "Не добавлено ни одного документа"
-                          }
-                        </Box>
-                      </Box>
-                    </Box>
-                  </Grid>
-                  <Grid xs={4}>
-                    <Box sx={CARD}>
-                      <Typography variant="h6">
-                        Контакты
-                      </Typography>
-                      {contractor?.Contacts && contractor?.Contacts.length > 0
-                          ? <List>
-                            {contractor?.Contacts.map(contact => (
-                                <ListItem key={"contact" + contact.id}>
-                                  <Box>
-                                    <Box>{contact?.name}</Box>
-                                    <Box>{contact?.job}</Box>
-                                    <Box>{contact?.phone}</Box>
-                                    <Box>{contact?.email}</Box>
-                                  </Box>
-                                </ListItem>))}
-                          </List>
-                          : "Контакты не добавлены"
-                      }
-                    </Box>
-                  </Grid>
-                </Grid>
+                <CounterpartyInfo counterparty={contractor} key={contractor.name} />
             ))}
           </Box>
         </Layout>
@@ -117,7 +33,7 @@ const Contractors : NextPage = () => {
 export async function getStaticProps({ locale } : { locale : string }) {
   return {
     props: {
-      ...(await serverSideTranslations(locale, ["common", "clients"])),
+      ...(await serverSideTranslations(locale, [ "common", "clients" ])),
     },
   };
 }
