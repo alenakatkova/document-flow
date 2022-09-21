@@ -10,7 +10,7 @@ import { CARD, CARD_SPACING } from "../../styles/constants";
 import { useAuth } from "../../contexts/authProvider";
 import { Typography } from "@mui/material";
 import RequireAuth from "../../components/RequireAuth";
-import { RadioButtonChoice, Option } from "../../components/RadioButtonChoice";
+import { RadioButtonChoice, Option } from "../../components/common/RadioButtonChoice";
 import { ContractFromDB } from "../../interfaces/contract";
 import { AddAgreementForm } from "../../components/AddAgreementForm";
 
@@ -24,8 +24,8 @@ const AddClientAgreement : NextPage = () => {
     isLoading: isClientsLoading
   } = useFetch<CounterpartyFromDB[]>("/counterparties/names", [], { teamId: team, type: "client" });
 
-  const [chosenClient, setChosenClient] = useState<number|undefined>(undefined);
-  const [chosenContract, setChosenContract] = useState<number|undefined>(undefined);
+  const [ chosenClient, setChosenClient ] = useState<number | undefined>(undefined);
+  const [ chosenContract, setChosenContract ] = useState<number | undefined>(undefined);
 
   const clientsDataForRadioBtns = clients.map(client => {
     return {
@@ -84,7 +84,7 @@ const AddClientAgreement : NextPage = () => {
                       </Box>
                   }
 
-                  {chosenContract !== undefined && <AddAgreementForm contractId={chosenContract}/>}
+                  {chosenContract !== undefined && <AddAgreementForm contractId={chosenContract} />}
                 </Box>
               </Grid>
             </Grid>

@@ -19,11 +19,11 @@ import { findLastStatusChange } from "../../utils/functions";
 import HtmlLink from '@mui/material/Link';
 import Link from "next/link";
 import Button from "@mui/material/Button";
-import { AddContractForm } from "../../components/AddContractForm";
+import { AddContractShortForm } from "../../components/addContract/AddContractShortForm";
 import { AddStatusForm } from "../../components/addStatusForm";
 import { AgreementFromDB } from "../../interfaces/agreement";
 import { AddAgreementForm } from "../../components/AddAgreementForm";
-import { AddInvoiceShortForm } from "../../components/add-invoice/AddInvoiceShortForm";
+import { AddInvoiceShortForm } from "../../components/addInvoice/AddInvoiceShortForm";
 
 const Agreement : NextPage = () => {
   const router = useRouter();

@@ -20,13 +20,13 @@ import { findLastStatusChange } from "../../utils/functions";
 import HtmlLink from '@mui/material/Link';
 import Link from "next/link";
 import Button from "@mui/material/Button";
-import { AddContractForm } from "../../components/AddContractForm";
+import { AddContractShortForm } from "../../components/addContract/AddContractShortForm";
 import { AddStatusForm } from "../../components/addStatusForm";
 
 const Contract : NextPage = () => {
   const router = useRouter();
 
-  const [isBeingEdited, setIsBeingEdited] = React.useState(false);
+  const [ isBeingEdited, setIsBeingEdited ] = React.useState(false);
 
   const { data: contract, isLoading, fetchData } = useFetch<ContractFromDB>(`contracts/${router.query.id}`,
       {
@@ -67,10 +67,10 @@ const Contract : NextPage = () => {
                         </Box>
                     }
                     {isBeingEdited && contract?.counterpartyId &&
-                        <AddContractForm counterpartyId={contract?.counterpartyId}
-                                         contract={contract}
-                                         finishEditing={() => setIsBeingEdited(false)}
-                                         isEditMode={true}
+                        <AddContractShortForm counterpartyId={contract?.counterpartyId}
+                                              contract={contract}
+                                              finishEditing={() => setIsBeingEdited(false)}
+                                              isEditMode={true}
                         />}
                   </Box>
                 </Box>
@@ -149,7 +149,7 @@ const Contract : NextPage = () => {
                   <Typography variant="h6" sx={{ marginBottom: "0.5rem" }} id="change-status">
                     Форма для изменения статуса договора
                   </Typography>
-                  <AddStatusForm documentId={contract.id} documentType="contract"/>
+                  <AddStatusForm documentId={contract.id} documentType="contract" />
                 </Box>
               </Grid>
             </Grid>

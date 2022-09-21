@@ -1,34 +1,23 @@
-import React, { useState } from "react";
+import React from "react";
 import { NextPage } from "next";
-import { useRouter } from "next/router";
 import Layout from "../../components/layout";
 import useFetch from "../../api/useFetch";
 import { CounterpartyFromDB } from "../../interfaces/counterparty";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Unstable_Grid2";
-import { CARD_SPACING, CARD } from "../../styles/constants";
+import { CARD, CARD_SPACING } from "../../styles/constants";
 import { useAuth } from "../../contexts/authProvider";
 import RequireAuth from "../../components/RequireAuth";
-import { RadioButtonChoice } from "../../components/RadioButtonChoice";
-import { AddContractForm } from "../../components/AddContractForm";
+import { AddContractFullForm } from "../../components/addContract/AddContractFullForm";
+
 
 const AddClientContract : NextPage = () => {
-  const router = useRouter();
   let { team } = useAuth();
-  const [chosenContractor, setChosenContractor] = useState<number|undefined>(undefined);
 
   const {
     data: contractors,
     isLoading: isContractorsLoading
   } = useFetch<CounterpartyFromDB[]>("/counterparties/names", [], { teamId: team, type: "contractor" });
-
-  const contractorsDataForRadioBtns = contractors.map(contractor => {
-    return {
-      value: contractor.name,
-      label: contractor.name,
-      id: contractor.id
-    }
-  });
 
   return (
       <RequireAuth>
@@ -38,14 +27,7 @@ const AddClientContract : NextPage = () => {
             <Grid container spacing={CARD_SPACING}>
               <Grid xs={12}>
                 <Box sx={CARD}>
-                  {contractors && <RadioButtonChoice
-                      options={contractorsDataForRadioBtns}
-                      heading="Выберите подрядчика"
-                      setChosenOption={setChosenContractor}
-                      whatToAdd="подрядчика"
-                      radioGroupName="contractor"
-                  />}
-                  {chosenContractor !== undefined && <AddContractForm counterpartyId={chosenContractor}/>}
+                  <AddContractFullForm counterparties={contractors} />
                 </Box>
               </Grid>
             </Grid>

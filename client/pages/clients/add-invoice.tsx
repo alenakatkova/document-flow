@@ -8,7 +8,7 @@ import Grid from "@mui/material/Unstable_Grid2";
 import { CARD, CARD_SPACING } from "../../styles/constants";
 import { useAuth } from "../../contexts/authProvider";
 import RequireAuth from "../../components/RequireAuth";
-import { AddInvoiceFullForm } from "../../components/add-invoice/AddInvoiceFullForm";
+import { AddInvoiceFullForm } from "../../components/addInvoice/AddInvoiceFullForm";
 
 
 const AddClientInvoice : NextPage = () => {

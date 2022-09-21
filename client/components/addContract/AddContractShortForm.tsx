@@ -3,25 +3,25 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import React from "react";
-import { DateInput } from "./DateInput";
-import { generateDateFromYYYYMMDD } from "../utils/functions";
-import { createContract, updateContract } from "../api/contract";
-import { ContractFromDB } from "../interfaces/contract";
+import { DateInput } from "../DateInput";
+import { generateDateFromYYYYMMDD } from "../../utils/functions";
+import { createContract, updateContract } from "../../api/contract";
+import { ContractFromDB } from "../../interfaces/contract";
 
-type NumberFieldValue = number|"";
+type NumberFieldValue = number | "";
 
 interface Inputs {
-  startYear : NumberFieldValue|undefined;
-  startMonth : NumberFieldValue|undefined;
-  startDay : NumberFieldValue|undefined;
-  endYear : NumberFieldValue|undefined;
-  endMonth : NumberFieldValue|undefined;
-  endDay : NumberFieldValue|undefined;
-  signYear : NumberFieldValue|undefined;
-  signMonth : NumberFieldValue|undefined;
-  signDay : NumberFieldValue|undefined;
+  startYear : NumberFieldValue | undefined;
+  startMonth : NumberFieldValue | undefined;
+  startDay : NumberFieldValue | undefined;
+  endYear : NumberFieldValue | undefined;
+  endMonth : NumberFieldValue | undefined;
+  endDay : NumberFieldValue | undefined;
+  signYear : NumberFieldValue | undefined;
+  signMonth : NumberFieldValue | undefined;
+  signDay : NumberFieldValue | undefined;
   number : string;
-  linkToFileOnDisk : string|undefined;
+  linkToFileOnDisk : string | undefined;
 }
 
 interface AddContractFormProps {
@@ -31,12 +31,12 @@ interface AddContractFormProps {
   finishEditing? : () => void;
 }
 
-export const AddContractForm = ({
-                                  counterpartyId,
-                                  contract,
-                                  finishEditing,
-                                  isEditMode
-                                } : AddContractFormProps) => {
+export const AddContractShortForm = ({
+                                       counterpartyId,
+                                       contract,
+                                       finishEditing,
+                                       isEditMode
+                                     } : AddContractFormProps) => {
   const { handleSubmit, reset, formState: { isSubmitSuccessful }, control, watch, register } = useForm<Inputs>({
     defaultValues: {
       signYear: "",

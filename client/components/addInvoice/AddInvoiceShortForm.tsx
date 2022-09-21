@@ -9,7 +9,7 @@ import { createInvoice, updateInvoice } from "../../api/invoice";
 import { Invoice, InvoiceFromDB } from "../../interfaces/invoice";
 import { AgreementFromDB } from "../../interfaces/agreement";
 import { createAgreement, updateAgreement } from "../../api/agreement";
-import { Option, RadioButtonChoice } from "../RadioButtonChoice";
+import { Option, RadioButtonChoice } from "../common/RadioButtonChoice";
 import { ContractFromDB } from "../../interfaces/contract";
 
 const STATUSES = [ "Оплачен", "Не выставлен", "Требуется оплата" ];

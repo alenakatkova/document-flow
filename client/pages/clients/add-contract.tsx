@@ -9,26 +9,15 @@ import Grid from "@mui/material/Unstable_Grid2";
 import { CARD_SPACING, CARD } from "../../styles/constants";
 import { useAuth } from "../../contexts/authProvider";
 import RequireAuth from "../../components/RequireAuth";
-import { RadioButtonChoice } from "../../components/RadioButtonChoice";
-import { AddContractForm } from "../../components/AddContractForm";
+import { AddContractFullForm } from "../../components/addContract/AddContractFullForm";
 
 const AddClientContract : NextPage = () => {
-  const router = useRouter();
   let { team } = useAuth();
-  const [chosenClient, setChosenClient] = useState<number|undefined>(undefined);
 
   const {
     data: clients,
     isLoading: isClientsLoading
   } = useFetch<CounterpartyFromDB[]>("/counterparties/names", [], { teamId: team, type: "client" });
-
-  const clientsDataForRadioBtns = clients.map(client => {
-    return {
-      value: client.name,
-      label: client.name,
-      id: client.id
-    }
-  });
 
   return (
       <RequireAuth>
@@ -38,14 +27,7 @@ const AddClientContract : NextPage = () => {
             <Grid container spacing={CARD_SPACING}>
               <Grid xs={12}>
                 <Box sx={CARD}>
-                  {clients && <RadioButtonChoice
-                      options={clientsDataForRadioBtns}
-                      heading="Выберите клиента"
-                      setChosenOption={setChosenClient}
-                      whatToAdd="клиента"
-                      radioGroupName="client"
-                  />}
-                  {chosenClient !== undefined && <AddContractForm counterpartyId={chosenClient}/>}
+                  <AddContractFullForm counterparties={clients} />
                 </Box>
               </Grid>
             </Grid>

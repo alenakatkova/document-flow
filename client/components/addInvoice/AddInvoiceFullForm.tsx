@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Box from "@mui/material/Box";
-import { RadioButtonChoice } from "../RadioButtonChoice";
+import { RadioButtonChoice } from "../common/RadioButtonChoice";
 import {
   getOptionsForAgreementsRadioBtns,
   getOptionsForContractsRadioBtns,

@@ -4,21 +4,21 @@ import { DocumentStatusFromDB } from "../interfaces/documentStatus";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { createAgreementTransaction, createContractTransaction } from "../api/transaction";
 import Box from "@mui/material/Box";
-import { RadioButtonChoice } from "./RadioButtonChoice";
+import { RadioButtonChoice } from "./common/RadioButtonChoice";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
 interface AddStatusFormProps {
-  documentType : "contract"|"agreement";
+  documentType : "contract" | "agreement";
   documentId : number;
 }
 
 interface Inputs {
-  comment : string|undefined;
+  comment : string | undefined;
 }
 
 export const AddStatusForm = ({ documentType, documentId } : AddStatusFormProps) => {
-  const [chosenStatus, setChosenStatus] = React.useState<number|undefined>(undefined);
+  const [ chosenStatus, setChosenStatus ] = React.useState<number | undefined>(undefined);
 
   const { data: documentStatuses, isLoading } = useFetch<DocumentStatusFromDB[]>("/document-statuses", []);
 
@@ -66,7 +66,7 @@ export const AddStatusForm = ({ documentType, documentId } : AddStatusFormProps)
                                   heading={"Выберите статус"}
                                   setChosenOption={setChosenStatus}
                                   whatToAdd={""}
-                                  radioGroupName={"status"}/>
+                                  radioGroupName={"status"} />
         }
         <Box
             component="form"

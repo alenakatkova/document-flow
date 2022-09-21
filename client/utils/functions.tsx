@@ -2,7 +2,7 @@ import { AgreementTransactionFromDB, ContractTransactionFromDB } from "../interf
 import format from "date-fns/format";
 import React from "react";
 import { ContractFromDB } from "../interfaces/contract";
-import { Option } from "../components/RadioButtonChoice";
+import { Option } from "../components/common/RadioButtonChoice";
 import { AgreementFromDB } from "../interfaces/agreement";
 import { CounterpartyFromDB } from "../interfaces/counterparty";
 

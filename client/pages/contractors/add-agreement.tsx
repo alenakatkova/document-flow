@@ -9,7 +9,7 @@ import Grid from "@mui/material/Unstable_Grid2";
 import { CARD, CARD_SPACING } from "../../styles/constants";
 import { useAuth } from "../../contexts/authProvider";
 import RequireAuth from "../../components/RequireAuth";
-import { RadioButtonChoice, Option } from "../../components/RadioButtonChoice";
+import { RadioButtonChoice, Option } from "../../components/common/RadioButtonChoice";
 import { ContractFromDB } from "../../interfaces/contract";
 import { AddAgreementForm } from "../../components/AddAgreementForm";
 
@@ -22,8 +22,8 @@ const AddClientAgreement : NextPage = () => {
     isLoading: isContractorsLoading
   } = useFetch<CounterpartyFromDB[]>("/counterparties/names", [], { teamId: team, type: "contractor" });
 
-  const [chosenContractor, setChosenContractor] = useState<number|undefined>(undefined);
-  const [chosenContract, setChosenContract] = useState<number|undefined>(undefined);
+  const [ chosenContractor, setChosenContractor ] = useState<number | undefined>(undefined);
+  const [ chosenContract, setChosenContract ] = useState<number | undefined>(undefined);
 
   const contractorsDataForRadioBtns = contractors.map(contractor => {
     return {
@@ -82,7 +82,7 @@ const AddClientAgreement : NextPage = () => {
                       </Box>
                   }
 
-                  {chosenContract !== undefined && <AddAgreementForm contractId={chosenContract}/>}
+                  {chosenContract !== undefined && <AddAgreementForm contractId={chosenContract} />}
                 </Box>
               </Grid>
             </Grid>
