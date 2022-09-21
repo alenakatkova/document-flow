@@ -5,28 +5,48 @@ import Layout from "../../components/layout";
 import useFetch from "../../api/useFetch";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Unstable_Grid2";
-import { CARD, CARD_SPACING } from "../../styles/constants";
+import { CARD, CARD_SPACING, PAGE_CONTAINER } from "../../styles/constants";
 import { ContractFromDB } from "../../interfaces/contract";
 import RequireAuth from "../../components/RequireAuth";
-import format from "date-fns/format";
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
 import { Typography } from "@mui/material";
-import { findLastStatusChange } from "../../utils/functions";
 import HtmlLink from '@mui/material/Link';
 import Link from "next/link";
-import Button from "@mui/material/Button";
-import { AddContractShortForm } from "../../components/addContract/AddContractShortForm";
 import { AddStatusForm } from "../../components/addStatusForm";
+import { CurrentStatus } from "../../components/contract/CurrentStatus";
+import { ContractInfo } from "../../components/contract/ContractInfoProps";
+import { StatusChangeHistory } from "../../components/contract/StatusChangeHistory";
+import { AgreementFromDB } from "../../interfaces/agreement";
+
+interface AgreementsProps {
+  agreements? : AgreementFromDB[];
+}
+
+const Agreements = ({ agreements } : AgreementsProps) => {
+  return (
+      <Box>
+        <Typography variant="h6" sx={{ marginBottom: "0.5rem" }}>
+          Дополнительные соглашения
+        </Typography>
+        {
+          agreements && agreements.length > 0
+              ? <Box>
+                {agreements?.map(agreement => (
+                    <Box key={agreement.id + agreement.number} sx={{ marginBottom: "0.2rem" }}>
+                      <Link href={`/agreements/${agreement.id}`}>
+                        <HtmlLink sx={{ cursor: "pointer" }}>ДС №{agreement.number}</HtmlLink>
+                      </Link>
+                    </Box>
+                ))}
+              </Box>
+              : "Дополнительных соглашений нет"
+        }
+      </Box>
+  )
+}
 
 const Contract : NextPage = () => {
   const router = useRouter();
 
-  const [ isBeingEdited, setIsBeingEdited ] = React.useState(false);
 
   const { data: contract, isLoading, fetchData } = useFetch<ContractFromDB>(`contracts/${router.query.id}`,
       {
@@ -39,108 +59,28 @@ const Contract : NextPage = () => {
       <RequireAuth>
         <Layout title={"Договор №" + contract?.number + " с " + contract?.Counterparty?.name}
                 heading={"Договор №" + contract?.number + " с " + contract?.Counterparty?.name}>
-          <Box sx={{ flexGrow: 1, marginTop: "1rem" }}>
+          <Box sx={PAGE_CONTAINER}>
             <Grid container spacing={CARD_SPACING}>
               <Grid xs={9}>
                 <Box sx={CARD}>
-                  <Box sx={{ display: "flex", flexDirection: "column" }}>
-                    {contract?.startDate
-                        && <Box sx={{ marginBottom: "0.8rem" }}>
-                          Начало действия: {format(new Date(contract?.startDate), 'dd/MM/yyyy')}
-                        </Box>}
-                    {contract?.endDate
-                        && <Box sx={{ marginBottom: "0.8rem" }}>
-                          Конец действия: {format(new Date(contract?.endDate), 'dd/MM/yyyy')}
-                        </Box>}
-                    {contract?.signDate
-                        && <Box sx={{ marginBottom: "1rem" }}>
-                          Дата подписания: {format(new Date(contract?.signDate), 'dd/MM/yyyy')}
-                        </Box>}
-                    {contract?.linkToFileOnDisk
-                        && <Box sx={{ marginBottom: "1rem" }}>
-                          <HtmlLink href={contract?.linkToFileOnDisk}>Ссылка на документ на Google Disk</HtmlLink>
-                        </Box>}
-
-                    {!isBeingEdited
-                        && <Box>
-                          <Button onClick={() => setIsBeingEdited(true)} variant="contained">Редактировать</Button>
-                        </Box>
-                    }
-                    {isBeingEdited && contract?.counterpartyId &&
-                        <AddContractShortForm counterpartyId={contract?.counterpartyId}
-                                              contract={contract}
-                                              finishEditing={() => setIsBeingEdited(false)}
-                                              isEditMode={true}
-                        />}
-                  </Box>
+                  <ContractInfo contract={contract} />
                 </Box>
               </Grid>
               <Grid xs={3}>
                 <Box sx={CARD}>
-                  <Typography variant="h6" sx={{ marginBottom: "0.5rem" }}>
-                    Текущий статус
-                  </Typography>
-                  {
-                    contract?.ContractTransactions?.length === 0 || !contract?.ContractTransactions
-                        ? "Статус не менялся"
-                        : <Box>
-                          <Typography>
-                            {findLastStatusChange(contract?.ContractTransactions).DocumentStatus?.stage}
-                          </Typography>
-                        </Box>
-                  }
+                  <CurrentStatus contractTransactions={contract?.ContractTransactions || []} />
                 </Box>
               </Grid>
 
               <Grid xs={9}>
                 <Box sx={CARD}>
-                  <Box>
-                    <Typography variant="h6" sx={{ marginBottom: "1rem" }}>
-                      История изменений статуса договора
-                    </Typography>
-                    {contract?.ContractTransactions && <TableContainer>
-                      <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                        <TableHead>
-                          <TableRow>
-                            <TableCell>Дата</TableCell>
-                            <TableCell>Статус</TableCell>
-                            <TableCell>Комментарий</TableCell>
-                          </TableRow>
-                        </TableHead>
-                        <TableBody>
-                          {contract?.ContractTransactions?.map(transaction => (
-                              <TableRow key={transaction?.id}>
-                                <TableCell>{transaction?.createdAt
-                                    && format(new Date(transaction?.createdAt), 'dd/MM/yyyy')}</TableCell>
-                                <TableCell>{transaction?.DocumentStatus?.stage}</TableCell>
-                                <TableCell>{transaction?.comment}</TableCell>
-                              </TableRow>
-                          ))}
-                        </TableBody>
-                      </Table>
-                    </TableContainer>}
-                  </Box>
+                  <StatusChangeHistory transactions={contract.ContractTransactions} />
                 </Box>
               </Grid>
+
               <Grid xs={3}>
                 <Box sx={CARD}>
-                  <Typography variant="h6" sx={{ marginBottom: "0.5rem" }}>
-                    Дополнительные соглашения
-                  </Typography>
-                  {
-                    contract?.Agreements && contract?.Agreements?.length > 0
-                        ? <Box>
-                          {contract?.Agreements?.map(agreement => (
-                              <Box key={agreement.id + agreement.number} sx={{ marginBottom: "0.2rem" }}>
-                                <Link href={`/agreements/${agreement.id}`}>
-                                  <HtmlLink sx={{ cursor: "pointer" }}>ДС №{agreement.number}</HtmlLink>
-                                </Link>
-                              </Box>
-                          ))}
-                        </Box>
-                        : "Дополнительных соглашений нет"
-                  }
-
+                  <Agreements agreements={contract.Agreements} />
                 </Box>
               </Grid>
 

@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import { RadioButtonChoice } from "../common/RadioButtonChoice";
 import { mapCounterpartiesDataForRadioBtn } from "../../utils/functions";
-import { AddContractShortForm } from "./AddContractShortForm";
+import { AddContractShortForm } from "../common/AddContractShortForm";
 
 interface AddContractFullFormProps {
   counterparties : CounterpartyFromDB[];

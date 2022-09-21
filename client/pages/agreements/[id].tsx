@@ -19,7 +19,7 @@ import { findLastStatusChange } from "../../utils/functions";
 import HtmlLink from '@mui/material/Link';
 import Link from "next/link";
 import Button from "@mui/material/Button";
-import { AddContractShortForm } from "../../components/addContract/AddContractShortForm";
+import { AddContractShortForm } from "../../components/common/AddContractShortForm";
 import { AddStatusForm } from "../../components/addStatusForm";
 import { AgreementFromDB } from "../../interfaces/agreement";
 import { AddAgreementShortForm } from "../../components/addAgreement/AddAgreementShortForm";
