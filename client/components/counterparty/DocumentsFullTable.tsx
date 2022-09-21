@@ -1,6 +1,6 @@
 import React from "react";
 import Box from "@mui/material/Box";
-import { CARD } from "../styles/constants";
+import { CARD } from "../../styles/constants";
 import { Typography } from "@mui/material";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -12,17 +12,17 @@ import Button from "@mui/material/Button";
 import format from "date-fns/format";
 import HtmlLink from '@mui/material/Link';
 import isBefore from 'date-fns/isBefore';
-import { ContractFromDB } from "../interfaces/contract";
-import AgreementsTable from "./AgreementsTable";
-import { formatLastTransactionDate } from "../utils/functions";
+import { ContractFromDB } from "../../interfaces/contract";
+import AgreementsTable from "../AgreementsTable";
+import { formatLastTransactionDate } from "../../utils/functions";
 import Link from "next/link";
 
 interface DocumentsFullTableProps {
   isLoading : boolean;
-  contracts : ContractFromDB[]|undefined;
+  contracts : ContractFromDB[] | undefined;
 }
 
-const formatPeriodOfValidity = (startDate : Date|undefined, endDate : Date|undefined) => {
+const formatPeriodOfValidity = (startDate : Date | undefined, endDate : Date | undefined) => {
   let status;
   if (endDate) {
     const isActive = isBefore(new Date(), new Date(endDate))
@@ -96,7 +96,7 @@ const DocumentsFullTable = ({ isLoading, contracts } : DocumentsFullTableProps) 
                                 </Link>
                               </TableCell>
                             </TableRow>
-                            <AgreementsTable isLoading={isLoading} agreements={contract?.Agreements}/>
+                            <AgreementsTable isLoading={isLoading} agreements={contract?.Agreements} />
                           </>
                       ))}
                     </TableBody>

@@ -1,6 +1,6 @@
 import React from "react";
 import Box from "@mui/material/Box";
-import { CARD } from "../styles/constants";
+import { CARD } from "../../styles/constants";
 import { Typography } from "@mui/material";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -10,17 +10,17 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Button from "@mui/material/Button";
 import format from "date-fns/format";
-import { ContactFromDB } from "../interfaces/contact";
+import { ContactFromDB } from "../../interfaces/contact";
 import { AddCounterpartyContactForm } from "./AddCounterpartyContactForm";
-import { deleteContact } from "../api/contact";
+import { deleteContact } from "../../api/contact";
 
 interface CounterpartyContactsBigBlockProps {
   isLoading : boolean;
-  contacts : ContactFromDB[]|undefined;
+  contacts : ContactFromDB[] | undefined;
 }
 
 const CounterpartyContactsBigBlock = ({ isLoading, contacts } : CounterpartyContactsBigBlockProps) => {
-  const [isFormOpen, setIsFormOpen] = React.useState(false);
+  const [ isFormOpen, setIsFormOpen ] = React.useState(false);
   // const [idOfContactToEdit, setIdOfContactToEdit] = React.useState<null|number>(null);
 
   const toggleFormOpen = () => {
@@ -77,7 +77,7 @@ const CounterpartyContactsBigBlock = ({ isLoading, contacts } : CounterpartyCont
               )
           }
           {isFormOpen
-              ? <AddCounterpartyContactForm closeForm={toggleFormOpen}/>
+              ? <AddCounterpartyContactForm closeForm={toggleFormOpen} />
               : <Button variant="contained" sx={{ marginTop: "1rem" }} onClick={toggleFormOpen}>
                 Добавить контактное лицо
               </Button>

@@ -1,23 +1,23 @@
 import { useRouter } from "next/router";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { generateDateFromYYYYMMDD } from "../utils/functions";
-import { createContact } from "../api/counterparty";
+import { generateDateFromYYYYMMDD } from "../../utils/functions";
+import { createContact } from "../../api/counterparty";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import { DateInput } from "./DateInput";
+import { DateInput } from "../DateInput";
 import Button from "@mui/material/Button";
 import React from "react";
 
-type NumberFieldValue = number|"";
+type NumberFieldValue = number | "";
 
 interface Inputs {
-  year : NumberFieldValue|undefined;
-  month : NumberFieldValue|undefined;
-  day : NumberFieldValue|undefined;
+  year : NumberFieldValue | undefined;
+  month : NumberFieldValue | undefined;
+  day : NumberFieldValue | undefined;
   name : string;
-  phone : string|undefined;
-  email : string|undefined;
-  job : string|undefined;
+  phone : string | undefined;
+  email : string | undefined;
+  job : string | undefined;
 }
 
 interface AddCounterpartyContactFormProps {
@@ -135,7 +135,7 @@ export const AddCounterpartyContactForm = ({ closeForm } : AddCounterpartyContac
                    monthInputName={"month"}
                    yearInputName={"year"}
                    control={control}
-                   heading="День рождения"/>
+                   heading="День рождения" />
         <Button type="submit" variant="contained"
                 sx={{
                   width: "auto",

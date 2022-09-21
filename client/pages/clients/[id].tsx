@@ -9,8 +9,8 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Unstable_Grid2";
 import { CARD_SPACING, CARD } from "../../styles/constants";
 import { CounterpartyFromDB } from "../../interfaces/counterparty";
-import CounterpartyContactsBigBlock from "../../components/CounterpartyContactsBigBlock";
-import DocumentsFullTable from "../../components/DocumentsFullTable";
+import CounterpartyContactsBigBlock from "../../components/counterparty/CounterpartyContactsBigBlock";
+import DocumentsFullTable from "../../components/counterparty/DocumentsFullTable";
 
 const Client : NextPage = () => {
   const router = useRouter();
@@ -28,10 +28,10 @@ const Client : NextPage = () => {
           <Box sx={{ flexGrow: 1, marginTop: "1rem" }}>
             <Grid container spacing={CARD_SPACING}>
               <Grid xs={12}>
-                <CounterpartyContactsBigBlock isLoading={isLoading} contacts={client?.Contacts}/>
+                <CounterpartyContactsBigBlock isLoading={isLoading} contacts={client?.Contacts} />
               </Grid>
               <Grid xs={12}>
-                <DocumentsFullTable isLoading={isLoading} contracts={client?.Contracts}/>
+                <DocumentsFullTable isLoading={isLoading} contracts={client?.Contracts} />
               </Grid>
             </Grid>
           </Box>
@@ -50,7 +50,7 @@ export const getStaticPaths = async () => {
 export async function getStaticProps({ locale } : { locale : string }) {
   return {
     props: {
-      ...(await serverSideTranslations(locale, ["common", "clients"])),
+      ...(await serverSideTranslations(locale, [ "common", "clients" ])),
     },
   };
 }
