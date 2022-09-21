@@ -22,7 +22,7 @@ import Button from "@mui/material/Button";
 import { AddContractShortForm } from "../../components/addContract/AddContractShortForm";
 import { AddStatusForm } from "../../components/addStatusForm";
 import { AgreementFromDB } from "../../interfaces/agreement";
-import { AddAgreementForm } from "../../components/AddAgreementForm";
+import { AddAgreementShortForm } from "../../components/addAgreemnent/AddAgreementShortForm";
 import { AddInvoiceShortForm } from "../../components/addInvoice/AddInvoiceShortForm";
 
 const Agreement : NextPage = () => {
@@ -65,10 +65,10 @@ const Agreement : NextPage = () => {
                     }
 
                     {isAgreementBeingEdited && agreement?.contractId &&
-                        <AddAgreementForm contractId={agreement?.contractId}
-                                          agreement={agreement}
-                                          finishEditing={() => setIsAgreementBeingEdited(false)}
-                                          isEditMode={true}
+                        <AddAgreementShortForm contractId={agreement?.contractId}
+                                               agreement={agreement}
+                                               finishEditing={() => setIsAgreementBeingEdited(false)}
+                                               isEditMode={true}
                         />
                     }
 

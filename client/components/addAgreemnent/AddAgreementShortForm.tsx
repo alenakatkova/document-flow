@@ -3,20 +3,20 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import React from "react";
-import { DateInput } from "./DateInput";
-import { generateDateFromYYYYMMDD } from "../utils/functions";
-import { createAgreement, updateAgreement } from "../api/agreement";
-import { ContractFromDB } from "../interfaces/contract";
-import { AgreementFromDB } from "../interfaces/agreement";
+import { DateInput } from "../DateInput";
+import { generateDateFromYYYYMMDD } from "../../utils/functions";
+import { createAgreement, updateAgreement } from "../../api/agreement";
+import { ContractFromDB } from "../../interfaces/contract";
+import { AgreementFromDB } from "../../interfaces/agreement";
 
-type NumberFieldValue = number|"";
+type NumberFieldValue = number | "";
 
 interface Inputs {
-  signYear : NumberFieldValue|undefined;
-  signMonth : NumberFieldValue|undefined;
-  signDay : NumberFieldValue|undefined;
+  signYear : NumberFieldValue | undefined;
+  signMonth : NumberFieldValue | undefined;
+  signDay : NumberFieldValue | undefined;
   number : string;
-  linkToFile : string|undefined;
+  linkToFile : string | undefined;
 }
 
 interface AddAgreementFormProps {
@@ -26,7 +26,7 @@ interface AddAgreementFormProps {
   finishEditing? : () => void;
 }
 
-export const AddAgreementForm = ({ contractId, isEditMode, agreement, finishEditing } : AddAgreementFormProps) => {
+export const AddAgreementShortForm = ({ contractId, isEditMode, agreement, finishEditing } : AddAgreementFormProps) => {
   const { handleSubmit, reset, formState: { isSubmitSuccessful }, control, watch, register } = useForm<Inputs>({
     defaultValues: {
       signYear: "",
