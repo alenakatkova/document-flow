@@ -10,18 +10,18 @@ interface AddContractFullFormProps {
 }
 
 export const AddContractFullForm = ({ counterparties } : AddContractFullFormProps) => {
-  const [ chosenContractor, setChosenContractor ] = useState<number | undefined>(undefined);
+  const [ chosenCounterparty, setChosenCounterparty ] = useState<number | undefined>(undefined);
 
   return (
       <Box>
         {counterparties && <RadioButtonChoice
             options={mapCounterpartiesDataForRadioBtn(counterparties)}
-            heading="Выберите подрядчика"
-            setChosenOption={setChosenContractor}
-            whatToAdd="подрядчика"
-            radioGroupName="contractor"
+            heading="Выберите контрагента"
+            setChosenOption={setChosenCounterparty}
+            whatToAdd="контрагента"
+            radioGroupName="counterparty"
         />}
-        {chosenContractor !== undefined && <AddContractShortForm counterpartyId={chosenContractor} />}
+        {chosenCounterparty !== undefined && <AddContractShortForm counterpartyId={chosenCounterparty} />}
       </Box>
   )
 }

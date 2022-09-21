@@ -5,7 +5,7 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Unstable_Grid2";
 import { CARD_SPACING, CARD } from "../../styles/constants";
 import RequireAuth from "../../components/RequireAuth";
-import { AddCounterpartyForm } from "../../components/AddCounterpartyForm";
+import { AddCounterpartyForm } from "../../components/AddCounterparty/AddCounterpartyForm";
 
 const AddContractor : NextPage = () => {
   return (
@@ -15,7 +15,7 @@ const AddContractor : NextPage = () => {
             <Grid container spacing={CARD_SPACING}>
               <Grid xs={12}>
                 <Box sx={CARD}>
-                  <AddCounterpartyForm type="contractor"/>
+                  <AddCounterpartyForm type="contractor" />
                 </Box>
               </Grid>
             </Grid>

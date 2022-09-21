@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import { RadioButtonChoice } from "../common/RadioButtonChoice";
 import { getOptionsForContractsRadioBtns, mapCounterpartiesDataForRadioBtn } from "../../utils/functions";
-import { AddAgreementShortForm } from "../addAgreemnent/AddAgreementShortForm";
+import { AddAgreementShortForm } from "./AddAgreementShortForm";
 import { CounterpartyFromDB } from "../../interfaces/counterparty";
 
 interface AddAgreementFullFormProps {
@@ -23,10 +23,10 @@ export const AddAgreementFullForm = ({ counterparties } : AddAgreementFullFormPr
         <Box>
           <RadioButtonChoice
               options={mapCounterpartiesDataForRadioBtn(counterparties)}
-              heading="Выберите клиента"
+              heading="Выберите контрагента"
               setChosenOption={onContractorChoiceChange}
-              whatToAdd="подрядчика"
-              radioGroupName="contractor"
+              whatToAdd="контрагента"
+              radioGroupName="контрагент"
           />
         </Box>
 

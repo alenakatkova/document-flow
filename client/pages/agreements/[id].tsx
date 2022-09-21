@@ -22,7 +22,7 @@ import Button from "@mui/material/Button";
 import { AddContractShortForm } from "../../components/addContract/AddContractShortForm";
 import { AddStatusForm } from "../../components/addStatusForm";
 import { AgreementFromDB } from "../../interfaces/agreement";
-import { AddAgreementShortForm } from "../../components/addAgreemnent/AddAgreementShortForm";
+import { AddAgreementShortForm } from "../../components/addAgreement/AddAgreementShortForm";
 import { AddInvoiceShortForm } from "../../components/addInvoice/AddInvoiceShortForm";
 
 const Agreement : NextPage = () => {

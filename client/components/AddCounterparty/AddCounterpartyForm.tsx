@@ -3,14 +3,14 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import React from "react";
-import { createCounterparty } from "../api/counterparty";
-import { useAuth } from "../contexts/authProvider";
+import { createCounterparty } from "../../api/counterparty";
+import { useAuth } from "../../contexts/authProvider";
 
 interface Inputs {
   isPriority : boolean;
   name : string;
-  phone : string|undefined;
-  bankDetails : string|undefined;
+  phone : string | undefined;
+  bankDetails : string | undefined;
 }
 
 interface AddCounterpartyFormProps {

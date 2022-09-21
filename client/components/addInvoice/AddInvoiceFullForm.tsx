@@ -34,10 +34,10 @@ export const AddInvoiceFullForm = ({ counterparties } : AddInvoiceFullFormProps)
         <Box>
           <RadioButtonChoice
               options={mapCounterpartiesDataForRadioBtn(counterparties)}
-              heading="Выберите клиента"
+              heading="Выберите контрагента"
               setChosenOption={onCounterpartyChoiceChange}
-              whatToAdd="клиента"
-              radioGroupName="client"
+              whatToAdd="контрагента"
+              radioGroupName="counterparty"
           />
         </Box>
 
