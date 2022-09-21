@@ -7,8 +7,8 @@ import TableBody from "@mui/material/TableBody";
 import Link from "next/link";
 import HtmlLink from "@mui/material/Link";
 import React from "react";
-import { Doc } from "../utils/formDocumentsList";
-import { TYPES } from "../utils/constants";
+import { Doc } from "../../utils/formDocumentsList";
+import { TYPES } from "../../utils/constants";
 
 interface TasksTableProps {
   documents : Doc[];

@@ -12,7 +12,7 @@ import { CounterpartyFromDB } from "../interfaces/counterparty";
 import { DocumentStatusFromDB } from "../interfaces/documentStatus";
 import { formDocumentsList } from "../utils/formDocumentsList";
 import { Typography } from "@mui/material";
-import { TasksTable } from "../components/tasksTable";
+import { TasksTable } from "../components/tasks/tasksTable";
 
 const Tasks : NextPage = () => {
   let { team } = useAuth();
@@ -56,7 +56,7 @@ const Tasks : NextPage = () => {
               <Grid xs={6}>
                 <Box sx={CARD}>
                   <Typography variant="h6">Срочные задачи по приоритетным контрагентам</Typography>
-                  <TasksTable documents={highPriorityTasks}/>
+                  <TasksTable documents={highPriorityTasks} />
                 </Box>
               </Grid>
               <Grid xs={6}>
@@ -65,13 +65,13 @@ const Tasks : NextPage = () => {
                   <Box sx={{ margin: "0.5rem 0" }}>В работе у контрагентов или других департаметов. До изменения статуса
                     документа действия не
                     требуются</Box>
-                  <TasksTable documents={highPriorityNotTasks}/>
+                  <TasksTable documents={highPriorityNotTasks} />
                 </Box>
               </Grid>
               <Grid xs={6}>
                 <Box sx={CARD}>
                   <Typography variant="h6">Неприоритетные задачи</Typography>
-                  <TasksTable documents={lowPriorityTasks}/>
+                  <TasksTable documents={lowPriorityTasks} />
                 </Box>
               </Grid>
               <Grid xs={6}>
@@ -80,7 +80,7 @@ const Tasks : NextPage = () => {
                   <Box sx={{ margin: "0.5rem 0" }}>В работе у контрагентов или других департаметов. До изменения статуса
                     документа действия не
                     требуются</Box>
-                  <TasksTable documents={lowPriorityNotTasks}/>
+                  <TasksTable documents={lowPriorityNotTasks} />
                 </Box>
               </Grid>
             </Grid>
@@ -94,7 +94,7 @@ const Tasks : NextPage = () => {
 export async function getStaticProps({ locale } : { locale : string }) {
   return {
     props: {
-      ...(await serverSideTranslations(locale, ["common", "clients"])),
+      ...(await serverSideTranslations(locale, [ "common", "clients" ])),
     },
   };
 }

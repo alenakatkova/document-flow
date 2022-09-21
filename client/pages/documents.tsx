@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import type { NextPage } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Box from "@mui/material/Box";
@@ -10,90 +10,8 @@ import { useAuth } from "../contexts/authProvider";
 import RequireAuth from "../components/RequireAuth";
 import { CounterpartyFromDB } from "../interfaces/counterparty";
 import { DocumentStatusFromDB } from "../interfaces/documentStatus";
-import { formDocumentsList } from "../utils/formDocumentsList";
-import Table from "@mui/material/Table";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import TableCell from "@mui/material/TableCell";
-import TableBody from "@mui/material/TableBody";
-import Link from "next/link";
-import HtmlLink from "@mui/material/Link";
-import TableContainer from "@mui/material/TableContainer";
-import { TYPES } from "../utils/constants"
-import { Doc } from "../utils/formDocumentsList"
-
-interface AllDocumentsFormProps {
-  documents : Doc[];
-}
-
-const AllDocumentsForm = ({ documents } : AllDocumentsFormProps) => {
-  return (
-      <TableContainer>
-        <Table size="small" aria-label="a dense table">
-          <TableHead>
-            <TableRow>
-              <TableCell>Приоритет</TableCell>
-              <TableCell>Документ</TableCell>
-              <TableCell>Статус</TableCell>
-              <TableCell>Родительский документ</TableCell>
-              <TableCell>Контрагенты</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {documents.map(doc => (
-                <TableRow
-                    key={JSON.stringify(doc)}
-                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                  <TableCell>{doc.isPriority ? "Высокий" : "Низкий"}</TableCell>
-                  <TableCell>
-                    {doc.type !== "invoice"
-                        ? <Link href={doc.link}>
-                          <HtmlLink
-                              sx={{ cursor: "pointer" }}>{TYPES[doc.type]} {doc.number === "Нет номера" ? "" : "№" + doc.number}</HtmlLink>
-                        </Link>
-                        : <div>{TYPES[doc.type]} {doc.number === "Нет номера" ? "" : "№" + doc.number}</div>}
-                  </TableCell>
-                  <TableCell>{doc.status}</TableCell>
-                  <TableCell>
-                    {doc.parentDocumentLink && <Link href={doc.parentDocumentLink}>
-                      <HtmlLink sx={{ cursor: "pointer" }}>{doc.parentDocumentName}</HtmlLink>
-                    </Link>}
-                  </TableCell>
-                  <TableCell>
-                    {doc.counterpartyLink && <Link href={doc.counterpartyLink}>
-                      <HtmlLink sx={{ cursor: "pointer" }}>{doc.counterpartyName}</HtmlLink>
-                    </Link>}
-                  </TableCell>
-                </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-  )
-}
-
-const docTypeOptions = [
-  {
-    label: "Договор",
-    value: "contract",
-    id: 0
-  },
-  {
-    label: "Счет",
-    value: "invoice",
-    id: 1
-  },
-  {
-    label: "Дополнительное соглашение",
-    value: "agreement",
-    id: 2
-  },
-  {
-    label: "Все",
-    value: "all",
-    id: 3
-  }
-];
+import { Doc, formDocumentsList } from "../utils/formDocumentsList";
+import { AllDocumentsForm } from "../components/documents/AllDocumentsForm";
 
 
 const Documents : NextPage = () => {
@@ -105,17 +23,17 @@ const Documents : NextPage = () => {
 
   const { data: documentStatuses } = useFetch<DocumentStatusFromDB[]>("/document-statuses", []);
 
-  const [initialDocs, setInitialDocs] = useState<Doc[]>([])
-  const [docsToRender, setDocsToRender] = useState<Doc[]>([])
+  const [ initialDocs, setInitialDocs ] = useState<Doc[]>([])
+  const [ docsToRender, setDocsToRender ] = useState<Doc[]>([])
 
   useEffect(() => {
     let docs = formDocumentsList(counterparties, documentStatuses);
     setInitialDocs(docs)
     setDocsToRender(docs);
-  }, [counterparties, documentStatuses])
+  }, [ counterparties, documentStatuses ])
 
-  const [isPriorityChecked, setIsPriorityChecked] = useState(false);
-  const [searchInput, setSearchInput] = useState("");
+  const [ isPriorityChecked, setIsPriorityChecked ] = useState(false);
+  const [ searchInput, setSearchInput ] = useState("");
 
   const onSearchInput = (e : React.ChangeEvent<HTMLInputElement>) => {
     setIsPriorityChecked(false);
@@ -171,7 +89,7 @@ const Documents : NextPage = () => {
                     </label>
                   </Box>
 
-                  <AllDocumentsForm documents={docsToRender}/>
+                  <AllDocumentsForm documents={docsToRender} />
                 </Box>
               </Grid>
             </Grid>
@@ -184,7 +102,7 @@ const Documents : NextPage = () => {
 export async function getStaticProps({ locale } : { locale : string }) {
   return {
     props: {
-      ...(await serverSideTranslations(locale, ["common", "clients"])),
+      ...(await serverSideTranslations(locale, [ "common", "clients" ])),
     },
   };
 }
