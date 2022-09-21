@@ -4,7 +4,7 @@ import { generateDateFromYYYYMMDD } from "../../utils/functions";
 import { createContact } from "../../api/counterparty";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import { DateInput } from "../DateInput";
+import { DateInput } from "../common/DateInput";
 import Button from "@mui/material/Button";
 import React from "react";
 

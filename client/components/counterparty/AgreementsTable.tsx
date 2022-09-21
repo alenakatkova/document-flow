@@ -10,11 +10,11 @@ import TableRow from "@mui/material/TableRow";
 import Button from "@mui/material/Button";
 import format from "date-fns/format";
 import HtmlLink from '@mui/material/Link';
-import { InvoiceFromDB } from "../interfaces/invoice";
-import { AgreementFromDB } from "../interfaces/agreement";
-import { formatLastTransactionDate } from "../utils/functions";
+import { InvoiceFromDB } from "../../interfaces/invoice";
+import { AgreementFromDB } from "../../interfaces/agreement";
+import { formatLastTransactionDate } from "../../utils/functions";
 import Link from "next/link";
-import { deleteAgreement } from "../api/agreement";
+import { deleteAgreement } from "../../api/agreement";
 
 const translateInvoiceStatus = (invoice : InvoiceFromDB) : string => {
   const status = invoice.status;
@@ -41,7 +41,7 @@ const translateInvoiceStatus = (invoice : InvoiceFromDB) : string => {
 
 interface AgreementsTableProps {
   isLoading : boolean;
-  agreements : AgreementFromDB[]|undefined;
+  agreements : AgreementFromDB[] | undefined;
 }
 
 const AgreementsTable = ({ isLoading, agreements } : AgreementsTableProps) => {

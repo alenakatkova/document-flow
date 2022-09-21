@@ -13,7 +13,7 @@ import format from "date-fns/format";
 import HtmlLink from '@mui/material/Link';
 import isBefore from 'date-fns/isBefore';
 import { ContractFromDB } from "../../interfaces/contract";
-import AgreementsTable from "../AgreementsTable";
+import AgreementsTable from "./AgreementsTable";
 import { formatLastTransactionDate } from "../../utils/functions";
 import Link from "next/link";
 

@@ -8,7 +8,7 @@ import Grid from "@mui/material/Unstable_Grid2";
 import { CARD, CARD_SPACING } from "../../styles/constants";
 import RequireAuth from "../../components/RequireAuth";
 import { Typography } from "@mui/material";
-import { AddStatusForm } from "../../components/addStatusForm";
+import { AddStatusForm } from "../../components/common/AddStatusForm";
 import { AgreementFromDB } from "../../interfaces/agreement";
 import { AgreementInfo } from "../../components/agreement/AgreementInfo";
 import { CurrentStatus } from "../../components/agreement/CurrentStatus";

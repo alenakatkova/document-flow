@@ -11,7 +11,7 @@ import RequireAuth from "../../components/RequireAuth";
 import { Typography } from "@mui/material";
 import HtmlLink from '@mui/material/Link';
 import Link from "next/link";
-import { AddStatusForm } from "../../components/addStatusForm";
+import { AddStatusForm } from "../../components/common/AddStatusForm";
 import { CurrentStatus } from "../../components/contract/CurrentStatus";
 import { ContractInfo } from "../../components/contract/ContractInfoProps";
 import { StatusChangeHistory } from "../../components/contract/StatusChangeHistory";

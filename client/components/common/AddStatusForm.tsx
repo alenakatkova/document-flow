@@ -1,10 +1,10 @@
 import React from "react";
-import useFetch from "../api/useFetch";
-import { DocumentStatusFromDB } from "../interfaces/documentStatus";
+import useFetch from "../../api/useFetch";
+import { DocumentStatusFromDB } from "../../interfaces/documentStatus";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { createAgreementTransaction, createContractTransaction } from "../api/transaction";
+import { createAgreementTransaction, createContractTransaction } from "../../api/transaction";
 import Box from "@mui/material/Box";
-import { RadioButtonChoice } from "./common/RadioButtonChoice";
+import { RadioButtonChoice } from "./RadioButtonChoice";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 

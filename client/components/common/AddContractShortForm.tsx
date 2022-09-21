@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import React from "react";
-import { DateInput } from "../DateInput";
+import { DateInput } from "./DateInput";
 import { generateDateFromYYYYMMDD } from "../../utils/functions";
 import { createContract, updateContract } from "../../api/contract";
 import { ContractFromDB } from "../../interfaces/contract";
