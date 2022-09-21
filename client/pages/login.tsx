@@ -16,7 +16,7 @@ import { Team as Inputs, TeamFromDB } from "../interfaces/team";
 import { CARD_SPACING, CARD } from "../styles/constants";
 import useFetch from "../api/useFetch";
 import { useAuth } from "../contexts/authProvider";
-import SignedUpTeams from "../components/common/SignedUpTeams";
+import SignedUpTeams from "../components/SignedUpTeams";
 import AuthPageSideBlock from "../components/common/AuthPageSideBlock";
 
 const Login : NextPage = () => {

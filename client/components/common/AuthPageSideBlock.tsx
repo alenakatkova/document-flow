@@ -2,7 +2,7 @@ import Grid from "@mui/material/Unstable_Grid2";
 import { CARD, CARD_SPACING } from "../../styles/constants";
 import Box from "@mui/material/Box";
 import InstructionBlock from "./InstructionBlock";
-import SignedUpTeams from "./SignedUpTeams";
+import SignedUpTeams from "../SignedUpTeams";
 import React from "react";
 
 const INSTRUCTIONS = [ `Обратитесь к администратору, если аккаунт вашей команды уже создан, 
