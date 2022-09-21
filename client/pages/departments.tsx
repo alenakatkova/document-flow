@@ -8,19 +8,16 @@ import Grid from "@mui/material/Unstable_Grid2";
 import Layout from "../components/layout";
 import { CARD, CARD_SPACING, PAGE_CONTAINER } from "../styles/constants";
 import useFetch from "../api/useFetch";
-import { useAuth } from "../contexts/authProvider";
-import { useRouter } from "next/router";
 import RequireAuth from "../components/RequireAuth";
 import ListItem from "@mui/material/ListItem";
 import List from '@mui/material/List';
 import { InternalDepartmentFromDB } from "../interfaces/internalDepartment";
-import Instruction from "../components/Instruction";
+import InstructionBlock from "../components/common/InstructionBlock";
 
+const INSTRUCTIONS = [ "Обращаться по вопросам согласования документов" ];
 
 const Departments : NextPage = () => {
   const { t } = useTranslation("internal-departments");
-  let { team } = useAuth();
-  const router = useRouter();
 
   const { data: departments, isLoading } = useFetch<InternalDepartmentFromDB[]>("/departments", []);
 
@@ -67,7 +64,11 @@ const Departments : NextPage = () => {
                       </List>
                     </Box>
                   </Grid>
-                  <Instruction gridSpacing={5} paragraphs={[ "Обращаться по вопросам согласования документов" ]} />
+                  <Grid xs={5}>
+                    <Box sx={CARD}>
+                      <InstructionBlock paragraphs={INSTRUCTIONS} />
+                    </Box>
+                  </Grid>
                 </Grid>
             }
           </Box>

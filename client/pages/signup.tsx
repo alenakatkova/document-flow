@@ -2,17 +2,17 @@ import React, { useEffect } from "react";
 import type { NextPage } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
-import { useForm, SubmitHandler, Controller } from "react-hook-form";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Unstable_Grid2";
 import Button from "@mui/material/Button";
 import TextField from '@mui/material/TextField';
 import Layout from "../components/layout";
 import { Team as Inputs, TeamFromDB } from "../interfaces/team";
-import { CARD_SPACING, CARD } from "../styles/constants";
+import { CARD, CARD_SPACING } from "../styles/constants";
 import useFetch from "../api/useFetch";
 import { useAuth } from "../contexts/authProvider";
-import AuthInstruction from "../components/AuthInstruction";
+import AuthPageSideBlock from "../components/common/AuthPageSideBlock";
 
 const Signup : NextPage = () => {
   const { handleSubmit, reset, formState: { isSubmitSuccessful }, control } = useForm<Inputs>({
@@ -31,7 +31,7 @@ const Signup : NextPage = () => {
 
   useEffect(() => {
     reset();
-  }, [reset, isSubmitSuccessful])
+  }, [ reset, isSubmitSuccessful ])
 
   const onSubmit : SubmitHandler<Inputs> = data => {
     auth.signUp(data);
@@ -134,7 +134,7 @@ const Signup : NextPage = () => {
               </Box>
             </Grid>
             <Grid xs={6}>
-              <AuthInstruction/>
+              <AuthPageSideBlock />
             </Grid>
           </Grid>
         </Box>
@@ -145,7 +145,7 @@ const Signup : NextPage = () => {
 export async function getStaticProps({ locale } : { locale : string }) {
   return {
     props: {
-      ...(await serverSideTranslations(locale, ["common", "signup"])),
+      ...(await serverSideTranslations(locale, [ "common", "signup" ])),
     },
   };
 }

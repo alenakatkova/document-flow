@@ -16,7 +16,8 @@ import { Team as Inputs, TeamFromDB } from "../interfaces/team";
 import { CARD_SPACING, CARD } from "../styles/constants";
 import useFetch from "../api/useFetch";
 import { useAuth } from "../contexts/authProvider";
-import AuthInstruction from "../components/AuthInstruction";
+import SignedUpTeams from "../components/common/SignedUpTeams";
+import AuthPageSideBlock from "../components/common/AuthPageSideBlock";
 
 const Login : NextPage = () => {
   const { handleSubmit, reset, formState: { isSubmitSuccessful }, control } = useForm<Inputs>({
@@ -32,7 +33,7 @@ const Login : NextPage = () => {
 
   useEffect(() => {
     reset();
-  }, [reset, isSubmitSuccessful])
+  }, [ reset, isSubmitSuccessful ])
 
   const onSubmit : SubmitHandler<Inputs> = data => {
     console.log(data)
@@ -100,7 +101,7 @@ const Login : NextPage = () => {
               </Box>
             </Grid>
             <Grid xs={6}>
-              <AuthInstruction/>
+              <AuthPageSideBlock />
             </Grid>
           </Grid>
         </Box>
@@ -111,7 +112,7 @@ const Login : NextPage = () => {
 export async function getStaticProps({ locale } : { locale : string }) {
   return {
     props: {
-      ...(await serverSideTranslations(locale, ["common", "login"])),
+      ...(await serverSideTranslations(locale, [ "common", "login" ])),
     },
   };
 }
