@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import { RadioButtonChoice } from "../common/RadioButtonChoice";
 import { getOptionsForContractsRadioBtns, mapCounterpartiesDataForRadioBtn } from "../../utils/functions";
-import { AddAgreementShortForm } from "./AddAgreementShortForm";
+import { AddAgreementShortForm } from "../common/AddAgreementShortForm";
 import { CounterpartyFromDB } from "../../interfaces/counterparty";
 
 interface AddAgreementFullFormProps {

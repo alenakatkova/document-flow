@@ -7,7 +7,7 @@ import {
   isInvoiceAlreadyExists,
   mapCounterpartiesDataForRadioBtn
 } from "../../utils/functions";
-import { AddInvoiceShortForm } from "./AddInvoiceShortForm";
+import { AddInvoiceShortForm } from "../common/AddInvoiceShortForm";
 import { CounterpartyFromDB } from "../../interfaces/counterparty";
 
 interface AddInvoiceFullFormProps {
