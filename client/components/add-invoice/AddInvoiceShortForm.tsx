@@ -3,16 +3,16 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import React from "react";
-import { DateInput } from "./DateInput";
-import { generateDateFromYYYYMMDD } from "../utils/functions";
-import { createInvoice, updateInvoice } from "../api/invoice";
-import { Invoice, InvoiceFromDB } from "../interfaces/invoice";
-import { AgreementFromDB } from "../interfaces/agreement";
-import { createAgreement, updateAgreement } from "../api/agreement";
-import { Option, RadioButtonChoice } from "./RadioButtonChoice";
-import { ContractFromDB } from "../interfaces/contract";
+import { DateInput } from "../DateInput";
+import { generateDateFromYYYYMMDD } from "../../utils/functions";
+import { createInvoice, updateInvoice } from "../../api/invoice";
+import { Invoice, InvoiceFromDB } from "../../interfaces/invoice";
+import { AgreementFromDB } from "../../interfaces/agreement";
+import { createAgreement, updateAgreement } from "../../api/agreement";
+import { Option, RadioButtonChoice } from "../RadioButtonChoice";
+import { ContractFromDB } from "../../interfaces/contract";
 
-const STATUSES = ["Оплачен", "Не выставлен", "Требуется оплата"];
+const STATUSES = [ "Оплачен", "Не выставлен", "Требуется оплата" ];
 
 const mapStatusesForRadioBtns = () : Option[] => {
   return STATUSES.map((status, index) => {
@@ -24,14 +24,14 @@ const mapStatusesForRadioBtns = () : Option[] => {
   });
 };
 
-type NumberFieldValue = number|"";
+type NumberFieldValue = number | "";
 
 interface Inputs {
-  dueYear : NumberFieldValue|undefined;
-  dueMonth : NumberFieldValue|undefined;
-  dueDay : NumberFieldValue|undefined;
+  dueYear : NumberFieldValue | undefined;
+  dueMonth : NumberFieldValue | undefined;
+  dueDay : NumberFieldValue | undefined;
   number : string;
-  linkToFile : string|undefined;
+  linkToFile : string | undefined;
   // status : "Оплачен"|"Не выставлен"|"Требуется оплата"|"";
 }
 
@@ -42,8 +42,8 @@ interface AddInvoiceFormProps {
   finishEditing? : () => void;
 }
 
-export const AddInvoiceForm = ({ agreementId, isEditMode, invoice, finishEditing } : AddInvoiceFormProps) => {
-  const [chosenStatus, setChosenStatus] = React.useState<number|undefined>(undefined)
+export const AddInvoiceShortForm = ({ agreementId, isEditMode, invoice, finishEditing } : AddInvoiceFormProps) => {
+  const [ chosenStatus, setChosenStatus ] = React.useState<number | undefined>(undefined)
   const { handleSubmit, reset, formState: { isSubmitSuccessful }, control, watch, register } = useForm<Inputs>({
     defaultValues: {
       dueYear: "",
@@ -121,7 +121,7 @@ export const AddInvoiceForm = ({ agreementId, isEditMode, invoice, finishEditing
         <RadioButtonChoice options={mapStatusesForRadioBtns()} heading={"Выберите статус"}
                            setChosenOption={setChosenStatus}
                            whatToAdd={""}
-                           radioGroupName={"status"}/>
+                           radioGroupName={"status"} />
 
         <Controller
             control={control}

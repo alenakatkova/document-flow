@@ -10,7 +10,7 @@ const InstructionBlock = ({ paragraphs } : InstructionProps) => {
   return (
       <Box>
         {paragraphs.map((paragraph, index) => (
-            <Typography key="index"
+            <Typography key={index}
                         sx={{ ":not(:last-child)": { marginBottom: "1rem" } }}>
               {paragraph}
             </Typography>

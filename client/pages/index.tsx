@@ -4,7 +4,7 @@ import Layout from "../components/layout";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Grid from "@mui/material/Unstable_Grid2";
 import Box from "@mui/material/Box";
-import { CARD_SPACING } from "../styles/constants";
+import { CARD, CARD_SPACING } from "../styles/constants";
 import InstructionBlock from "../components/common/InstructionBlock";
 
 const INSTRUCTIONS = [
@@ -18,7 +18,11 @@ const Home : NextPage = () => {
       <Layout title={"Главная"} heading={"Система для учета докумендов проектных команд"}>
         <Box sx={{ flexGrow: 1, marginTop: "1rem" }}>
           <Grid container spacing={CARD_SPACING}>
-            <InstructionBlock size={12} paragraphs={INSTRUCTIONS} />
+            <Grid xs={12}>
+              <Box sx={CARD}>
+                <InstructionBlock paragraphs={INSTRUCTIONS} />
+              </Box>
+            </Grid>
           </Grid>
         </Box>
       </Layout>

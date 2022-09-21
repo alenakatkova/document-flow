@@ -23,13 +23,13 @@ import { AddContractForm } from "../../components/AddContractForm";
 import { AddStatusForm } from "../../components/addStatusForm";
 import { AgreementFromDB } from "../../interfaces/agreement";
 import { AddAgreementForm } from "../../components/AddAgreementForm";
-import { AddInvoiceForm } from "../../components/AddInvoiceForm";
+import { AddInvoiceShortForm } from "../../components/add-invoice/AddInvoiceShortForm";
 
 const Agreement : NextPage = () => {
   const router = useRouter();
 
-  const [isAgreementBeingEdited, setIsAgreementBeingEdited] = React.useState(false);
-  const [isInvoiceBeingEdited, setIsInvoiceBeingEdited] = React.useState(false);
+  const [ isAgreementBeingEdited, setIsAgreementBeingEdited ] = React.useState(false);
+  const [ isInvoiceBeingEdited, setIsInvoiceBeingEdited ] = React.useState(false);
 
   const { data: agreement, isLoading } = useFetch<AgreementFromDB>(`agreements/${router.query.id}`,
       {
@@ -81,7 +81,7 @@ const Agreement : NextPage = () => {
 
                     {isInvoiceBeingEdited && agreement?.Invoice && agreement?.contractId &&
                         <Box sx={{ marginTop: "1rem" }}>
-                          <AddInvoiceForm
+                          <AddInvoiceShortForm
                               agreementId={agreement.id}
                               invoice={agreement?.Invoice}
                               finishEditing={() => setIsInvoiceBeingEdited(false)}
@@ -179,7 +179,7 @@ const Agreement : NextPage = () => {
                   <Typography variant="h6" sx={{ marginBottom: "0.5rem" }} id="change-status">
                     Форма для изменения статуса дополнительного соглашения
                   </Typography>
-                  <AddStatusForm documentId={agreement.id} documentType="agreement"/>
+                  <AddStatusForm documentId={agreement.id} documentType="agreement" />
                 </Box>
               </Grid>
             </Grid>
