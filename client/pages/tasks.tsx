@@ -12,7 +12,7 @@ import { CounterpartyFromDB } from "../interfaces/counterparty";
 import { DocumentStatusFromDB } from "../interfaces/documentStatus";
 import { formDocumentsList } from "../utils/formDocumentsList";
 import { Typography } from "@mui/material";
-import { TasksTable } from "../components/tasks/tasksTable";
+import { TasksTable } from "../components/tasks/TasksTable";
 
 const Tasks : NextPage = () => {
   let { team } = useAuth();

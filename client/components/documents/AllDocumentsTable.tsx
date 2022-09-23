@@ -14,7 +14,7 @@ interface AllDocumentsFormProps {
   documents : Doc[];
 }
 
-export const AllDocumentsForm = ({ documents } : AllDocumentsFormProps) => {
+export const AllDocumentsTable = ({ documents } : AllDocumentsFormProps) => {
   return (
       <TableContainer>
         <Table size="small" aria-label="a dense table">

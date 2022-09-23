@@ -11,7 +11,7 @@ import RequireAuth from "../components/RequireAuth";
 import { CounterpartyFromDB } from "../interfaces/counterparty";
 import { DocumentStatusFromDB } from "../interfaces/documentStatus";
 import { Doc, formDocumentsList } from "../utils/formDocumentsList";
-import { AllDocumentsForm } from "../components/documents/AllDocumentsForm";
+import { AllDocumentsTable } from "../components/documents/AllDocumentsTable";
 
 
 const Documents : NextPage = () => {
@@ -89,7 +89,7 @@ const Documents : NextPage = () => {
                     </label>
                   </Box>
 
-                  <AllDocumentsForm documents={docsToRender} />
+                  <AllDocumentsTable documents={docsToRender} />
                 </Box>
               </Grid>
             </Grid>
