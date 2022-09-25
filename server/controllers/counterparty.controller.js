@@ -9,7 +9,6 @@ const { DocumentStatus } = require("../models");
 const { InternalDepartment } = require("../models");
 
 exports.findAllByTeamId = (req, res) => {
-  console.log(req.body)
   Counterparty
       .findAll({
         where: {

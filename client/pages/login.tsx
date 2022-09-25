@@ -7,9 +7,11 @@ import Layout from "../components/layout";
 import { CARD, CARD_SPACING } from "../styles/constants";
 import AuthPageSideBlock from "../components/common/AuthPageSideBlock";
 import { LogInForm } from "../components/login/LogInForm";
+import { useTranslation } from "next-i18next";
 
 
 const Login : NextPage = () => {
+  const { t } = useTranslation("login");
   return (
       <Layout title={t("title")} heading={t("heading")}>
         <Box sx={{ flexGrow: 1, marginTop: "1rem" }}>

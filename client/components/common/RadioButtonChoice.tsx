@@ -51,7 +51,7 @@ export const RadioButtonChoice = ({
                             <input type="radio"
                                    name={radioGroupName}
                                    onChange={() => setChosenOption(option.id)}
-                                   value={option.value}/>
+                                   value={option.value} />
                             {option.label}
                           </label>
                         </Box>
@@ -63,3 +63,4 @@ export const RadioButtonChoice = ({
       </>
   )
 }
+

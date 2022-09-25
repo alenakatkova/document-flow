@@ -10,12 +10,11 @@ import useFetch from "../api/useFetch";
 
 const SignedUpTeams = () => {
   const { data: teams, isLoading } = useFetch<TeamFromDB[]>("/teams", []);
-  const { t } = useTranslation("common");
   return (
       <Box>
-        <Typography variant="h6">{t("auth.teamsHeading")}</Typography>
+        <Typography variant="h6">Уже зарегистрированы команды следующих руководителей:</Typography>
         {isLoading
-            ? <div>Loading...</div>
+            ? <Box>Loading...</Box>
             : <List>
               {teams.map(team => {
                 return (
@@ -31,3 +30,4 @@ const SignedUpTeams = () => {
 };
 
 export default SignedUpTeams;
+

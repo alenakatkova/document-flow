@@ -53,7 +53,7 @@ export const SignUpForm = () => {
                   <TextField
                       {...field}
                       inputRef={ref}
-                      label={t("form.username")}
+                      label="Имя пользователя"
                       variant="outlined"
                       required
                   />
@@ -67,7 +67,7 @@ export const SignUpForm = () => {
                   <TextField
                       {...field}
                       inputRef={ref}
-                      label={t("form.managerName")}
+                      label="Имя менеджера команды"
                       variant="outlined"
                       required
                   />
@@ -81,7 +81,7 @@ export const SignUpForm = () => {
                   <TextField
                       {...field}
                       inputRef={ref}
-                      label={t("form.password")}
+                      label="Пароль"
                       variant="outlined"
                       required
                   />
@@ -94,7 +94,7 @@ export const SignUpForm = () => {
                   <TextField
                       {...field}
                       inputRef={ref}
-                      label={t("form.assistantName")}
+                      label="Имя ассистента"
                       variant="outlined"
                   />
               )}
@@ -106,7 +106,7 @@ export const SignUpForm = () => {
                   <TextField
                       {...field}
                       inputRef={ref}
-                      label={t("form.assistantEmail")}
+                      label="Почта ассистента"
                       variant="outlined"
                   />
               )}
@@ -117,7 +117,7 @@ export const SignUpForm = () => {
                     margin: "0 auto"
                   }}
           >
-            {t("form.submit")}
+            Создать
           </Button>
         </Box>
       </Box>
